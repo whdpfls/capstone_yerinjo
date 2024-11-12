@@ -4,7 +4,7 @@ import torch.optim as optim
 import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
-from efficient import EfficientNetModel  # EfficientNet 모델 가져오기
+from efficientnet import EfficientNetModel  # EfficientNet 모델 가져오기
 import time
 import os
 import pandas as pd
