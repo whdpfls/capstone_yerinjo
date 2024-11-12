@@ -2,33 +2,22 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.backends.cudnn as cudnn
-from torch.utils.data import Dataset, DataLoader
-from torchvision import transforms
+from torch.utils.data import DataLoader
+import matplotlib.pyplot as plt
+from efficient import EfficientNetModel  # EfficientNet 모델 가져오기
+import time
+import os
 import pandas as pd
 from PIL import Image
-import os
-import argparse
-import time
-import matplotlib.pyplot as plt
-from efficientnet import EfficientNetModel  # EfficientNet 모델 가져오기
-
-# Argument Parser 설정
-parser = argparse.ArgumentParser(description='PyTorch Spectrogram training with EfficientNet')
-parser.add_argument('--lr', default=0.01, type=float, help='learning rate')
-parser.add_argument('--resume', '-r', action='store_true', help='resume from checkpoint')
-args = parser.parse_args(args=[])
+from torchvision import transforms
+from torch.utils.data import Dataset
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print(device)
 
-best_acc = 0
-start_epoch = 0
-
-# Accuracy와 Loss를 저장할 리스트
-train_accuracies = []
-train_losses = []
-test_accuracies = []
-test_losses = []
+# Accuracy를 저장할 딕셔너리
+train_accuracies_dict = {'b0': [], 'b4': [], 'b7': []}
+test_accuracies_dict = {'b0': [], 'b4': [], 'b7': []}
 
 # 사용자 정의 데이터셋 클래스
 class AudioSpectrogramDataset(Dataset):
@@ -53,8 +42,6 @@ class AudioSpectrogramDataset(Dataset):
 # Transform 정의
 transform = transforms.Compose([
     transforms.Resize((216, 216)),
-    transforms.RandomHorizontalFlip(),
-    transforms.RandomRotation(10),
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
@@ -72,128 +59,218 @@ validationset = AudioSpectrogramDataset(validation_annot_path, validation_spect_
 trainloader = DataLoader(trainset, batch_size=32, shuffle=True, num_workers=4)
 testloader = DataLoader(validationset, batch_size=32, shuffle=False, num_workers=4)
 
-# EfficientNet 모델 초기화
-net = EfficientNetModel(num_classes=10)
-net = net.to(device)
-if device == 'cuda':
-    net = torch.nn.DataParallel(net)
-    cudnn.benchmark = True
-
-# 체크포인트
-if args.resume:
-    print('==> Resuming from checkpoint..')
-    assert os.path.isdir('checkpoint'), 'Error: no checkpoint directory found!'
-    checkpoint = torch.load('./checkpoint/ckpt.pth')
-    net.load_state_dict(checkpoint['net'])
-    best_acc = checkpoint['acc']
-    start_epoch = checkpoint['epoch']
-
-# 손실 함수 및 최적화 설정
-criterion = nn.CrossEntropyLoss()
-optimizer = optim.AdamW(net.parameters(), lr=args.lr, weight_decay=0.01)
-scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100)
-
 # Training 함수
-def train(epoch):
-    print(f'\nEpoch: {epoch}')
-    net.train()
-    train_loss = 0
+def train(epoch, model, optimizer, criterion):
+    model.train()
     correct = 0
     total = 0
-    for batch_idx, (inputs, targets) in enumerate(trainloader):
-        start_time = time.time()
-
+    for inputs, targets in trainloader:
         inputs, targets = inputs.to(device), targets.to(device)
         optimizer.zero_grad()
-        outputs = net(inputs)
+        outputs = model(inputs)
         loss = criterion(outputs, targets)
         loss.backward()
         optimizer.step()
 
-        train_loss += loss.item()
         _, predicted = outputs.max(1)
         total += targets.size(0)
         correct += predicted.eq(targets).sum().item()
 
-        if (batch_idx + 1) % 10 == 0:
-            batch_processing_time = time.time() - start_time
-            print(f'Batch {batch_idx + 1}/{len(trainloader)} processed in {batch_processing_time:.3f} sec')
-        elif (batch_idx == len(trainloader) - 1):
-            print(f'Train Epoch {epoch}, Batch {batch_idx + 1}, Loss: {train_loss / (batch_idx + 1):.3f} | Acc: {100. * correct / total:.3f}% ({correct}/{total})')
-
-    train_losses.append(train_loss / len(trainloader))
-    train_accuracies.append(100. * correct / total)
+    acc = 100. * correct / total
+    return acc
 
 # 검증 함수
-def test(epoch):
-    global best_acc
-    net.eval()
-    test_loss = 0
+def test(epoch, model, criterion):
+    model.eval()
     correct = 0
     total = 0
     with torch.no_grad():
-        for batch_idx, (inputs, targets) in enumerate(testloader):
+        for inputs, targets in testloader:
             inputs, targets = inputs.to(device), targets.to(device)
-            outputs = net(inputs)
-            loss = criterion(outputs, targets)
-
-            test_loss += loss.item()
+            outputs = model(inputs)
             _, predicted = outputs.max(1)
             total += targets.size(0)
             correct += predicted.eq(targets).sum().item()
 
-            if batch_idx == len(testloader) - 1:
-                print(f'Test Epoch {epoch}, Loss: {test_loss/(batch_idx+1):.3f} | Acc: {100.*correct/total:.3f}% ({correct}/{total})')
+    acc = 100. * correct / total
+    return acc
 
-    test_losses.append(test_loss / len(testloader))
-    test_accuracies.append(100. * correct / total)
+# 모델 학습 및 결과 저장
+for version in ['b0', 'b4', 'b7']:
+    print(f"\nTraining EfficientNet-{version.upper()}")
+    model = EfficientNetModel(model_version=version, num_classes=10)
+    model = model.to(device)
+    if device == 'cuda':
+        model = torch.nn.DataParallel(model)
+        cudnn.benchmark = True
 
-    acc = 100.*correct/total
-    if acc > best_acc:
-        print('Saving..')
-        state = {
-            'net': net.state_dict(),
-            'acc': acc,
-            'epoch': epoch,
-        }
-        if not os.path.isdir('checkpoint'):
-            os.mkdir('checkpoint')
-        torch.save(state, './checkpoint/ckpt.pth')
-        best_acc = acc
+    criterion = nn.CrossEntropyLoss()
+    optimizer = optim.AdamW(model.parameters(), lr=0.01)
 
-# 학습 결과 시각화 함수
-def plot_training_results(train_accuracies, test_accuracies, train_losses, test_losses, num_epochs):
-    epochs = range(1, num_epochs + 1)
+    train_acc_list = []
+    test_acc_list = []
 
-    plt.figure(figsize=(14, 6))
+    for epoch in range(10):  # 에포크 수를 조정
+        train_acc = train(epoch, model, optimizer, criterion)
+        test_acc = test(epoch, model, criterion)
 
-    plt.subplot(1, 2, 1)
-    plt.plot(epochs, train_accuracies, label='Training Accuracy', color='blue')
-    plt.plot(epochs, test_accuracies, label='Test Accuracy', color='orange')
-    plt.title('Training and Test Accuracy')
-    plt.xlabel('Epoch')
-    plt.ylabel('Accuracy (%)')
-    plt.legend()
-    plt.grid(True)
+        train_acc_list.append(train_acc)
+        test_acc_list.append(test_acc)
 
-    plt.subplot(1, 2, 2)
-    plt.plot(epochs, train_losses, label='Training Loss', color='green')
-    plt.plot(epochs, test_losses, label='Test Loss', color='red')
-    plt.title('Training and Test Loss')
-    plt.xlabel('Epoch')
-    plt.ylabel('Loss')
-    plt.legend()
-    plt.grid(True)
+        print(f'Epoch {epoch + 1}: Train Acc: {train_acc:.2f}%, Test Acc: {test_acc:.2f}%')
 
-    plt.tight_layout()
-    plt.show()
+    train_accuracies_dict[version] = train_acc_list
+    test_accuracies_dict[version] = test_acc_list
 
-# 학습 및 검증 실행
-if __name__ == '__main__':
-    for epoch in range(start_epoch, start_epoch + 80):
-        train(epoch)
-        test(epoch)
-        scheduler.step()
+# Plotting
+epochs = range(1, 11)
+plt.figure(figsize=(14, 7))
 
-    # 학습 결과 그래프 표시
-    plot_training_results(train_accuracies, test_accuracies, train_losses, test_losses, num_epochs=80)
+for version, color in zip(['b0', 'b4', 'b7'], ['blue', 'red', 'yellow']):
+    plt.plot(epochs, train_accuracies_dict[version], label=f'Train Acc {version.upper()}', color=color, linestyle='--')
+    plt.plot(epochs, test_accuracies_dict[version], label=f'Test Acc {version.upper()}', color=color)
+
+plt.title('Training and Test Accuracy for EfficientNet B0, B4, B7')
+plt.xlabel('Epochs')
+plt.ylabel('Accuracy (%)')
+plt.legend()
+plt.grid(True)
+plt.show()
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import torch.backends.cudnn as cudnn
+from torch.utils.data import DataLoader
+import matplotlib.pyplot as plt
+from efficient import EfficientNetModel  # EfficientNet 모델 가져오기
+import time
+import os
+import pandas as pd
+from PIL import Image
+from torchvision import transforms
+from torch.utils.data import Dataset
+
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+print(device)
+
+# Accuracy를 저장할 딕셔너리
+train_accuracies_dict = {'b0': [], 'b4': [], 'b7': []}
+test_accuracies_dict = {'b0': [], 'b4': [], 'b7': []}
+
+# 사용자 정의 데이터셋 클래스
+class AudioSpectrogramDataset(Dataset):
+    def __init__(self, annotation_file, img_dir, transform=None):
+        self.img_labels = pd.read_csv(annotation_file, names=['file_name', 'label'])
+        self.img_dir = img_dir
+        self.transform = transform
+
+    def __len__(self):
+        return len(self.img_labels)
+
+    def __getitem__(self, idx):
+        img_path = os.path.join(self.img_dir, self.img_labels.iloc[idx, 0])
+        image = Image.open(img_path).convert('RGB')
+        label = int(self.img_labels.iloc[idx, 1])
+
+        if self.transform:
+            image = self.transform(image)
+
+        return image, label
+
+# Transform 정의
+transform = transforms.Compose([
+    transforms.Resize((216, 216)),
+    transforms.ToTensor(),
+    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+])
+
+# 데이터 경로 및 파일
+train_annot_path = '/dataset/us8k_train.csv'
+validation_annot_path = '/dataset/us8k_valid.csv'
+train_spect_path = '/dataset/us8k_train'
+validation_spect_path = '/dataset/us8k_valid'
+
+# 데이터셋 및 데이터로더
+trainset = AudioSpectrogramDataset(train_annot_path, train_spect_path, transform=transform)
+validationset = AudioSpectrogramDataset(validation_annot_path, validation_spect_path, transform=transform)
+
+trainloader = DataLoader(trainset, batch_size=32, shuffle=True, num_workers=4)
+testloader = DataLoader(validationset, batch_size=32, shuffle=False, num_workers=4)
+
+# Training 함수
+def train(epoch, model, optimizer, criterion):
+    model.train()
+    correct = 0
+    total = 0
+    for inputs, targets in trainloader:
+        inputs, targets = inputs.to(device), targets.to(device)
+        optimizer.zero_grad()
+        outputs = model(inputs)
+        loss = criterion(outputs, targets)
+        loss.backward()
+        optimizer.step()
+
+        _, predicted = outputs.max(1)
+        total += targets.size(0)
+        correct += predicted.eq(targets).sum().item()
+
+    acc = 100. * correct / total
+    return acc
+
+# 검증 함수
+def test(epoch, model, criterion):
+    model.eval()
+    correct = 0
+    total = 0
+    with torch.no_grad():
+        for inputs, targets in testloader:
+            inputs, targets = inputs.to(device), targets.to(device)
+            outputs = model(inputs)
+            _, predicted = outputs.max(1)
+            total += targets.size(0)
+            correct += predicted.eq(targets).sum().item()
+
+    acc = 100. * correct / total
+    return acc
+
+# 모델 학습 및 결과 저장
+for version in ['b0', 'b4', 'b7']:
+    print(f"\nTraining EfficientNet-{version.upper()}")
+    model = EfficientNetModel(model_version=version, num_classes=10)
+    model = model.to(device)
+    if device == 'cuda':
+        model = torch.nn.DataParallel(model)
+        cudnn.benchmark = True
+
+    criterion = nn.CrossEntropyLoss()
+    optimizer = optim.AdamW(model.parameters(), lr=0.01)
+
+    train_acc_list = []
+    test_acc_list = []
+
+    for epoch in range(10):  # 에포크 수를 조정
+        train_acc = train(epoch, model, optimizer, criterion)
+        test_acc = test(epoch, model, criterion)
+
+        train_acc_list.append(train_acc)
+        test_acc_list.append(test_acc)
+
+        print(f'Epoch {epoch + 1}: Train Acc: {train_acc:.2f}%, Test Acc: {test_acc:.2f}%')
+
+    train_accuracies_dict[version] = train_acc_list
+    test_accuracies_dict[version] = test_acc_list
+
+# Plotting
+epochs = range(1, 11)
+plt.figure(figsize=(14, 7))
+
+for version, color in zip(['b0', 'b4', 'b7'], ['blue', 'red', 'yellow']):
+    plt.plot(epochs, train_accuracies_dict[version], label=f'Train Acc {version.upper()}', color=color, linestyle='--')
+    plt.plot(epochs, test_accuracies_dict[version], label=f'Test Acc {version.upper()}', color=color)
+
+plt.title('Training and Test Accuracy for EfficientNet B0, B4, B7')
+plt.xlabel('Epochs')
+plt.ylabel('Accuracy (%)')
+plt.legend()
+plt.grid(True)
+plt.show()
