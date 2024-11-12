@@ -47,10 +47,10 @@ transform = transforms.Compose([
 ])
 
 # 데이터 경로 및 파일
-train_annot_path = '/dataset/us8k_train.csv'
-validation_annot_path = '/dataset/us8k_valid.csv'
-train_spect_path = '/dataset/us8k_train'
-validation_spect_path = '/dataset/us8k_valid'
+train_annot_path = 'dataset/us8k_train.csv'
+validation_annot_path = 'dataset/us8k_valid.csv'
+train_spect_path = 'dataset/us8k_train'
+validation_spect_path = 'dataset/us8k_valid'
 
 # 데이터셋 및 데이터로더
 trainset = AudioSpectrogramDataset(train_annot_path, train_spect_path, transform=transform)
