@@ -2,11 +2,10 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.backends.cudnn as cudnn
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
 import pandas as pd
 from PIL import Image
-from torch.utils.data import DataLoader
 import os
 import argparse
 import time
@@ -15,7 +14,7 @@ from efficientnet import EfficientNetModel  # EfficientNet 모델 가져오기
 
 # Argument Parser 설정
 parser = argparse.ArgumentParser(description='PyTorch Spectrogram training with EfficientNet')
-parser.add_argument('--lr', default=0.01, type=float, help='learning rate')  # learning rate를 0.01로 낮추어 시작합니다
+parser.add_argument('--lr', default=0.01, type=float, help='learning rate')
 parser.add_argument('--resume', '-r', action='store_true', help='resume from checkpoint')
 args = parser.parse_args(args=[])
 
@@ -53,18 +52,18 @@ class AudioSpectrogramDataset(Dataset):
 
 # Transform 정의
 transform = transforms.Compose([
-    transforms.Resize((216, 216)),  # EfficientNet b0 입력 크기
-    transforms.RandomHorizontalFlip(),  # 데이터 증강
-    transforms.RandomRotation(10),  # 데이터 증강
+    transforms.Resize((216, 216)),
+    transforms.RandomHorizontalFlip(),
+    transforms.RandomRotation(10),
     transforms.ToTensor(),
-    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])  # EfficientNet에서 사용하는 정규화 값
+    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
 
 # 데이터 경로 및 파일
-train_annot_path = '/Users/yerin/Desktop/24_2/capstonecode/dataset/us8k_train.csv'
-validation_annot_path = '/Users/yerin/Desktop/24_2/capstonecode/dataset/us8k_valid.csv'
-train_spect_path = '/Users/yerin/Desktop/24_2/capstonecode/dataset/us8k_train'
-validation_spect_path = '/Users/yerin/Desktop/24_2/capstonecode/dataset/us8k_valid'
+train_annot_path = '/dataset/us8k_train.csv'
+validation_annot_path = '/dataset/us8k_valid.csv'
+train_spect_path = '/dataset/us8k_train'
+validation_spect_path = '/dataset/us8k_valid'
 
 # 데이터셋 및 데이터로더
 trainset = AudioSpectrogramDataset(train_annot_path, train_spect_path, transform=transform)
@@ -74,7 +73,7 @@ trainloader = DataLoader(trainset, batch_size=32, shuffle=True, num_workers=4)
 testloader = DataLoader(validationset, batch_size=32, shuffle=False, num_workers=4)
 
 # EfficientNet 모델 초기화
-net = EfficientNetModel(num_classes=10)  # EfficientNet 모델로 변경
+net = EfficientNetModel(num_classes=10)
 net = net.to(device)
 if device == 'cuda':
     net = torch.nn.DataParallel(net)
@@ -91,10 +90,10 @@ if args.resume:
 
 # 손실 함수 및 최적화 설정
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.AdamW(net.parameters(), lr=args.lr, weight_decay=0.01)  # AdamW로 변경
+optimizer = optim.AdamW(net.parameters(), lr=args.lr, weight_decay=0.01)
 scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100)
 
-## Training 함수
+# Training 함수
 def train(epoch):
     print(f'\nEpoch: {epoch}')
     net.train()
@@ -122,7 +121,6 @@ def train(epoch):
         elif (batch_idx == len(trainloader) - 1):
             print(f'Train Epoch {epoch}, Batch {batch_idx + 1}, Loss: {train_loss / (batch_idx + 1):.3f} | Acc: {100. * correct / total:.3f}% ({correct}/{total})')
 
-    # 에포크 종료 후 평균 손실과 정확도 저장
     train_losses.append(train_loss / len(trainloader))
     train_accuracies.append(100. * correct / total)
 
@@ -147,11 +145,9 @@ def test(epoch):
             if batch_idx == len(testloader) - 1:
                 print(f'Test Epoch {epoch}, Loss: {test_loss/(batch_idx+1):.3f} | Acc: {100.*correct/total:.3f}% ({correct}/{total})')
 
-    # 에포크 종료 후 평균 손실과 정확도 저장
     test_losses.append(test_loss / len(testloader))
     test_accuracies.append(100. * correct / total)
 
-    # 체크포인트 저장
     acc = 100.*correct/total
     if acc > best_acc:
         print('Saving..')
@@ -165,6 +161,33 @@ def test(epoch):
         torch.save(state, './checkpoint/ckpt.pth')
         best_acc = acc
 
+# 학습 결과 시각화 함수
+def plot_training_results(train_accuracies, test_accuracies, train_losses, test_losses, num_epochs):
+    epochs = range(1, num_epochs + 1)
+
+    plt.figure(figsize=(14, 6))
+
+    plt.subplot(1, 2, 1)
+    plt.plot(epochs, train_accuracies, label='Training Accuracy', color='blue')
+    plt.plot(epochs, test_accuracies, label='Test Accuracy', color='orange')
+    plt.title('Training and Test Accuracy')
+    plt.xlabel('Epoch')
+    plt.ylabel('Accuracy (%)')
+    plt.legend()
+    plt.grid(True)
+
+    plt.subplot(1, 2, 2)
+    plt.plot(epochs, train_losses, label='Training Loss', color='green')
+    plt.plot(epochs, test_losses, label='Test Loss', color='red')
+    plt.title('Training and Test Loss')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.legend()
+    plt.grid(True)
+
+    plt.tight_layout()
+    plt.show()
+
 # 학습 및 검증 실행
 if __name__ == '__main__':
     for epoch in range(start_epoch, start_epoch + 80):
@@ -172,4 +195,5 @@ if __name__ == '__main__':
         test(epoch)
         scheduler.step()
 
-
+    # 학습 결과 그래프 표시
+    plot_training_results(train_accuracies, test_accuracies, train_losses, test_losses, num_epochs=80)
