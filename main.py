@@ -123,7 +123,7 @@ for version in ['b0', 'b4', 'b7']:
     test_accuracies_dict[version] = test_acc_list
 
 # Plotting
-epochs = range(1, 11)
+epochs = range(1, 81)
 plt.figure(figsize=(14, 7))
 
 for version, color in zip(['b0', 'b4', 'b7'], ['blue', 'red', 'yellow']):
