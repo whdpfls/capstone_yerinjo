@@ -52,7 +52,7 @@ transform = transforms.Compose([
 # 데이터 경로 및 파일
 train_annot_path = '/data/karna/repos/dataset/ru_spect/train_annot.csv'
 validation_annot_path = '/data/karna/repos/dataset/ru_spect/valid_annot.csv'
-train_spect_path = '/data/karna/repos/dataset/ru_spect/train'
+train_spect_path = '/data/karna/repos/dataset/ru_spect/trainset'
 validation_spect_path = '/data/karna/repos/dataset/ru_spect/validset'
 
 # 데이터셋 및 데이터로더
