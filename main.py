@@ -21,21 +21,19 @@ test_accuracies_dict = {'b0': [], 'b4': [], 'b7': []}
 # 최고 성능 정보를 저장할 딕셔너리
 best_performance = {'b0': {}, 'b4': {}, 'b7': {}}
 
+
 # 사용자 정의 데이터셋 클래스
 class AudioSpectrogramDataset(Dataset):
-    def __init__(self, annotation_file, img_dir, transform=None):
+    def __init__(self, annotation_file, transform=None):
         self.img_labels = pd.read_csv(annotation_file, names=['file_name', 'label'])
-        self.img_dir = img_dir
         self.transform = transform
 
     def __len__(self):
         return len(self.img_labels)
 
     def __getitem__(self, idx):
-        file_name = self.img_labels.iloc[idx, 0]
-
-        # 이미지 경로 설정
-        img_path = os.path.join(self.img_dir, file_name)
+        file_name = self.img_labels.iloc[idx, 0]  # annotation_file에서 직접 경로 사용
+        img_path = file_name  # img_dir를 추가하지 않고 바로 사용
 
         # 이미지 로드
         image = Image.open(img_path).convert('RGB')
@@ -45,6 +43,7 @@ class AudioSpectrogramDataset(Dataset):
             image = self.transform(image)
 
         return image, label
+
 
 # Transform 정의
 transform = transforms.Compose([
@@ -57,6 +56,7 @@ transform = transforms.Compose([
 base_dataset_path = 'dataset/unified_spect_folds'
 save_path = 'plots'
 os.makedirs(save_path, exist_ok=True)
+
 
 # Training 함수
 def train(epoch, model, optimizer, criterion, trainloader):
@@ -81,6 +81,7 @@ def train(epoch, model, optimizer, criterion, trainloader):
     avg_loss = train_loss / len(trainloader)
     return acc, avg_loss
 
+
 # 검증 함수
 def test(epoch, model, criterion, testloader):
     model.eval()
@@ -102,19 +103,27 @@ def test(epoch, model, criterion, testloader):
     avg_loss = test_loss / len(testloader)
     return acc, avg_loss
 
+
 # 모델 학습 및 결과 저장
-for fold_num in range(5):  # fold 0~4 중 valid 선택
-    # Fold 설정
-    train_annot_path = os.path.join(base_dataset_path, f"{fold_num}_train_annot.csv")
-    valid_annot_path = os.path.join(base_dataset_path, f"{fold_num}_valid_annot.csv")
-    valid_spect_path = os.path.join(base_dataset_path, f"fold_{fold_num}")
+for valid_fold in range(5):  # fold 0~4 중 valid 선택
+    # Trainset은 validset을 제외한 나머지 fold로 구성
+    train_folds = [f for f in range(5) if f != valid_fold]
+    train_annotation_files = [os.path.join(base_dataset_path, f"{fold}_train_annot.csv") for fold in train_folds]
+
+    valid_annot_path = os.path.join(base_dataset_path, f"{valid_fold}_valid_annot.csv")
     test_annot_path = os.path.join(base_dataset_path, "test_annot.csv")
-    test_spect_path = os.path.join(base_dataset_path, "fold_5")
+
+    # Trainset 주석 파일 합치기
+    train_annotation_combined = os.path.join(base_dataset_path, "train_combined.csv")
+    with open(train_annotation_combined, 'w') as outfile:
+        for fname in train_annotation_files:
+            with open(fname) as infile:
+                outfile.write(infile.read())
 
     # 데이터셋 및 데이터로더
-    trainset = AudioSpectrogramDataset(train_annot_path, base_dataset_path, transform=transform)  # train 데이터는 전체 주석 파일로 관리
-    validationset = AudioSpectrogramDataset(valid_annot_path, valid_spect_path, transform=transform)
-    testset = AudioSpectrogramDataset(test_annot_path, test_spect_path, transform=transform)
+    trainset = AudioSpectrogramDataset(train_annotation_combined, transform=transform)
+    validationset = AudioSpectrogramDataset(valid_annot_path, transform=transform)
+    testset = AudioSpectrogramDataset(test_annot_path, transform=transform)
 
     trainloader = DataLoader(trainset, batch_size=32, shuffle=True, num_workers=4)
     validloader = DataLoader(validationset, batch_size=32, shuffle=False, num_workers=4)
@@ -125,7 +134,7 @@ for fold_num in range(5):  # fold 0~4 중 valid 선택
     test_acc_results = {}
 
     for version, color in zip(['b0', 'b4', 'b7'], ['blue', 'red', 'yellow']):
-        print(f"\nTraining EfficientNet-{version.upper()} for Valid Fold {fold_num}")
+        print(f"\nTraining EfficientNet-{version.upper()} for Valid Fold {valid_fold}")
         model = EfficientNetModel(model_version=version, num_classes=11)
         model = model.to(device)
         if device == 'cuda':
@@ -151,7 +160,8 @@ for fold_num in range(5):  # fold 0~4 중 valid 선택
             train_acc_list.append(train_acc)
             test_acc_list.append(valid_acc)
 
-            print(f"Epoch {epoch + 1}: Train Acc: {train_acc:.2f}%, Train Loss: {train_loss:.4f}, Valid Acc: {valid_acc:.2f}%, Valid Loss: {valid_loss:.4f}")
+            print(
+                f"Epoch {epoch + 1}: Train Acc: {train_acc:.2f}%, Train Loss: {train_loss:.4f}, Valid Acc: {valid_acc:.2f}%, Valid Loss: {valid_loss:.4f}")
 
             # Best performance 업데이트
             if valid_acc > best_test_acc:
@@ -176,27 +186,27 @@ for fold_num in range(5):  # fold 0~4 중 valid 선택
     plt.figure(figsize=(14, 7))
     for version, color in zip(['b0', 'b4', 'b7'], ['blue', 'red', 'yellow']):
         plt.plot(epochs, train_acc_results[version], label=f'Train Acc {version.upper()}', color=color)
-    plt.title(f'Train Accuracy: Valid Fold {fold_num}')
+    plt.title(f'Train Accuracy: Valid Fold {valid_fold}')
     plt.xlabel('Epochs')
     plt.ylabel('Accuracy (%)')
     plt.legend()
     plt.grid(True)
-    plt.savefig(os.path.join(save_path, f'train_accuracy_valid_fold_{fold_num}.png'))
+    plt.savefig(os.path.join(save_path, f'train_accuracy_valid_fold_{valid_fold}.png'))
     plt.close()
 
     # Valid Accuracy Plot
     plt.figure(figsize=(14, 7))
     for version, color in zip(['b0', 'b4', 'b7'], ['blue', 'red', 'yellow']):
         plt.plot(epochs, test_acc_results[version], label=f'Valid Acc {version.upper()}', color=color)
-    plt.title(f'Valid Accuracy: Valid Fold {fold_num}')
+    plt.title(f'Valid Accuracy: Valid Fold {valid_fold}')
     plt.xlabel('Epochs')
     plt.ylabel('Accuracy (%)')
     plt.legend()
     plt.grid(True)
-    plt.savefig(os.path.join(save_path, f'valid_accuracy_valid_fold_{fold_num}.png'))
+    plt.savefig(os.path.join(save_path, f'valid_accuracy_valid_fold_{valid_fold}.png'))
     plt.close()
 
 # Best performance 출력
 print("\nBest Performance Summary:")
 for version, performance in best_performance.items():
-    print(f"EfficientNet-{version.upper()}: Best Train Acc: {performance['best_train_acc']:.2f}%, Best Test Acc: {performance['best_test_acc']:.2f}%, Epoch: {performance['best_epoch']}")
+    print(f"EfficientNet-{version.upper()}: Best Train Acc: {performance['best_train_acc']:.2f}%, Best Test Acc
