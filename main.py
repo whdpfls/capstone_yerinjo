@@ -34,7 +34,14 @@ class AudioSpectrogramDataset(Dataset):
         return len(self.img_labels)
 
     def __getitem__(self, idx):
-        img_path = os.path.join(self.img_dir, self.img_labels.iloc[idx, 0])
+        file_name = self.img_labels.iloc[idx, 0]
+
+        # 파일 이름에 경로가 포함되어 있다면 img_dir를 추가하지 않음
+        if os.path.isabs(file_name):
+            img_path = file_name
+        else:
+            img_path = os.path.join(self.img_dir, file_name)
+
         image = Image.open(img_path).convert('RGB')
         label = int(self.img_labels.iloc[idx, 1])
 
