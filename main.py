@@ -16,7 +16,8 @@ print(device)
 
 # Accuracy를 저장할 딕셔너리
 train_accuracies_dict = {'b0': [], 'b4': [], 'b7': []}
-test_accuracies_dict = {'b0': [], 'b4': [], 'b7': []}
+valid_accuracies_dict = {'b0': [], 'b4': [], 'b7': []}
+test_accuracies_dict = {}
 
 # 최고 성능 정보를 저장할 딕셔너리
 best_performance = {'b0': {}, 'b4': {}, 'b7': {}}
@@ -25,7 +26,7 @@ best_performance = {'b0': {}, 'b4': {}, 'b7': {}}
 class AudioSpectrogramDataset(Dataset):
     def __init__(self, annotation_file, base_path, transform=None):
         self.img_labels = pd.read_csv(annotation_file, names=['file_name', 'label'])
-        self.base_path = base_path  # Base 경로 추가
+        self.base_path = base_path
         self.transform = transform
 
     def __len__(self):
@@ -33,9 +34,8 @@ class AudioSpectrogramDataset(Dataset):
 
     def __getitem__(self, idx):
         file_name = self.img_labels.iloc[idx, 0]
-        img_path = os.path.join(self.base_path, file_name)  # base_path와 file_name 결합
+        img_path = os.path.join(self.base_path, file_name)
 
-        # 이미지 로드
         if not os.path.exists(img_path):
             raise FileNotFoundError(f"File not found: {img_path}")
 
@@ -46,6 +46,7 @@ class AudioSpectrogramDataset(Dataset):
             image = self.transform(image)
 
         return image, label
+
 
 # Transform 정의
 transform = transforms.Compose([
@@ -58,6 +59,7 @@ transform = transforms.Compose([
 base_dataset_path = 'dataset/unified_spect_folds'
 save_path = 'plots'
 os.makedirs(save_path, exist_ok=True)
+
 
 # Training 함수
 def train(epoch, model, optimizer, criterion, trainloader):
@@ -84,7 +86,7 @@ def train(epoch, model, optimizer, criterion, trainloader):
 
 
 # 검증 함수
-def test(epoch, model, criterion, testloader):
+def test(model, criterion, testloader):
     model.eval()
     correct = 0
     total = 0
@@ -105,115 +107,98 @@ def test(epoch, model, criterion, testloader):
     return acc, avg_loss
 
 
-# 모델 학습 및 결과 저장
+# Train, Valid, Test 구성 및 학습
 for valid_fold in range(5):  # fold 0~4 중 valid 선택
-    # Trainset은 validset을 제외한 나머지 fold로 구성
     train_folds = [f for f in range(5) if f != valid_fold]
-
+    train_annotation_file = os.path.join(base_dataset_path, f"{valid_fold}_train_annot.csv")
     valid_annot_path = os.path.join(base_dataset_path, f"{valid_fold}_valid_annot.csv")
     test_annot_path = os.path.join(base_dataset_path, "test_annot.csv")
 
-    # 데이터셋 및 데이터로더
-    train_datasets = [
-        AudioSpectrogramDataset(
-            annotation_file=os.path.join(base_dataset_path, f"{fold}_train_annot.csv"),
-            base_path=base_dataset_path,
-            transform=transform
-        ) for fold in train_folds
-    ]
-
-    trainloader = DataLoader(
-        torch.utils.data.ConcatDataset(train_datasets),
-        batch_size=32,
-        shuffle=True,
-        num_workers=4
-    )
-
+    # 데이터셋 생성
+    trainset = AudioSpectrogramDataset(train_annotation_file, base_dataset_path, transform=transform)
     validationset = AudioSpectrogramDataset(valid_annot_path, base_dataset_path, transform=transform)
     testset = AudioSpectrogramDataset(test_annot_path, base_dataset_path, transform=transform)
 
+    # DataLoader
+    trainloader = DataLoader(trainset, batch_size=32, shuffle=True, num_workers=4)
     validloader = DataLoader(validationset, batch_size=32, shuffle=False, num_workers=4)
     testloader = DataLoader(testset, batch_size=32, shuffle=False, num_workers=4)
 
-    # 모델별 결과 저장
-    train_acc_results = {}
-    test_acc_results = {}
-
+    # EfficientNet 모델 학습
     for version, color in zip(['b0', 'b4', 'b7'], ['blue', 'red', 'yellow']):
         print(f"\nTraining EfficientNet-{version.upper()} for Valid Fold {valid_fold}")
-        model = EfficientNetModel(model_version=version, num_classes=11)
-        model = model.to(device)
+        model = EfficientNetModel(model_version=version, num_classes=11).to(device)
         if device == 'cuda':
             model = torch.nn.DataParallel(model)
             cudnn.benchmark = True
 
         criterion = nn.CrossEntropyLoss()
-        optimizer = optim.AdamW(model.parameters(), lr=0.001)
-        scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.5)  # Learning rate 감소
+        optimizer = optim.AdamW(model.parameters(), lr=0.01)
+        scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.5)
 
         best_train_acc = 0
         best_test_acc = 0
         best_epoch = 0
 
         train_acc_list = []
-        test_acc_list = []
+        valid_acc_list = []
 
-        for epoch in range(80):  # 에포크 수를 조정
+        for epoch in range(80):
             train_acc, train_loss = train(epoch, model, optimizer, criterion, trainloader)
-            valid_acc, valid_loss = test(epoch, model, criterion, validloader)
-            test_acc, test_loss = test(epoch, model, criterion, testloader)  # Test 데이터 평가
-            scheduler.step()  # Learning rate 업데이트
+            valid_acc, valid_loss = test(model, criterion, validloader)
+            scheduler.step()
 
             train_acc_list.append(train_acc)
-            test_acc_list.append(test_acc)
+            valid_acc_list.append(valid_acc)
 
-            print(
-                f"Epoch {epoch + 1}: Train Acc: {train_acc:.2f}%, Train Loss: {train_loss:.4f}, Valid Acc: {valid_acc:.2f}%, Valid Loss: {valid_loss:.4f}, Test Acc: {test_acc:.2f}%")
+            print(f"Epoch {epoch + 1}: Train Acc: {train_acc:.2f}%, Valid Acc: {valid_acc:.2f}%")
 
-            # Best performance 업데이트
             if valid_acc > best_test_acc:
                 best_train_acc = train_acc
-                best_test_acc = test_acc
+                best_test_acc = valid_acc
                 best_epoch = epoch + 1
 
-        # Best performance 저장
+        test_acc, test_loss = test(model, criterion, testloader)
+        test_accuracies_dict[version] = test_acc
+
         best_performance[version] = {
             'best_train_acc': best_train_acc,
-            'best_test_acc': best_test_acc,
-            'best_epoch': best_epoch
+            'best_valid_acc': best_test_acc,
+            'best_epoch': best_epoch,
+            'test_acc': test_acc
         }
 
-        train_acc_results[version] = train_acc_list
-        test_acc_results[version] = test_acc_list
+        train_accuracies_dict[version].append(train_acc_list)
+        valid_accuracies_dict[version].append(valid_acc_list)
 
-    # Plot 저장
-    epochs = range(1, 81)
+# Plot 저장
+epochs = range(1, 81)
 
-    # Train Accuracy Plot
+for version, color in zip(['b0', 'b4', 'b7'], ['blue', 'red', 'yellow']):
+    # Train & Valid Accuracy Plot
     plt.figure(figsize=(14, 7))
-    for version, color in zip(['b0', 'b4', 'b7'], ['blue', 'red', 'yellow']):
-        plt.plot(epochs, train_acc_results[version], label=f'Train Acc {version.upper()}', color=color)
-    plt.title(f'Train Accuracy: Valid Fold {valid_fold}')
+    plt.plot(epochs, train_accuracies_dict[version][0], label=f'Train Acc {version.upper()}', color=color, linestyle='-')
+    plt.plot(epochs, valid_accuracies_dict[version][0], label=f'Valid Acc {version.upper()}', color=color, linestyle='--')
+    plt.title(f'Train and Valid Accuracy for {version.upper()}')
     plt.xlabel('Epochs')
     plt.ylabel('Accuracy (%)')
     plt.legend()
     plt.grid(True)
-    plt.savefig(os.path.join(save_path, f'train_accuracy_valid_fold_{valid_fold}.png'))
+    plt.savefig(os.path.join(save_path, f'{version}_train_valid_accuracy.png'))
     plt.close()
 
-    # Test Accuracy Plot
-    plt.figure(figsize=(14, 7))
-    for version, color in zip(['b0', 'b4', 'b7'], ['blue', 'red', 'yellow']):
-        plt.plot(epochs, test_acc_results[version], label=f'Test Acc {version.upper()}', color=color)
-    plt.title(f'Test Accuracy: Valid Fold {valid_fold}')
-    plt.xlabel('Epochs')
-    plt.ylabel('Accuracy (%)')
-    plt.legend()
-    plt.grid(True)
-    plt.savefig(os.path.join(save_path, f'test_accuracy_valid_fold_{valid_fold}.png'))
-    plt.close()
+# Test Accuracy Bar Plot
+plt.figure(figsize=(14, 7))
+models = ['b0', 'b4', 'b7']
+test_accuracies = [test_accuracies_dict[model] for model in models]
+plt.bar(models, test_accuracies, color=['blue', 'red', 'yellow'])
+plt.title('Test Accuracy for Models')
+plt.xlabel('Model')
+plt.ylabel('Accuracy (%)')
+plt.savefig(os.path.join(save_path, 'test_accuracy_bar_plot.png'))
+plt.close()
 
 # Best performance 출력
 print("\nBest Performance Summary:")
 for version, performance in best_performance.items():
-    print(f"EfficientNet-{version.upper()}: Best Train Acc: {performance['best_train_acc']:.2f}%, Best Test Acc: {performance['best_test_acc']:.2f}%, Best Epoch: {performance['best_epoch']}")
+    print(f"EfficientNet-{version.upper()}: Best Train Acc: {performance['best_train_acc']:.2f}%, Best Valid Acc: {performance['best_valid_acc']:.2f}%, Test Acc: {performance['test_acc']:.2f}%, Best Epoch: {performance['best_epoch']}")
