@@ -5,10 +5,8 @@ import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
 from efficientnet import EfficientNetModel  # EfficientNet 모델 가져오기
-import time
 import os
 import pandas as pd
-import random
 from PIL import Image
 from torchvision import transforms
 from torch.utils.data import Dataset
@@ -19,9 +17,6 @@ print(device)
 # Accuracy를 저장할 딕셔너리
 train_accuracies_dict = {'b0': [], 'b4': [], 'b7': []}
 test_accuracies_dict = {'b0': [], 'b4': [], 'b7': []}
-
-# 최고 성능 정보를 저장할 딕셔너리
-best_performance = {}
 
 # 사용자 정의 데이터셋 클래스
 class AudioSpectrogramDataset(Dataset):
@@ -36,12 +31,10 @@ class AudioSpectrogramDataset(Dataset):
     def __getitem__(self, idx):
         file_name = self.img_labels.iloc[idx, 0]
 
-        # 파일 이름에 경로가 포함되어 있다면 img_dir를 추가하지 않음
-        if os.path.isabs(file_name):
-            img_path = file_name
-        else:
-            img_path = os.path.join(self.img_dir, file_name)
+        # 이미지 경로 설정
+        img_path = os.path.join(self.img_dir, file_name)
 
+        # 이미지 로드
         image = Image.open(img_path).convert('RGB')
         label = int(self.img_labels.iloc[idx, 1])
 
@@ -107,22 +100,16 @@ def test(epoch, model, criterion, testloader):
     return acc, avg_loss
 
 # 모델 학습 및 결과 저장
-for fold_num in range(5):  # fold 0~4 중 train/valid 랜덤 선택
+for fold_num in range(5):  # fold 0~4 중 valid 선택
     # Fold 설정
-    valid_fold = fold_num
-    train_folds = [f for f in range(5) if f != valid_fold]
-    random.shuffle(train_folds)
-    train_fold = train_folds[0]
-
-    train_annot_path = os.path.join(base_dataset_path, f"{train_fold}_train_annot.csv")
-    valid_annot_path = os.path.join(base_dataset_path, f"{valid_fold}_valid_annot.csv")
-    train_spect_path = os.path.join(base_dataset_path, f"fold_{train_fold}")
-    valid_spect_path = os.path.join(base_dataset_path, f"fold_{valid_fold}")
+    train_annot_path = os.path.join(base_dataset_path, f"{fold_num}_train_annot.csv")
+    valid_annot_path = os.path.join(base_dataset_path, f"{fold_num}_valid_annot.csv")
+    valid_spect_path = os.path.join(base_dataset_path, f"fold_{fold_num}")
     test_annot_path = os.path.join(base_dataset_path, "test_annot.csv")
     test_spect_path = os.path.join(base_dataset_path, "fold_5")
 
     # 데이터셋 및 데이터로더
-    trainset = AudioSpectrogramDataset(train_annot_path, train_spect_path, transform=transform)
+    trainset = AudioSpectrogramDataset(train_annot_path, base_dataset_path, transform=transform)  # train 데이터는 전체 주석 파일로 관리
     validationset = AudioSpectrogramDataset(valid_annot_path, valid_spect_path, transform=transform)
     testset = AudioSpectrogramDataset(test_annot_path, test_spect_path, transform=transform)
 
@@ -135,7 +122,7 @@ for fold_num in range(5):  # fold 0~4 중 train/valid 랜덤 선택
     test_acc_results = {}
 
     for version, color in zip(['b0', 'b4', 'b7'], ['blue', 'red', 'yellow']):
-        print(f"\nTraining EfficientNet-{version.upper()} for Train Fold {train_fold} and Valid Fold {valid_fold}")
+        print(f"\nTraining EfficientNet-{version.upper()} for Valid Fold {fold_num}")
         model = EfficientNetModel(model_version=version, num_classes=10)
         model = model.to(device)
         if device == 'cuda':
@@ -167,22 +154,22 @@ for fold_num in range(5):  # fold 0~4 중 train/valid 랜덤 선택
     plt.figure(figsize=(14, 7))
     for version, color in zip(['b0', 'b4', 'b7'], ['blue', 'red', 'yellow']):
         plt.plot(epochs, train_acc_results[version], label=f'Train Acc {version.upper()}', color=color)
-    plt.title(f'Train Accuracy: Train Fold {train_fold}, Valid Fold {valid_fold}')
+    plt.title(f'Train Accuracy: Valid Fold {fold_num}')
     plt.xlabel('Epochs')
     plt.ylabel('Accuracy (%)')
     plt.legend()
     plt.grid(True)
-    plt.savefig(os.path.join(save_path, f'train_accuracy_fold_{train_fold}_valid_{valid_fold}.png'))
+    plt.savefig(os.path.join(save_path, f'train_accuracy_valid_fold_{fold_num}.png'))
     plt.close()
 
     # Valid Accuracy Plot
     plt.figure(figsize=(14, 7))
     for version, color in zip(['b0', 'b4', 'b7'], ['blue', 'red', 'yellow']):
         plt.plot(epochs, test_acc_results[version], label=f'Valid Acc {version.upper()}', color=color)
-    plt.title(f'Valid Accuracy: Train Fold {train_fold}, Valid Fold {valid_fold}')
+    plt.title(f'Valid Accuracy: Valid Fold {fold_num}')
     plt.xlabel('Epochs')
     plt.ylabel('Accuracy (%)')
     plt.legend()
     plt.grid(True)
-    plt.savefig(os.path.join(save_path, f'valid_accuracy_fold_{train_fold}_valid_{valid_fold}.png'))
+    plt.savefig(os.path.join(save_path, f'valid_accuracy_valid_fold_{fold_num}.png'))
     plt.close()
