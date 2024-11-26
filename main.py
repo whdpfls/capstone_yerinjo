@@ -18,6 +18,9 @@ print(device)
 train_accuracies_dict = {'b0': [], 'b4': [], 'b7': []}
 test_accuracies_dict = {'b0': [], 'b4': [], 'b7': []}
 
+# 최고 성능 정보를 저장할 딕셔너리
+best_performance = {'b0': {}, 'b4': {}, 'b7': {}}
+
 # 사용자 정의 데이터셋 클래스
 class AudioSpectrogramDataset(Dataset):
     def __init__(self, annotation_file, img_dir, transform=None):
@@ -123,7 +126,7 @@ for fold_num in range(5):  # fold 0~4 중 valid 선택
 
     for version, color in zip(['b0', 'b4', 'b7'], ['blue', 'red', 'yellow']):
         print(f"\nTraining EfficientNet-{version.upper()} for Valid Fold {fold_num}")
-        model = EfficientNetModel(model_version=version, num_classes=10)
+        model = EfficientNetModel(model_version=version, num_classes=11)
         model = model.to(device)
         if device == 'cuda':
             model = torch.nn.DataParallel(model)
@@ -131,6 +134,11 @@ for fold_num in range(5):  # fold 0~4 중 valid 선택
 
         criterion = nn.CrossEntropyLoss()
         optimizer = optim.AdamW(model.parameters(), lr=0.01)
+        scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.5)  # Learning rate 감소
+
+        best_train_acc = 0
+        best_test_acc = 0
+        best_epoch = 0
 
         train_acc_list = []
         test_acc_list = []
@@ -138,11 +146,25 @@ for fold_num in range(5):  # fold 0~4 중 valid 선택
         for epoch in range(80):  # 에포크 수를 조정
             train_acc, train_loss = train(epoch, model, optimizer, criterion, trainloader)
             valid_acc, valid_loss = test(epoch, model, criterion, validloader)
+            scheduler.step()  # Learning rate 업데이트
 
             train_acc_list.append(train_acc)
             test_acc_list.append(valid_acc)
 
             print(f"Epoch {epoch + 1}: Train Acc: {train_acc:.2f}%, Train Loss: {train_loss:.4f}, Valid Acc: {valid_acc:.2f}%, Valid Loss: {valid_loss:.4f}")
+
+            # Best performance 업데이트
+            if valid_acc > best_test_acc:
+                best_train_acc = train_acc
+                best_test_acc = valid_acc
+                best_epoch = epoch + 1
+
+        # Best performance 저장
+        best_performance[version] = {
+            'best_train_acc': best_train_acc,
+            'best_test_acc': best_test_acc,
+            'best_epoch': best_epoch
+        }
 
         train_acc_results[version] = train_acc_list
         test_acc_results[version] = test_acc_list
@@ -173,3 +195,8 @@ for fold_num in range(5):  # fold 0~4 중 valid 선택
     plt.grid(True)
     plt.savefig(os.path.join(save_path, f'valid_accuracy_valid_fold_{fold_num}.png'))
     plt.close()
+
+# Best performance 출력
+print("\nBest Performance Summary:")
+for version, performance in best_performance.items():
+    print(f"EfficientNet-{version.upper()}: Best Train Acc: {performance['best_train_acc']:.2f}%, Best Test Acc: {performance['best_test_acc']:.2f}%, Epoch: {performance['best_epoch']}")
