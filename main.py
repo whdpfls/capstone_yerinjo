@@ -24,18 +24,24 @@ best_performance = {'b0': {}, 'b4': {}, 'b7': {}}
 
 # 사용자 정의 데이터셋 클래스
 class AudioSpectrogramDataset(Dataset):
-    def __init__(self, annotation_file, transform=None):
+    def __init__(self, annotation_file, base_path, transform=None):
         self.img_labels = pd.read_csv(annotation_file, names=['file_name', 'label'])
+        self.base_path = base_path  # Base 경로 추가
         self.transform = transform
 
     def __len__(self):
         return len(self.img_labels)
 
     def __getitem__(self, idx):
-        file_name = self.img_labels.iloc[idx, 0]  # annotation_file에서 직접 경로 사용
-        img_path = file_name  # img_dir를 추가하지 않고 바로 사용
+        file_name = self.img_labels.iloc[idx, 0]
+
+        # 파일 경로를 base_path와 결합하여 절대 경로 생성
+        img_path = os.path.join(self.base_path, file_name)
 
         # 이미지 로드
+        if not os.path.exists(img_path):
+            raise FileNotFoundError(f"File not found: {img_path}")  # 디버깅용 예외 처리
+
         image = Image.open(img_path).convert('RGB')
         label = int(self.img_labels.iloc[idx, 1])
 
@@ -43,7 +49,6 @@ class AudioSpectrogramDataset(Dataset):
             image = self.transform(image)
 
         return image, label
-
 
 # Transform 정의
 transform = transforms.Compose([
@@ -121,9 +126,9 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
                 outfile.write(infile.read())
 
     # 데이터셋 및 데이터로더
-    trainset = AudioSpectrogramDataset(train_annotation_combined, transform=transform)
-    validationset = AudioSpectrogramDataset(valid_annot_path, transform=transform)
-    testset = AudioSpectrogramDataset(test_annot_path, transform=transform)
+    trainset = AudioSpectrogramDataset(train_annotation_combined, base_dataset_path, transform=transform)
+    validationset = AudioSpectrogramDataset(valid_annot_path, base_dataset_path, transform=transform)
+    testset = AudioSpectrogramDataset(test_annot_path, base_dataset_path, transform=transform)
 
     trainloader = DataLoader(trainset, batch_size=32, shuffle=True, num_workers=4)
     validloader = DataLoader(validationset, batch_size=32, shuffle=False, num_workers=4)
@@ -209,4 +214,4 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
 # Best performance 출력
 print("\nBest Performance Summary:")
 for version, performance in best_performance.items():
-    print(f"EfficientNet-{version.upper()}: Best Train Acc: {performance['best_train_acc']:.2f}%, Best Test Acc
+    print(f"EfficientNet-{version.upper()}: Best Train Acc: {performance['best_train_acc']:.2f}%, Best Test Acc: {performance['best_test_acc']:.2f}%")
