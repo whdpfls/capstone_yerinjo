@@ -8,6 +8,7 @@ from efficientnet import EfficientNetModel  # EfficientNet 모델 가져오기
 import time
 import os
 import pandas as pd
+import random
 from PIL import Image
 from torchvision import transforms
 from torch.utils.data import Dataset
@@ -49,21 +50,13 @@ transform = transforms.Compose([
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
 
-# 데이터 경로 및 파일
-train_annot_path = 'dataset/ru_spect/train_annot.csv'
-validation_annot_path = 'dataset/ru_spect/valid_annot.csv'
-train_spect_path = 'dataset/ru_spect/trainset'
-validation_spect_path = 'dataset/ru_spect/validset'
-
-# 데이터셋 및 데이터로더
-trainset = AudioSpectrogramDataset(train_annot_path, train_spect_path, transform=transform)
-validationset = AudioSpectrogramDataset(validation_annot_path, validation_spect_path, transform=transform)
-
-trainloader = DataLoader(trainset, batch_size=32, shuffle=True, num_workers=4)
-testloader = DataLoader(validationset, batch_size=32, shuffle=False, num_workers=4)
+# 데이터 경로
+base_dataset_path = 'dataset/unified_spect_folds'
+save_path = 'plots'
+os.makedirs(save_path, exist_ok=True)
 
 # Training 함수
-def train(epoch, model, optimizer, criterion):
+def train(epoch, model, optimizer, criterion, trainloader):
     model.train()
     correct = 0
     total = 0
@@ -86,7 +79,7 @@ def train(epoch, model, optimizer, criterion):
     return acc, avg_loss
 
 # 검증 함수
-def test(epoch, model, criterion):
+def test(epoch, model, criterion, testloader):
     model.eval()
     correct = 0
     total = 0
@@ -107,85 +100,82 @@ def test(epoch, model, criterion):
     return acc, avg_loss
 
 # 모델 학습 및 결과 저장
-for version in ['b0', 'b4', 'b7']:
-    print(f"\nTraining EfficientNet-{version.upper()}")
-    model = EfficientNetModel(model_version=version, num_classes=10)
-    model = model.to(device)
-    if device == 'cuda':
-        model = torch.nn.DataParallel(model)
-        cudnn.benchmark = True
+for fold_num in range(5):  # fold 0~4 중 train/valid 랜덤 선택
+    # Fold 설정
+    valid_fold = fold_num
+    train_folds = [f for f in range(5) if f != valid_fold]
+    random.shuffle(train_folds)
+    train_fold = train_folds[0]
 
-    criterion = nn.CrossEntropyLoss()
-    optimizer = optim.AdamW(model.parameters(), lr=0.01)
+    train_annot_path = os.path.join(base_dataset_path, f"{train_fold}_train_annot.csv")
+    valid_annot_path = os.path.join(base_dataset_path, f"{valid_fold}_valid_annot.csv")
+    train_spect_path = os.path.join(base_dataset_path, f"fold_{train_fold}")
+    valid_spect_path = os.path.join(base_dataset_path, f"fold_{valid_fold}")
+    test_annot_path = os.path.join(base_dataset_path, "test_annot.csv")
+    test_spect_path = os.path.join(base_dataset_path, "fold_5")
 
-    best_test_acc = 0
-    best_epoch = 0
-    best_train_loss = 0
-    best_test_loss = 0
+    # 데이터셋 및 데이터로더
+    trainset = AudioSpectrogramDataset(train_annot_path, train_spect_path, transform=transform)
+    validationset = AudioSpectrogramDataset(valid_annot_path, valid_spect_path, transform=transform)
+    testset = AudioSpectrogramDataset(test_annot_path, test_spect_path, transform=transform)
 
-    train_acc_list = []
-    test_acc_list = []
+    trainloader = DataLoader(trainset, batch_size=32, shuffle=True, num_workers=4)
+    validloader = DataLoader(validationset, batch_size=32, shuffle=False, num_workers=4)
+    testloader = DataLoader(testset, batch_size=32, shuffle=False, num_workers=4)
 
-    for epoch in range(80):  # 에포크 수를 조정
-        train_acc, train_loss = train(epoch, model, optimizer, criterion)
-        test_acc, test_loss = test(epoch, model, criterion)
+    # 모델별 결과 저장
+    train_acc_results = {}
+    test_acc_results = {}
 
-        train_acc_list.append(train_acc)
-        test_acc_list.append(test_acc)
+    for version, color in zip(['b0', 'b4', 'b7'], ['blue', 'red', 'yellow']):
+        print(f"\nTraining EfficientNet-{version.upper()} for Train Fold {train_fold} and Valid Fold {valid_fold}")
+        model = EfficientNetModel(model_version=version, num_classes=10)
+        model = model.to(device)
+        if device == 'cuda':
+            model = torch.nn.DataParallel(model)
+            cudnn.benchmark = True
 
-        print(f'Epoch {epoch + 1}: Train Acc: {train_acc:.2f}%, Train Loss: {train_loss:.4f}, Test Acc: {test_acc:.2f}%, Test Loss: {test_loss:.4f}')
+        criterion = nn.CrossEntropyLoss()
+        optimizer = optim.AdamW(model.parameters(), lr=0.01)
 
-        # 최고 정확도 갱신 시 저장
-        if test_acc > best_test_acc:
-            best_test_acc = test_acc
-            best_epoch = epoch + 1
-            best_train_loss = train_loss
-            best_test_loss = test_loss
-            best_lr = optimizer.param_groups[0]['lr']
-            best_performance[version] = {
-                'epoch': best_epoch,
-                'learning_rate': best_lr,
-                'train_loss': best_train_loss,
-                'test_loss': best_test_loss,
-                'test_accuracy': best_test_acc
-            }
+        train_acc_list = []
+        test_acc_list = []
 
-    train_accuracies_dict[version] = train_acc_list
-    test_accuracies_dict[version] = test_acc_list
+        for epoch in range(80):  # 에포크 수를 조정
+            train_acc, train_loss = train(epoch, model, optimizer, criterion, trainloader)
+            valid_acc, valid_loss = test(epoch, model, criterion, validloader)
 
-# 최고 성능 출력 (한 번만 출력)
-print("\nBest Performance Summary:")
-for version, performance in best_performance.items():
-    print(f"\nEfficientNet-{version.upper()}:")
-    print(f"Epoch: {performance['epoch']}")
-    print(f"Learning Rate: {performance['learning_rate']}")
-    print(f"Train Loss: {performance['train_loss']:.4f}")
-    print(f"Test Loss: {performance['test_loss']:.4f}")
-    print(f"Test Accuracy: {performance['test_accuracy']:.2f}%")
+            train_acc_list.append(train_acc)
+            test_acc_list.append(valid_acc)
 
-# Plotting
-save_path = '/data/dpfls5645/repos/capstone_yerinjo/plots'
-os.makedirs(save_path, exist_ok=True)
+            print(f"Epoch {epoch + 1}: Train Acc: {train_acc:.2f}%, Train Loss: {train_loss:.4f}, Valid Acc: {valid_acc:.2f}%, Valid Loss: {valid_loss:.4f}")
 
-epochs = range(1, 81)
-plt.figure(figsize=(14, 7))
+        train_acc_results[version] = train_acc_list
+        test_acc_results[version] = test_acc_list
 
-for version, color in zip(['b0', 'b4', 'b7'], ['blue', 'red', 'yellow']):
-    plt.plot(epochs, train_accuracies_dict[version], label=f'Train Acc {version.upper()}', color=color, linestyle='--')
-    plt.plot(epochs, test_accuracies_dict[version], label=f'Test Acc {version.upper()}', color=color)
+    # Plot 저장
+    epochs = range(1, 81)
 
-plt.title('Training and Test Accuracy for EfficientNet B0, B4, B7')
-plt.xlabel('Epochs')
-plt.ylabel('Accuracy (%)')
-plt.legend()
-plt.grid(True)
+    # Train Accuracy Plot
+    plt.figure(figsize=(14, 7))
+    for version, color in zip(['b0', 'b4', 'b7'], ['blue', 'red', 'yellow']):
+        plt.plot(epochs, train_acc_results[version], label=f'Train Acc {version.upper()}', color=color)
+    plt.title(f'Train Accuracy: Train Fold {train_fold}, Valid Fold {valid_fold}')
+    plt.xlabel('Epochs')
+    plt.ylabel('Accuracy (%)')
+    plt.legend()
+    plt.grid(True)
+    plt.savefig(os.path.join(save_path, f'train_accuracy_fold_{train_fold}_valid_{valid_fold}.png'))
+    plt.close()
 
-# 플롯 저장 함수
-def save_plot_as_png(plot, filename):
-    filepath = os.path.join(save_path, filename)
-    plot.savefig(filepath, format='png')
-    print(f"Plot saved at {filepath}")
-
-# 플롯을 .png로 저장
-save_plot_as_png(plt, 'training_plot.png')
-plt.show()
+    # Valid Accuracy Plot
+    plt.figure(figsize=(14, 7))
+    for version, color in zip(['b0', 'b4', 'b7'], ['blue', 'red', 'yellow']):
+        plt.plot(epochs, test_acc_results[version], label=f'Valid Acc {version.upper()}', color=color)
+    plt.title(f'Valid Accuracy: Train Fold {train_fold}, Valid Fold {valid_fold}')
+    plt.xlabel('Epochs')
+    plt.ylabel('Accuracy (%)')
+    plt.legend()
+    plt.grid(True)
+    plt.savefig(os.path.join(save_path, f'valid_accuracy_fold_{train_fold}_valid_{valid_fold}.png'))
+    plt.close()
