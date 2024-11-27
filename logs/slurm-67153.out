@@ -1,0 +1,1243 @@
+/data/dpfls5645/repos/capstone_yerinjo
+/data/dpfls5645/anaconda3/bin/python
+moana-y7
+cuda
+
+Training EfficientNet-B0 for Valid Fold 0
+Epoch 1: Train Acc: 34.18%, Valid Acc: 42.07%
+Epoch 2: Train Acc: 43.61%, Valid Acc: 46.66%
+Epoch 3: Train Acc: 46.43%, Valid Acc: 48.47%
+Epoch 4: Train Acc: 48.64%, Valid Acc: 50.28%
+Epoch 5: Train Acc: 50.24%, Valid Acc: 49.40%
+Epoch 6: Train Acc: 51.86%, Valid Acc: 47.31%
+Epoch 7: Train Acc: 53.65%, Valid Acc: 49.86%
+Epoch 8: Train Acc: 54.58%, Valid Acc: 50.56%
+Epoch 9: Train Acc: 56.14%, Valid Acc: 51.99%
+Epoch 10: Train Acc: 57.45%, Valid Acc: 54.92%
+Epoch 11: Train Acc: 59.58%, Valid Acc: 55.52%
+Epoch 12: Train Acc: 60.54%, Valid Acc: 53.43%
+Epoch 13: Train Acc: 63.20%, Valid Acc: 56.96%
+Epoch 14: Train Acc: 64.77%, Valid Acc: 56.82%
+Epoch 15: Train Acc: 65.48%, Valid Acc: 54.13%
+Epoch 16: Train Acc: 66.99%, Valid Acc: 60.95%
+Epoch 17: Train Acc: 69.10%, Valid Acc: 59.60%
+Epoch 18: Train Acc: 69.74%, Valid Acc: 60.39%
+Epoch 19: Train Acc: 71.07%, Valid Acc: 57.10%
+Epoch 20: Train Acc: 72.84%, Valid Acc: 59.65%
+Epoch 21: Train Acc: 81.69%, Valid Acc: 66.05%
+Epoch 22: Train Acc: 84.43%, Valid Acc: 70.04%
+Epoch 23: Train Acc: 85.40%, Valid Acc: 68.65%
+Epoch 24: Train Acc: 86.08%, Valid Acc: 69.39%
+Epoch 25: Train Acc: 86.01%, Valid Acc: 71.94%
+Epoch 26: Train Acc: 86.33%, Valid Acc: 70.50%
+Epoch 27: Train Acc: 86.37%, Valid Acc: 70.08%
+Epoch 28: Train Acc: 86.63%, Valid Acc: 69.20%
+Epoch 29: Train Acc: 86.20%, Valid Acc: 69.76%
+Epoch 30: Train Acc: 87.58%, Valid Acc: 72.63%
+Epoch 31: Train Acc: 87.35%, Valid Acc: 71.75%
+Epoch 32: Train Acc: 87.53%, Valid Acc: 70.04%
+Epoch 33: Train Acc: 88.34%, Valid Acc: 72.12%
+Epoch 34: Train Acc: 87.88%, Valid Acc: 70.08%
+Epoch 35: Train Acc: 88.01%, Valid Acc: 71.75%
+Epoch 36: Train Acc: 87.96%, Valid Acc: 71.20%
+Epoch 37: Train Acc: 88.59%, Valid Acc: 71.10%
+Epoch 38: Train Acc: 88.13%, Valid Acc: 70.04%
+Epoch 39: Train Acc: 88.60%, Valid Acc: 67.90%
+Epoch 40: Train Acc: 88.59%, Valid Acc: 70.50%
+Epoch 41: Train Acc: 90.26%, Valid Acc: 71.89%
+Epoch 42: Train Acc: 91.28%, Valid Acc: 72.40%
+Epoch 43: Train Acc: 91.06%, Valid Acc: 72.22%
+Epoch 44: Train Acc: 90.95%, Valid Acc: 72.63%
+Epoch 45: Train Acc: 91.23%, Valid Acc: 72.12%
+Epoch 46: Train Acc: 91.14%, Valid Acc: 73.61%
+Epoch 47: Train Acc: 91.02%, Valid Acc: 72.03%
+Epoch 48: Train Acc: 91.24%, Valid Acc: 72.63%
+Epoch 49: Train Acc: 90.66%, Valid Acc: 72.40%
+Epoch 50: Train Acc: 91.12%, Valid Acc: 73.38%
+Epoch 51: Train Acc: 91.16%, Valid Acc: 73.01%
+Epoch 52: Train Acc: 90.93%, Valid Acc: 73.10%
+Epoch 53: Train Acc: 91.13%, Valid Acc: 72.63%
+Epoch 54: Train Acc: 90.69%, Valid Acc: 72.87%
+Epoch 55: Train Acc: 90.97%, Valid Acc: 71.99%
+Epoch 56: Train Acc: 90.85%, Valid Acc: 73.19%
+Epoch 57: Train Acc: 91.12%, Valid Acc: 73.47%
+Epoch 58: Train Acc: 90.97%, Valid Acc: 71.94%
+Epoch 59: Train Acc: 91.18%, Valid Acc: 72.31%
+Epoch 60: Train Acc: 91.11%, Valid Acc: 71.52%
+Epoch 61: Train Acc: 91.93%, Valid Acc: 73.19%
+Epoch 62: Train Acc: 91.93%, Valid Acc: 72.63%
+Epoch 63: Train Acc: 92.05%, Valid Acc: 72.40%
+Epoch 64: Train Acc: 91.77%, Valid Acc: 72.73%
+Epoch 65: Train Acc: 91.95%, Valid Acc: 73.14%
+Epoch 66: Train Acc: 91.96%, Valid Acc: 72.17%
+Epoch 67: Train Acc: 91.82%, Valid Acc: 73.14%
+Epoch 68: Train Acc: 91.77%, Valid Acc: 73.05%
+Epoch 69: Train Acc: 92.03%, Valid Acc: 73.47%
+Epoch 70: Train Acc: 91.68%, Valid Acc: 73.47%
+Epoch 71: Train Acc: 91.70%, Valid Acc: 73.05%
+Epoch 72: Train Acc: 92.00%, Valid Acc: 72.63%
+Epoch 73: Train Acc: 91.66%, Valid Acc: 73.01%
+Epoch 74: Train Acc: 91.59%, Valid Acc: 72.87%
+Epoch 75: Train Acc: 91.70%, Valid Acc: 72.22%
+Epoch 76: Train Acc: 91.89%, Valid Acc: 72.73%
+Epoch 77: Train Acc: 91.93%, Valid Acc: 72.36%
+Epoch 78: Train Acc: 91.98%, Valid Acc: 72.17%
+Epoch 79: Train Acc: 91.79%, Valid Acc: 73.10%
+Epoch 80: Train Acc: 91.64%, Valid Acc: 72.50%
+Downloading: "https://download.pytorch.org/models/efficientnet_b4_rwightman-23ab8bcd.pth" to /home/dpfls5645/.cache/torch/hub/checkpoints/efficientnet_b4_rwightman-23ab8bcd.pth
+
+Training EfficientNet-B4 for Valid Fold 0
+  0%|          | 0.00/74.5M [00:00<?, ?B/s]  2%|▏         | 1.12M/74.5M [00:00<00:06, 11.7MB/s]  3%|▎         | 2.25M/74.5M [00:00<00:06, 11.7MB/s]  5%|▍         | 3.38M/74.5M [00:00<00:06, 11.7MB/s]  6%|▌         | 4.50M/74.5M [00:00<00:06, 11.7MB/s]  8%|▊         | 5.62M/74.5M [00:00<00:06, 11.7MB/s]  9%|▉         | 6.75M/74.5M [00:00<00:06, 11.7MB/s] 11%|█         | 7.88M/74.5M [00:00<00:05, 11.7MB/s] 12%|█▏        | 9.00M/74.5M [00:00<00:05, 11.7MB/s] 14%|█▎        | 10.1M/74.5M [00:00<00:05, 11.6MB/s] 15%|█▌        | 11.4M/74.5M [00:01<00:05, 11.8MB/s] 17%|█▋        | 12.5M/74.5M [00:01<00:05, 11.8MB/s] 18%|█▊        | 13.6M/74.5M [00:01<00:05, 11.7MB/s] 20%|█▉        | 14.8M/74.5M [00:01<00:05, 11.7MB/s] 21%|██▏       | 15.9M/74.5M [00:01<00:05, 11.7MB/s] 23%|██▎       | 17.0M/74.5M [00:01<00:05, 11.7MB/s] 24%|██▍       | 18.1M/74.5M [00:01<00:05, 11.7MB/s] 26%|██▌       | 19.2M/74.5M [00:01<00:04, 11.7MB/s] 27%|██▋       | 20.4M/74.5M [00:01<00:04, 11.7MB/s] 29%|██▉       | 21.5M/74.5M [00:01<00:04, 11.7MB/s] 30%|███       | 22.6M/74.5M [00:02<00:04, 11.7MB/s] 32%|███▏      | 23.8M/74.5M [00:02<00:04, 11.7MB/s] 33%|███▎      | 24.9M/74.5M [00:02<00:04, 11.7MB/s] 35%|███▍      | 26.0M/74.5M [00:02<00:04, 11.7MB/s] 36%|███▋      | 27.1M/74.5M [00:02<00:04, 11.7MB/s] 38%|███▊      | 28.2M/74.5M [00:02<00:04, 11.7MB/s] 39%|███▉      | 29.4M/74.5M [00:02<00:04, 11.7MB/s] 41%|████      | 30.5M/74.5M [00:02<00:03, 11.7MB/s] 42%|████▏     | 31.6M/74.5M [00:02<00:03, 11.7MB/s] 44%|████▍     | 32.8M/74.5M [00:02<00:03, 11.6MB/s] 46%|████▌     | 34.0M/74.5M [00:03<00:03, 11.4MB/s] 47%|████▋     | 35.2M/74.5M [00:03<00:03, 11.8MB/s] 49%|████▉     | 36.5M/74.5M [00:03<00:03, 11.8MB/s] 51%|█████     | 37.8M/74.5M [00:03<00:03, 11.8MB/s] 52%|█████▏    | 38.9M/74.5M [00:03<00:03, 11.7MB/s] 54%|█████▎    | 40.0M/74.5M [00:03<00:03, 11.7MB/s] 55%|█████▌    | 41.1M/74.5M [00:03<00:02, 11.7MB/s] 57%|█████▋    | 42.2M/74.5M [00:03<00:02, 11.7MB/s] 58%|█████▊    | 43.4M/74.5M [00:03<00:02, 11.7MB/s] 60%|█████▉    | 44.5M/74.5M [00:03<00:02, 11.7MB/s] 61%|██████▏   | 45.6M/74.5M [00:04<00:02, 11.7MB/s] 63%|██████▎   | 46.8M/74.5M [00:04<00:02, 11.7MB/s] 64%|██████▍   | 47.9M/74.5M [00:04<00:02, 11.7MB/s] 66%|██████▌   | 49.0M/74.5M [00:04<00:02, 11.7MB/s] 67%|██████▋   | 50.1M/74.5M [00:04<00:02, 11.7MB/s] 69%|██████▉   | 51.2M/74.5M [00:04<00:02, 11.7MB/s] 70%|███████   | 52.4M/74.5M [00:04<00:01, 11.7MB/s] 72%|███████▏  | 53.5M/74.5M [00:04<00:01, 11.7MB/s] 73%|███████▎  | 54.6M/74.5M [00:04<00:01, 11.7MB/s] 75%|███████▍  | 55.8M/74.5M [00:04<00:01, 11.7MB/s] 76%|███████▋  | 56.9M/74.5M [00:05<00:01, 11.7MB/s] 78%|███████▊  | 58.0M/74.5M [00:05<00:01, 11.7MB/s] 79%|███████▉  | 59.1M/74.5M [00:05<00:01, 11.7MB/s] 81%|████████  | 60.2M/74.5M [00:05<00:01, 11.7MB/s] 82%|████████▏ | 61.4M/74.5M [00:05<00:01, 11.7MB/s] 84%|████████▍ | 62.5M/74.5M [00:05<00:01, 11.7MB/s] 85%|████████▌ | 63.6M/74.5M [00:05<00:00, 11.7MB/s] 87%|████████▋ | 64.8M/74.5M [00:05<00:00, 11.7MB/s] 89%|████████▊ | 66.0M/74.5M [00:05<00:00, 11.7MB/s] 90%|█████████ | 67.1M/74.5M [00:06<00:00, 11.7MB/s] 92%|█████████▏| 68.2M/74.5M [00:06<00:00, 11.7MB/s] 93%|█████████▎| 69.4M/74.5M [00:06<00:00, 11.7MB/s] 95%|█████████▍| 70.5M/74.5M [00:06<00:00, 11.7MB/s] 96%|█████████▌| 71.6M/74.5M [00:06<00:00, 11.7MB/s] 98%|█████████▊| 72.9M/74.5M [00:06<00:00, 11.7MB/s] 99%|█████████▉| 74.0M/74.5M [00:06<00:00, 11.7MB/s]100%|██████████| 74.5M/74.5M [00:06<00:00, 11.7MB/s]
+Epoch 1: Train Acc: 36.96%, Valid Acc: 42.90%
+Epoch 2: Train Acc: 45.29%, Valid Acc: 51.76%
+Epoch 3: Train Acc: 49.06%, Valid Acc: 42.76%
+Epoch 4: Train Acc: 52.66%, Valid Acc: 50.00%
+Epoch 5: Train Acc: 53.35%, Valid Acc: 50.93%
+Epoch 6: Train Acc: 53.31%, Valid Acc: 53.66%
+Epoch 7: Train Acc: 55.17%, Valid Acc: 53.66%
+Epoch 8: Train Acc: 51.38%, Valid Acc: 52.13%
+Epoch 9: Train Acc: 54.51%, Valid Acc: 56.45%
+Epoch 10: Train Acc: 57.42%, Valid Acc: 53.66%
+Epoch 11: Train Acc: 59.57%, Valid Acc: 59.23%
+Epoch 12: Train Acc: 63.53%, Valid Acc: 58.67%
+Epoch 13: Train Acc: 66.11%, Valid Acc: 58.91%
+Epoch 14: Train Acc: 68.11%, Valid Acc: 60.06%
+Epoch 15: Train Acc: 69.90%, Valid Acc: 64.56%
+Epoch 16: Train Acc: 72.51%, Valid Acc: 62.99%
+Epoch 17: Train Acc: 73.16%, Valid Acc: 64.19%
+Epoch 18: Train Acc: 74.81%, Valid Acc: 66.56%
+Epoch 19: Train Acc: 76.79%, Valid Acc: 66.70%
+Epoch 20: Train Acc: 76.58%, Valid Acc: 64.98%
+Epoch 21: Train Acc: 84.73%, Valid Acc: 73.05%
+Epoch 22: Train Acc: 87.85%, Valid Acc: 72.82%
+Epoch 23: Train Acc: 88.30%, Valid Acc: 71.52%
+Epoch 24: Train Acc: 88.13%, Valid Acc: 72.82%
+Epoch 25: Train Acc: 88.92%, Valid Acc: 72.68%
+Epoch 26: Train Acc: 89.13%, Valid Acc: 73.75%
+Epoch 27: Train Acc: 88.44%, Valid Acc: 72.36%
+Epoch 28: Train Acc: 88.63%, Valid Acc: 71.61%
+Epoch 29: Train Acc: 88.87%, Valid Acc: 73.05%
+Epoch 30: Train Acc: 88.61%, Valid Acc: 73.70%
+Epoch 31: Train Acc: 88.77%, Valid Acc: 73.75%
+Epoch 32: Train Acc: 88.84%, Valid Acc: 72.31%
+Epoch 33: Train Acc: 88.80%, Valid Acc: 74.49%
+Epoch 34: Train Acc: 89.69%, Valid Acc: 74.12%
+Epoch 35: Train Acc: 88.89%, Valid Acc: 73.05%
+Epoch 36: Train Acc: 88.32%, Valid Acc: 73.28%
+Epoch 37: Train Acc: 88.02%, Valid Acc: 72.17%
+Epoch 38: Train Acc: 88.94%, Valid Acc: 73.24%
+Epoch 39: Train Acc: 89.56%, Valid Acc: 73.33%
+Epoch 40: Train Acc: 89.27%, Valid Acc: 72.54%
+Epoch 41: Train Acc: 91.27%, Valid Acc: 75.32%
+Epoch 42: Train Acc: 91.54%, Valid Acc: 75.28%
+Epoch 43: Train Acc: 92.34%, Valid Acc: 74.77%
+Epoch 44: Train Acc: 91.95%, Valid Acc: 75.37%
+Epoch 45: Train Acc: 91.72%, Valid Acc: 73.70%
+Epoch 46: Train Acc: 91.55%, Valid Acc: 74.17%
+Epoch 47: Train Acc: 91.70%, Valid Acc: 72.87%
+Epoch 48: Train Acc: 91.91%, Valid Acc: 74.03%
+Epoch 49: Train Acc: 91.41%, Valid Acc: 74.72%
+Epoch 50: Train Acc: 91.24%, Valid Acc: 73.38%
+Epoch 51: Train Acc: 91.03%, Valid Acc: 74.77%
+Epoch 52: Train Acc: 92.02%, Valid Acc: 74.07%
+Epoch 53: Train Acc: 91.86%, Valid Acc: 73.70%
+Epoch 54: Train Acc: 91.29%, Valid Acc: 73.38%
+Epoch 55: Train Acc: 91.32%, Valid Acc: 73.70%
+Epoch 56: Train Acc: 91.39%, Valid Acc: 74.40%
+Epoch 57: Train Acc: 91.33%, Valid Acc: 74.81%
+Epoch 58: Train Acc: 91.50%, Valid Acc: 74.35%
+Epoch 59: Train Acc: 91.50%, Valid Acc: 73.89%
+Epoch 60: Train Acc: 91.13%, Valid Acc: 74.03%
+Epoch 61: Train Acc: 91.85%, Valid Acc: 74.44%
+Epoch 62: Train Acc: 92.43%, Valid Acc: 74.44%
+Epoch 63: Train Acc: 92.38%, Valid Acc: 74.77%
+Epoch 64: Train Acc: 92.36%, Valid Acc: 73.75%
+Epoch 65: Train Acc: 92.27%, Valid Acc: 74.68%
+Epoch 66: Train Acc: 92.28%, Valid Acc: 73.42%
+Epoch 67: Train Acc: 92.28%, Valid Acc: 74.21%
+Epoch 68: Train Acc: 92.45%, Valid Acc: 74.26%
+Epoch 69: Train Acc: 91.85%, Valid Acc: 74.30%
+Epoch 70: Train Acc: 92.41%, Valid Acc: 73.79%
+Epoch 71: Train Acc: 92.69%, Valid Acc: 73.05%
+Epoch 72: Train Acc: 92.25%, Valid Acc: 74.03%
+Epoch 73: Train Acc: 92.45%, Valid Acc: 74.72%
+Epoch 74: Train Acc: 92.38%, Valid Acc: 74.95%
+Epoch 75: Train Acc: 92.35%, Valid Acc: 73.61%
+Epoch 76: Train Acc: 92.41%, Valid Acc: 73.75%
+Epoch 77: Train Acc: 92.36%, Valid Acc: 74.81%
+Epoch 78: Train Acc: 92.46%, Valid Acc: 73.61%
+Epoch 79: Train Acc: 92.77%, Valid Acc: 74.35%
+Epoch 80: Train Acc: 92.62%, Valid Acc: 74.26%
+Downloading: "https://download.pytorch.org/models/efficientnet_b7_lukemelas-c5b4e57e.pth" to /home/dpfls5645/.cache/torch/hub/checkpoints/efficientnet_b7_lukemelas-c5b4e57e.pth
+
+Training EfficientNet-B7 for Valid Fold 0
+  0%|          | 0.00/255M [00:00<?, ?B/s]  0%|          | 1.12M/255M [00:00<00:23, 11.2MB/s]  1%|          | 2.25M/255M [00:00<00:23, 11.5MB/s]  1%|▏         | 3.38M/255M [00:00<00:22, 11.6MB/s]  2%|▏         | 4.50M/255M [00:00<00:22, 11.6MB/s]  2%|▏         | 5.62M/255M [00:00<00:22, 11.7MB/s]  3%|▎         | 6.75M/255M [00:00<00:22, 11.7MB/s]  3%|▎         | 7.88M/255M [00:00<00:22, 11.7MB/s]  4%|▎         | 9.00M/255M [00:00<00:22, 11.7MB/s]  4%|▍         | 10.1M/255M [00:00<00:21, 11.7MB/s]  4%|▍         | 11.2M/255M [00:01<00:21, 11.7MB/s]  5%|▍         | 12.4M/255M [00:01<00:21, 11.7MB/s]  5%|▌         | 13.5M/255M [00:01<00:21, 11.7MB/s]  6%|▌         | 14.6M/255M [00:01<00:21, 11.7MB/s]  6%|▌         | 15.8M/255M [00:01<00:21, 11.7MB/s]  7%|▋         | 16.9M/255M [00:01<00:21, 11.7MB/s]  7%|▋         | 18.0M/255M [00:01<00:21, 11.5MB/s]  8%|▊         | 19.2M/255M [00:01<00:20, 11.8MB/s]  8%|▊         | 20.4M/255M [00:01<00:20, 11.8MB/s]  8%|▊         | 21.5M/255M [00:01<00:20, 11.8MB/s]  9%|▉         | 22.6M/255M [00:02<00:20, 11.7MB/s]  9%|▉         | 23.8M/255M [00:02<00:20, 11.7MB/s] 10%|▉         | 24.9M/255M [00:02<00:20, 11.6MB/s] 10%|█         | 26.1M/255M [00:02<00:20, 11.6MB/s] 11%|█         | 27.4M/255M [00:02<00:20, 11.8MB/s] 11%|█         | 28.6M/255M [00:02<00:20, 11.8MB/s] 12%|█▏        | 29.8M/255M [00:02<00:20, 11.8MB/s] 12%|█▏        | 30.9M/255M [00:02<00:19, 11.7MB/s] 13%|█▎        | 32.0M/255M [00:02<00:19, 11.7MB/s] 13%|█▎        | 33.1M/255M [00:02<00:19, 11.7MB/s] 13%|█▎        | 34.2M/255M [00:03<00:19, 11.7MB/s] 14%|█▍        | 35.4M/255M [00:03<00:19, 11.7MB/s] 14%|█▍        | 36.5M/255M [00:03<00:19, 11.7MB/s] 15%|█▍        | 37.6M/255M [00:03<00:19, 11.6MB/s] 15%|█▌        | 38.9M/255M [00:03<00:19, 11.7MB/s] 16%|█▌        | 40.0M/255M [00:03<00:19, 11.7MB/s] 16%|█▌        | 41.1M/255M [00:03<00:19, 11.7MB/s] 17%|█▋        | 42.2M/255M [00:03<00:19, 11.7MB/s] 17%|█▋        | 43.4M/255M [00:03<00:18, 11.7MB/s] 17%|█▋        | 44.5M/255M [00:03<00:18, 11.7MB/s] 18%|█▊        | 45.8M/255M [00:04<00:18, 11.7MB/s] 18%|█▊        | 46.9M/255M [00:04<00:18, 11.7MB/s] 19%|█▉        | 48.0M/255M [00:04<00:18, 11.7MB/s] 19%|█▉        | 49.1M/255M [00:04<00:18, 11.7MB/s] 20%|█▉        | 50.2M/255M [00:04<00:18, 11.7MB/s] 20%|██        | 51.4M/255M [00:04<00:18, 11.7MB/s] 21%|██        | 52.5M/255M [00:04<00:18, 11.7MB/s] 21%|██        | 53.6M/255M [00:04<00:17, 11.7MB/s] 21%|██▏       | 54.8M/255M [00:04<00:17, 11.7MB/s] 22%|██▏       | 55.9M/255M [00:05<00:17, 11.7MB/s] 22%|██▏       | 57.0M/255M [00:05<00:17, 11.7MB/s] 23%|██▎       | 58.1M/255M [00:05<00:17, 11.7MB/s] 23%|██▎       | 59.2M/255M [00:05<00:17, 11.7MB/s] 24%|██▎       | 60.4M/255M [00:05<00:17, 11.7MB/s] 24%|██▍       | 61.5M/255M [00:05<00:17, 11.7MB/s] 25%|██▍       | 62.6M/255M [00:05<00:17, 11.7MB/s] 25%|██▌       | 63.8M/255M [00:05<00:17, 11.7MB/s] 25%|██▌       | 64.9M/255M [00:05<00:16, 11.7MB/s] 26%|██▌       | 66.0M/255M [00:05<00:16, 11.7MB/s] 26%|██▋       | 67.1M/255M [00:06<00:16, 11.7MB/s] 27%|██▋       | 68.2M/255M [00:06<00:16, 11.6MB/s] 27%|██▋       | 69.5M/255M [00:06<00:16, 11.7MB/s] 28%|██▊       | 70.6M/255M [00:06<00:16, 11.7MB/s] 28%|██▊       | 71.8M/255M [00:06<00:16, 11.4MB/s] 29%|██▊       | 73.0M/255M [00:06<00:16, 11.8MB/s] 29%|██▉       | 74.2M/255M [00:06<00:16, 11.8MB/s] 30%|██▉       | 75.4M/255M [00:06<00:16, 11.8MB/s] 30%|███       | 76.5M/255M [00:06<00:15, 11.7MB/s] 30%|███       | 77.6M/255M [00:06<00:15, 11.7MB/s] 31%|███       | 78.9M/255M [00:07<00:15, 11.8MB/s] 31%|███▏      | 80.0M/255M [00:07<00:15, 11.7MB/s] 32%|███▏      | 81.1M/255M [00:07<00:15, 11.7MB/s] 32%|███▏      | 82.2M/255M [00:07<00:15, 11.7MB/s] 33%|███▎      | 83.4M/255M [00:07<00:15, 11.7MB/s] 33%|███▎      | 84.5M/255M [00:07<00:15, 11.7MB/s] 34%|███▎      | 85.6M/255M [00:07<00:15, 11.7MB/s] 34%|███▍      | 86.8M/255M [00:07<00:15, 11.7MB/s] 35%|███▍      | 87.9M/255M [00:07<00:14, 11.7MB/s] 35%|███▍      | 89.0M/255M [00:07<00:14, 11.7MB/s] 35%|███▌      | 90.1M/255M [00:08<00:14, 11.7MB/s] 36%|███▌      | 91.2M/255M [00:08<00:14, 11.7MB/s] 36%|███▋      | 92.4M/255M [00:08<00:14, 11.7MB/s] 37%|███▋      | 93.5M/255M [00:08<00:14, 11.5MB/s] 37%|███▋      | 94.8M/255M [00:08<00:14, 11.8MB/s] 38%|███▊      | 95.9M/255M [00:08<00:14, 11.8MB/s] 38%|███▊      | 97.0M/255M [00:08<00:14, 11.7MB/s] 39%|███▊      | 98.1M/255M [00:08<00:13, 11.7MB/s] 39%|███▉      | 99.2M/255M [00:08<00:13, 11.7MB/s] 39%|███▉      | 100M/255M [00:08<00:13, 11.7MB/s]  40%|███▉      | 102M/255M [00:09<00:14, 11.4MB/s] 40%|████      | 103M/255M [00:09<00:13, 11.8MB/s] 41%|████      | 104M/255M [00:09<00:13, 11.8MB/s] 41%|████▏     | 105M/255M [00:09<00:13, 11.8MB/s] 42%|████▏     | 106M/255M [00:09<00:13, 11.8MB/s] 42%|████▏     | 108M/255M [00:09<00:13, 11.7MB/s] 43%|████▎     | 109M/255M [00:09<00:13, 11.7MB/s] 43%|████▎     | 110M/255M [00:09<00:12, 11.7MB/s] 44%|████▎     | 111M/255M [00:09<00:13, 11.5MB/s] 44%|████▍     | 112M/255M [00:10<00:12, 11.8MB/s] 45%|████▍     | 113M/255M [00:10<00:19, 7.77MB/s] 45%|████▍     | 114M/255M [00:10<00:17, 8.60MB/s] 45%|████▌     | 116M/255M [00:10<00:15, 9.33MB/s] 46%|████▌     | 117M/255M [00:10<00:14, 9.92MB/s] 46%|████▋     | 118M/255M [00:10<00:13, 10.4MB/s] 47%|████▋     | 119M/255M [00:10<00:13, 10.8MB/s] 47%|████▋     | 120M/255M [00:10<00:12, 11.0MB/s] 48%|████▊     | 121M/255M [00:11<00:12, 11.2MB/s] 48%|████▊     | 122M/255M [00:11<00:12, 11.4MB/s] 48%|████▊     | 124M/255M [00:11<00:11, 11.5MB/s] 49%|████▉     | 125M/255M [00:11<00:11, 11.5MB/s] 49%|████▉     | 126M/255M [00:11<00:11, 11.6MB/s] 50%|████▉     | 127M/255M [00:11<00:11, 11.6MB/s] 50%|█████     | 128M/255M [00:11<00:11, 11.6MB/s] 51%|█████     | 129M/255M [00:11<00:11, 11.7MB/s] 51%|█████     | 130M/255M [00:11<00:11, 11.7MB/s] 52%|█████▏    | 132M/255M [00:11<00:11, 11.7MB/s] 52%|█████▏    | 133M/255M [00:12<00:10, 11.7MB/s] 53%|█████▎    | 134M/255M [00:12<00:10, 11.7MB/s] 53%|█████▎    | 135M/255M [00:12<00:10, 11.7MB/s] 53%|█████▎    | 136M/255M [00:12<00:10, 11.7MB/s] 54%|█████▍    | 137M/255M [00:12<00:10, 11.7MB/s] 54%|█████▍    | 138M/255M [00:12<00:10, 11.7MB/s] 55%|█████▍    | 139M/255M [00:12<00:10, 11.7MB/s] 55%|█████▌    | 140M/255M [00:12<00:10, 11.7MB/s] 56%|█████▌    | 142M/255M [00:12<00:10, 11.7MB/s] 56%|█████▌    | 143M/255M [00:12<00:09, 11.7MB/s] 57%|█████▋    | 144M/255M [00:13<00:09, 11.7MB/s] 57%|█████▋    | 145M/255M [00:13<00:09, 11.7MB/s] 57%|█████▋    | 146M/255M [00:13<00:09, 11.7MB/s] 58%|█████▊    | 147M/255M [00:13<00:09, 11.7MB/s] 58%|█████▊    | 148M/255M [00:13<00:09, 11.7MB/s] 59%|█████▉    | 150M/255M [00:13<00:09, 11.7MB/s] 59%|█████▉    | 151M/255M [00:13<00:09, 11.7MB/s] 60%|█████▉    | 152M/255M [00:13<00:09, 11.7MB/s] 60%|██████    | 153M/255M [00:13<00:09, 11.7MB/s] 61%|██████    | 154M/255M [00:13<00:09, 11.7MB/s] 61%|██████    | 155M/255M [00:14<00:08, 11.7MB/s] 61%|██████▏   | 156M/255M [00:14<00:08, 11.7MB/s] 62%|██████▏   | 158M/255M [00:14<00:08, 11.7MB/s] 62%|██████▏   | 159M/255M [00:14<00:08, 11.5MB/s] 63%|██████▎   | 160M/255M [00:14<00:08, 11.8MB/s] 63%|██████▎   | 161M/255M [00:14<00:08, 11.8MB/s] 64%|██████▎   | 162M/255M [00:14<00:08, 11.7MB/s] 64%|██████▍   | 163M/255M [00:14<00:08, 11.7MB/s] 65%|██████▍   | 164M/255M [00:14<00:08, 11.5MB/s] 65%|██████▌   | 166M/255M [00:15<00:07, 11.8MB/s] 66%|██████▌   | 167M/255M [00:15<00:07, 11.8MB/s] 66%|██████▌   | 168M/255M [00:15<00:07, 11.8MB/s] 66%|██████▋   | 169M/255M [00:15<00:07, 11.7MB/s] 67%|██████▋   | 170M/255M [00:15<00:07, 11.7MB/s] 67%|██████▋   | 171M/255M [00:15<00:07, 11.7MB/s] 68%|██████▊   | 172M/255M [00:15<00:07, 11.7MB/s] 68%|██████▊   | 174M/255M [00:15<00:07, 11.7MB/s] 69%|██████▊   | 175M/255M [00:15<00:07, 11.7MB/s] 69%|██████▉   | 176M/255M [00:15<00:07, 11.7MB/s] 70%|██████▉   | 177M/255M [00:16<00:06, 11.7MB/s] 70%|██████▉   | 178M/255M [00:16<00:06, 11.7MB/s] 70%|███████   | 179M/255M [00:16<00:06, 11.7MB/s] 71%|███████   | 180M/255M [00:16<00:06, 11.7MB/s] 71%|███████▏  | 182M/255M [00:16<00:06, 11.7MB/s] 72%|███████▏  | 183M/255M [00:16<00:06, 11.7MB/s] 72%|███████▏  | 184M/255M [00:16<00:06, 11.7MB/s] 73%|███████▎  | 185M/255M [00:16<00:06, 11.7MB/s] 73%|███████▎  | 186M/255M [00:16<00:06, 11.7MB/s] 74%|███████▎  | 187M/255M [00:16<00:06, 11.7MB/s] 74%|███████▍  | 188M/255M [00:17<00:05, 11.6MB/s] 74%|███████▍  | 190M/255M [00:17<00:05, 11.8MB/s] 75%|███████▍  | 191M/255M [00:17<00:05, 11.7MB/s] 75%|███████▌  | 192M/255M [00:17<00:05, 11.7MB/s] 76%|███████▌  | 193M/255M [00:17<00:05, 11.7MB/s] 76%|███████▌  | 194M/255M [00:17<00:05, 11.4MB/s] 77%|███████▋  | 195M/255M [00:17<00:05, 11.4MB/s] 77%|███████▋  | 196M/255M [00:17<00:05, 11.6MB/s] 78%|███████▊  | 198M/255M [00:17<00:05, 11.6MB/s] 78%|███████▊  | 199M/255M [00:17<00:05, 11.7MB/s] 78%|███████▊  | 200M/255M [00:18<00:04, 11.7MB/s] 79%|███████▉  | 201M/255M [00:18<00:04, 11.7MB/s] 79%|███████▉  | 202M/255M [00:18<00:04, 11.7MB/s] 80%|███████▉  | 203M/255M [00:18<00:04, 11.7MB/s] 80%|████████  | 204M/255M [00:18<00:04, 11.7MB/s] 81%|████████  | 206M/255M [00:18<00:04, 11.7MB/s] 81%|████████  | 207M/255M [00:18<00:04, 11.7MB/s] 82%|████████▏ | 208M/255M [00:18<00:04, 11.7MB/s] 82%|████████▏ | 209M/255M [00:18<00:04, 11.7MB/s] 82%|████████▏ | 210M/255M [00:18<00:03, 11.7MB/s] 83%|████████▎ | 211M/255M [00:19<00:03, 11.7MB/s] 83%|████████▎ | 212M/255M [00:19<00:03, 11.7MB/s] 84%|████████▍ | 213M/255M [00:19<00:03, 11.7MB/s] 84%|████████▍ | 214M/255M [00:19<00:03, 11.7MB/s] 85%|████████▍ | 216M/255M [00:19<00:03, 11.7MB/s] 85%|████████▌ | 217M/255M [00:19<00:03, 11.7MB/s] 86%|████████▌ | 218M/255M [00:19<00:03, 11.7MB/s] 86%|████████▌ | 219M/255M [00:19<00:03, 11.7MB/s] 86%|████████▋ | 220M/255M [00:19<00:03, 11.7MB/s] 87%|████████▋ | 221M/255M [00:19<00:02, 11.7MB/s] 87%|████████▋ | 222M/255M [00:20<00:02, 11.7MB/s] 88%|████████▊ | 224M/255M [00:20<00:02, 11.7MB/s] 88%|████████▊ | 225M/255M [00:20<00:03, 10.5MB/s] 89%|████████▊ | 226M/255M [00:20<00:03, 7.74MB/s] 89%|████████▉ | 227M/255M [00:20<00:03, 8.62MB/s] 90%|████████▉ | 228M/255M [00:20<00:02, 9.37MB/s] 90%|████████▉ | 229M/255M [00:20<00:02, 9.97MB/s] 90%|█████████ | 230M/255M [00:20<00:02, 10.4MB/s] 91%|█████████ | 231M/255M [00:21<00:02, 10.8MB/s] 91%|█████████▏| 232M/255M [00:21<00:02, 11.1MB/s] 92%|█████████▏| 234M/255M [00:21<00:01, 11.2MB/s] 92%|█████████▏| 235M/255M [00:21<00:01, 11.4MB/s] 93%|█████████▎| 236M/255M [00:21<00:01, 11.4MB/s] 93%|█████████▎| 237M/255M [00:21<00:01, 11.6MB/s] 94%|█████████▎| 238M/255M [00:21<00:01, 11.6MB/s] 94%|█████████▍| 239M/255M [00:21<00:01, 11.7MB/s] 94%|█████████▍| 240M/255M [00:21<00:01, 11.7MB/s] 95%|█████████▍| 242M/255M [00:22<00:01, 11.7MB/s] 95%|█████████▌| 243M/255M [00:22<00:01, 11.7MB/s] 96%|█████████▌| 244M/255M [00:22<00:00, 11.6MB/s] 96%|█████████▌| 245M/255M [00:22<00:00, 11.7MB/s] 97%|█████████▋| 246M/255M [00:22<00:00, 11.7MB/s] 97%|█████████▋| 247M/255M [00:22<00:00, 11.7MB/s] 98%|█████████▊| 248M/255M [00:22<00:00, 11.7MB/s] 98%|█████████▊| 250M/255M [00:22<00:00, 11.6MB/s] 99%|█████████▊| 251M/255M [00:22<00:00, 11.7MB/s] 99%|█████████▉| 252M/255M [00:22<00:00, 11.7MB/s] 99%|█████████▉| 253M/255M [00:23<00:00, 11.7MB/s]100%|█████████▉| 254M/255M [00:23<00:00, 11.7MB/s]100%|██████████| 255M/255M [00:23<00:00, 11.5MB/s]
+Epoch 1: Train Acc: 25.70%, Valid Acc: 24.91%
+Epoch 2: Train Acc: 38.15%, Valid Acc: 23.93%
+Epoch 3: Train Acc: 41.34%, Valid Acc: 30.06%
+Epoch 4: Train Acc: 42.69%, Valid Acc: 39.05%
+Epoch 5: Train Acc: 45.36%, Valid Acc: 40.82%
+Epoch 6: Train Acc: 46.26%, Valid Acc: 45.36%
+Epoch 7: Train Acc: 48.48%, Valid Acc: 31.86%
+Epoch 8: Train Acc: 49.38%, Valid Acc: 45.73%
+Epoch 9: Train Acc: 50.44%, Valid Acc: 45.83%
+Epoch 10: Train Acc: 51.37%, Valid Acc: 50.00%
+Epoch 11: Train Acc: 52.80%, Valid Acc: 49.30%
+Epoch 12: Train Acc: 54.85%, Valid Acc: 47.96%
+Epoch 13: Train Acc: 56.25%, Valid Acc: 47.36%
+Epoch 14: Train Acc: 57.12%, Valid Acc: 48.70%
+Epoch 15: Train Acc: 59.11%, Valid Acc: 52.04%
+Epoch 16: Train Acc: 59.46%, Valid Acc: 49.72%
+Epoch 17: Train Acc: 61.81%, Valid Acc: 49.12%
+Epoch 18: Train Acc: 63.10%, Valid Acc: 53.29%
+Epoch 19: Train Acc: 64.54%, Valid Acc: 46.52%
+Epoch 20: Train Acc: 66.98%, Valid Acc: 49.35%
+Epoch 21: Train Acc: 76.34%, Valid Acc: 55.94%
+Epoch 22: Train Acc: 80.88%, Valid Acc: 59.09%
+Epoch 23: Train Acc: 81.60%, Valid Acc: 58.63%
+Epoch 24: Train Acc: 83.31%, Valid Acc: 61.87%
+Epoch 25: Train Acc: 83.90%, Valid Acc: 63.13%
+Epoch 26: Train Acc: 85.09%, Valid Acc: 63.13%
+Epoch 27: Train Acc: 84.64%, Valid Acc: 66.60%
+Epoch 28: Train Acc: 85.55%, Valid Acc: 64.70%
+Epoch 29: Train Acc: 85.34%, Valid Acc: 62.38%
+Epoch 30: Train Acc: 86.36%, Valid Acc: 63.64%
+Epoch 31: Train Acc: 86.87%, Valid Acc: 58.30%
+Epoch 32: Train Acc: 86.09%, Valid Acc: 61.78%
+Epoch 33: Train Acc: 86.62%, Valid Acc: 65.03%
+Epoch 34: Train Acc: 86.63%, Valid Acc: 67.58%
+Epoch 35: Train Acc: 87.44%, Valid Acc: 67.53%
+Epoch 36: Train Acc: 87.49%, Valid Acc: 65.40%
+Epoch 37: Train Acc: 87.45%, Valid Acc: 66.19%
+Epoch 38: Train Acc: 86.82%, Valid Acc: 66.05%
+Epoch 39: Train Acc: 88.23%, Valid Acc: 64.42%
+Epoch 40: Train Acc: 88.13%, Valid Acc: 67.30%
+Epoch 41: Train Acc: 90.24%, Valid Acc: 72.26%
+Epoch 42: Train Acc: 90.91%, Valid Acc: 71.57%
+Epoch 43: Train Acc: 91.19%, Valid Acc: 73.42%
+Epoch 44: Train Acc: 90.78%, Valid Acc: 71.61%
+Epoch 45: Train Acc: 91.18%, Valid Acc: 73.10%
+Epoch 46: Train Acc: 91.10%, Valid Acc: 73.05%
+Epoch 47: Train Acc: 90.82%, Valid Acc: 72.63%
+Epoch 48: Train Acc: 91.04%, Valid Acc: 71.29%
+Epoch 49: Train Acc: 90.98%, Valid Acc: 71.61%
+Epoch 50: Train Acc: 91.52%, Valid Acc: 72.03%
+Epoch 51: Train Acc: 90.97%, Valid Acc: 71.75%
+Epoch 52: Train Acc: 91.11%, Valid Acc: 70.78%
+Epoch 53: Train Acc: 90.69%, Valid Acc: 70.18%
+Epoch 54: Train Acc: 90.96%, Valid Acc: 72.96%
+Epoch 55: Train Acc: 90.50%, Valid Acc: 72.17%
+Epoch 56: Train Acc: 91.10%, Valid Acc: 68.69%
+Epoch 57: Train Acc: 90.93%, Valid Acc: 72.31%
+Epoch 58: Train Acc: 91.20%, Valid Acc: 72.40%
+Epoch 59: Train Acc: 91.21%, Valid Acc: 71.47%
+Epoch 60: Train Acc: 90.18%, Valid Acc: 70.64%
+Epoch 61: Train Acc: 92.32%, Valid Acc: 73.24%
+Epoch 62: Train Acc: 91.97%, Valid Acc: 73.47%
+Epoch 63: Train Acc: 92.18%, Valid Acc: 73.33%
+Epoch 64: Train Acc: 91.81%, Valid Acc: 73.10%
+Epoch 65: Train Acc: 91.79%, Valid Acc: 74.03%
+Epoch 66: Train Acc: 91.69%, Valid Acc: 72.63%
+Epoch 67: Train Acc: 91.69%, Valid Acc: 73.05%
+Epoch 68: Train Acc: 91.61%, Valid Acc: 73.01%
+Epoch 69: Train Acc: 91.95%, Valid Acc: 72.50%
+Epoch 70: Train Acc: 92.05%, Valid Acc: 73.24%
+Epoch 71: Train Acc: 91.88%, Valid Acc: 74.17%
+Epoch 72: Train Acc: 91.86%, Valid Acc: 73.33%
+Epoch 73: Train Acc: 91.99%, Valid Acc: 73.56%
+Epoch 74: Train Acc: 92.06%, Valid Acc: 73.28%
+Epoch 75: Train Acc: 92.03%, Valid Acc: 71.89%
+Epoch 76: Train Acc: 91.66%, Valid Acc: 73.05%
+Epoch 77: Train Acc: 91.91%, Valid Acc: 73.56%
+Epoch 78: Train Acc: 91.88%, Valid Acc: 73.65%
+Epoch 79: Train Acc: 91.72%, Valid Acc: 74.03%
+Epoch 80: Train Acc: 92.13%, Valid Acc: 73.33%
+
+Training EfficientNet-B0 for Valid Fold 1
+Epoch 1: Train Acc: 35.82%, Valid Acc: 37.22%
+Epoch 2: Train Acc: 44.18%, Valid Acc: 46.36%
+Epoch 3: Train Acc: 47.81%, Valid Acc: 49.47%
+Epoch 4: Train Acc: 48.58%, Valid Acc: 46.26%
+Epoch 5: Train Acc: 51.69%, Valid Acc: 40.32%
+Epoch 6: Train Acc: 52.92%, Valid Acc: 49.79%
+Epoch 7: Train Acc: 54.33%, Valid Acc: 49.23%
+Epoch 8: Train Acc: 54.84%, Valid Acc: 54.52%
+Epoch 9: Train Acc: 57.36%, Valid Acc: 55.92%
+Epoch 10: Train Acc: 58.99%, Valid Acc: 49.19%
+Epoch 11: Train Acc: 61.27%, Valid Acc: 52.58%
+Epoch 12: Train Acc: 63.45%, Valid Acc: 57.22%
+Epoch 13: Train Acc: 64.23%, Valid Acc: 54.80%
+Epoch 14: Train Acc: 66.87%, Valid Acc: 58.70%
+Epoch 15: Train Acc: 69.04%, Valid Acc: 61.72%
+Epoch 16: Train Acc: 70.59%, Valid Acc: 55.50%
+Epoch 17: Train Acc: 71.76%, Valid Acc: 59.12%
+Epoch 18: Train Acc: 74.00%, Valid Acc: 59.44%
+Epoch 19: Train Acc: 74.97%, Valid Acc: 61.90%
+Epoch 20: Train Acc: 75.32%, Valid Acc: 62.13%
+Epoch 21: Train Acc: 84.03%, Valid Acc: 72.25%
+Epoch 22: Train Acc: 86.95%, Valid Acc: 72.25%
+Epoch 23: Train Acc: 87.58%, Valid Acc: 70.63%
+Epoch 24: Train Acc: 87.68%, Valid Acc: 68.91%
+Epoch 25: Train Acc: 88.29%, Valid Acc: 72.39%
+Epoch 26: Train Acc: 88.10%, Valid Acc: 72.99%
+Epoch 27: Train Acc: 88.48%, Valid Acc: 73.50%
+Epoch 28: Train Acc: 87.09%, Valid Acc: 69.33%
+Epoch 29: Train Acc: 87.98%, Valid Acc: 71.09%
+Epoch 30: Train Acc: 87.68%, Valid Acc: 70.95%
+Epoch 31: Train Acc: 88.19%, Valid Acc: 72.25%
+Epoch 32: Train Acc: 88.16%, Valid Acc: 71.28%
+Epoch 33: Train Acc: 88.56%, Valid Acc: 71.83%
+Epoch 34: Train Acc: 88.08%, Valid Acc: 69.70%
+Epoch 35: Train Acc: 88.47%, Valid Acc: 70.67%
+Epoch 36: Train Acc: 89.16%, Valid Acc: 72.39%
+Epoch 37: Train Acc: 89.12%, Valid Acc: 72.20%
+Epoch 38: Train Acc: 88.30%, Valid Acc: 71.69%
+Epoch 39: Train Acc: 88.96%, Valid Acc: 70.81%
+Epoch 40: Train Acc: 88.51%, Valid Acc: 72.99%
+Epoch 41: Train Acc: 90.80%, Valid Acc: 74.94%
+Epoch 42: Train Acc: 90.87%, Valid Acc: 75.17%
+Epoch 43: Train Acc: 91.17%, Valid Acc: 73.64%
+Epoch 44: Train Acc: 91.03%, Valid Acc: 74.52%
+Epoch 45: Train Acc: 91.12%, Valid Acc: 75.55%
+Epoch 46: Train Acc: 90.76%, Valid Acc: 73.50%
+Epoch 47: Train Acc: 91.05%, Valid Acc: 73.69%
+Epoch 48: Train Acc: 90.77%, Valid Acc: 74.15%
+Epoch 49: Train Acc: 90.85%, Valid Acc: 74.20%
+Epoch 50: Train Acc: 90.74%, Valid Acc: 74.48%
+Epoch 51: Train Acc: 91.09%, Valid Acc: 72.53%
+Epoch 52: Train Acc: 90.47%, Valid Acc: 73.64%
+Epoch 53: Train Acc: 90.64%, Valid Acc: 75.17%
+Epoch 54: Train Acc: 90.94%, Valid Acc: 74.94%
+Epoch 55: Train Acc: 91.10%, Valid Acc: 74.29%
+Epoch 56: Train Acc: 90.71%, Valid Acc: 73.92%
+Epoch 57: Train Acc: 90.74%, Valid Acc: 73.18%
+Epoch 58: Train Acc: 90.84%, Valid Acc: 73.13%
+Epoch 59: Train Acc: 90.46%, Valid Acc: 73.64%
+Epoch 60: Train Acc: 90.85%, Valid Acc: 73.55%
+Epoch 61: Train Acc: 91.46%, Valid Acc: 73.27%
+Epoch 62: Train Acc: 91.85%, Valid Acc: 73.64%
+Epoch 63: Train Acc: 91.60%, Valid Acc: 74.01%
+Epoch 64: Train Acc: 91.66%, Valid Acc: 74.76%
+Epoch 65: Train Acc: 91.61%, Valid Acc: 74.90%
+Epoch 66: Train Acc: 91.33%, Valid Acc: 74.01%
+Epoch 67: Train Acc: 91.61%, Valid Acc: 74.48%
+Epoch 68: Train Acc: 91.53%, Valid Acc: 74.39%
+Epoch 69: Train Acc: 91.59%, Valid Acc: 73.87%
+Epoch 70: Train Acc: 91.26%, Valid Acc: 74.34%
+Epoch 71: Train Acc: 91.35%, Valid Acc: 73.92%
+Epoch 72: Train Acc: 91.77%, Valid Acc: 74.25%
+Epoch 73: Train Acc: 91.42%, Valid Acc: 73.50%
+Epoch 74: Train Acc: 91.60%, Valid Acc: 74.34%
+Epoch 75: Train Acc: 91.47%, Valid Acc: 74.76%
+Epoch 76: Train Acc: 91.66%, Valid Acc: 73.78%
+Epoch 77: Train Acc: 91.46%, Valid Acc: 74.48%
+Epoch 78: Train Acc: 91.19%, Valid Acc: 74.48%
+Epoch 79: Train Acc: 91.52%, Valid Acc: 73.78%
+Epoch 80: Train Acc: 91.90%, Valid Acc: 74.48%
+
+Training EfficientNet-B4 for Valid Fold 1
+Epoch 1: Train Acc: 38.51%, Valid Acc: 47.15%
+Epoch 2: Train Acc: 47.37%, Valid Acc: 48.49%
+Epoch 3: Train Acc: 52.33%, Valid Acc: 52.48%
+Epoch 4: Train Acc: 53.65%, Valid Acc: 49.00%
+Epoch 5: Train Acc: 56.11%, Valid Acc: 56.98%
+Epoch 6: Train Acc: 58.04%, Valid Acc: 58.19%
+Epoch 7: Train Acc: 61.16%, Valid Acc: 62.69%
+Epoch 8: Train Acc: 63.22%, Valid Acc: 62.00%
+Epoch 9: Train Acc: 66.19%, Valid Acc: 58.93%
+Epoch 10: Train Acc: 69.44%, Valid Acc: 61.44%
+Epoch 11: Train Acc: 70.96%, Valid Acc: 61.62%
+Epoch 12: Train Acc: 72.50%, Valid Acc: 61.53%
+Epoch 13: Train Acc: 75.18%, Valid Acc: 64.50%
+Epoch 14: Train Acc: 76.56%, Valid Acc: 65.01%
+Epoch 15: Train Acc: 78.40%, Valid Acc: 67.66%
+Epoch 16: Train Acc: 80.50%, Valid Acc: 64.41%
+Epoch 17: Train Acc: 79.38%, Valid Acc: 67.24%
+Epoch 18: Train Acc: 81.01%, Valid Acc: 69.88%
+Epoch 19: Train Acc: 82.20%, Valid Acc: 68.82%
+Epoch 20: Train Acc: 81.89%, Valid Acc: 68.26%
+Epoch 21: Train Acc: 87.83%, Valid Acc: 76.57%
+Epoch 22: Train Acc: 90.01%, Valid Acc: 76.24%
+Epoch 23: Train Acc: 90.05%, Valid Acc: 75.03%
+Epoch 24: Train Acc: 90.06%, Valid Acc: 75.78%
+Epoch 25: Train Acc: 90.27%, Valid Acc: 74.94%
+Epoch 26: Train Acc: 89.66%, Valid Acc: 74.99%
+Epoch 27: Train Acc: 89.41%, Valid Acc: 74.39%
+Epoch 28: Train Acc: 89.55%, Valid Acc: 74.39%
+Epoch 29: Train Acc: 89.55%, Valid Acc: 75.17%
+Epoch 30: Train Acc: 89.40%, Valid Acc: 74.43%
+Epoch 31: Train Acc: 89.32%, Valid Acc: 73.04%
+Epoch 32: Train Acc: 89.23%, Valid Acc: 74.57%
+Epoch 33: Train Acc: 89.34%, Valid Acc: 73.46%
+Epoch 34: Train Acc: 89.25%, Valid Acc: 72.11%
+Epoch 35: Train Acc: 89.01%, Valid Acc: 75.50%
+Epoch 36: Train Acc: 90.02%, Valid Acc: 76.10%
+Epoch 37: Train Acc: 89.70%, Valid Acc: 74.57%
+Epoch 38: Train Acc: 89.55%, Valid Acc: 72.85%
+Epoch 39: Train Acc: 88.89%, Valid Acc: 72.48%
+Epoch 40: Train Acc: 89.19%, Valid Acc: 73.32%
+Epoch 41: Train Acc: 90.89%, Valid Acc: 74.43%
+Epoch 42: Train Acc: 91.33%, Valid Acc: 75.03%
+Epoch 43: Train Acc: 91.49%, Valid Acc: 75.22%
+Epoch 44: Train Acc: 91.39%, Valid Acc: 74.57%
+Epoch 45: Train Acc: 91.92%, Valid Acc: 75.41%
+Epoch 46: Train Acc: 91.50%, Valid Acc: 74.62%
+Epoch 47: Train Acc: 91.57%, Valid Acc: 75.27%
+Epoch 48: Train Acc: 91.18%, Valid Acc: 74.99%
+Epoch 49: Train Acc: 91.01%, Valid Acc: 74.48%
+Epoch 50: Train Acc: 91.04%, Valid Acc: 74.85%
+Epoch 51: Train Acc: 91.34%, Valid Acc: 74.39%
+Epoch 52: Train Acc: 91.61%, Valid Acc: 75.31%
+Epoch 53: Train Acc: 91.42%, Valid Acc: 74.34%
+Epoch 54: Train Acc: 91.66%, Valid Acc: 74.66%
+Epoch 55: Train Acc: 91.03%, Valid Acc: 73.87%
+Epoch 56: Train Acc: 91.45%, Valid Acc: 74.43%
+Epoch 57: Train Acc: 91.13%, Valid Acc: 75.41%
+Epoch 58: Train Acc: 91.32%, Valid Acc: 74.48%
+Epoch 59: Train Acc: 91.07%, Valid Acc: 74.99%
+Epoch 60: Train Acc: 91.47%, Valid Acc: 74.52%
+Epoch 61: Train Acc: 92.28%, Valid Acc: 74.62%
+Epoch 62: Train Acc: 92.19%, Valid Acc: 74.99%
+Epoch 63: Train Acc: 92.52%, Valid Acc: 74.48%
+Epoch 64: Train Acc: 92.50%, Valid Acc: 76.29%
+Epoch 65: Train Acc: 92.17%, Valid Acc: 74.66%
+Epoch 66: Train Acc: 92.41%, Valid Acc: 75.92%
+Epoch 67: Train Acc: 92.27%, Valid Acc: 74.66%
+Epoch 68: Train Acc: 92.16%, Valid Acc: 75.22%
+Epoch 69: Train Acc: 92.24%, Valid Acc: 75.08%
+Epoch 70: Train Acc: 92.26%, Valid Acc: 75.73%
+Epoch 71: Train Acc: 92.54%, Valid Acc: 75.50%
+Epoch 72: Train Acc: 92.12%, Valid Acc: 75.22%
+Epoch 73: Train Acc: 92.31%, Valid Acc: 76.01%
+Epoch 74: Train Acc: 92.17%, Valid Acc: 74.29%
+Epoch 75: Train Acc: 92.23%, Valid Acc: 75.50%
+Epoch 76: Train Acc: 92.32%, Valid Acc: 76.24%
+Epoch 77: Train Acc: 92.28%, Valid Acc: 75.82%
+Epoch 78: Train Acc: 92.10%, Valid Acc: 75.13%
+Epoch 79: Train Acc: 92.05%, Valid Acc: 75.73%
+Epoch 80: Train Acc: 92.35%, Valid Acc: 74.43%
+
+Training EfficientNet-B7 for Valid Fold 1
+Epoch 1: Train Acc: 29.65%, Valid Acc: 10.21%
+Epoch 2: Train Acc: 39.19%, Valid Acc: 33.18%
+Epoch 3: Train Acc: 41.46%, Valid Acc: 26.08%
+Epoch 4: Train Acc: 43.77%, Valid Acc: 27.19%
+Epoch 5: Train Acc: 45.73%, Valid Acc: 40.28%
+Epoch 6: Train Acc: 47.44%, Valid Acc: 39.49%
+Epoch 7: Train Acc: 48.52%, Valid Acc: 45.43%
+Epoch 8: Train Acc: 50.16%, Valid Acc: 51.55%
+Epoch 9: Train Acc: 51.33%, Valid Acc: 44.32%
+Epoch 10: Train Acc: 52.61%, Valid Acc: 38.56%
+Epoch 11: Train Acc: 54.04%, Valid Acc: 44.18%
+Epoch 12: Train Acc: 55.68%, Valid Acc: 41.11%
+Epoch 13: Train Acc: 57.11%, Valid Acc: 44.50%
+Epoch 14: Train Acc: 58.47%, Valid Acc: 44.59%
+Epoch 15: Train Acc: 59.77%, Valid Acc: 52.11%
+Epoch 16: Train Acc: 62.79%, Valid Acc: 48.63%
+Epoch 17: Train Acc: 64.52%, Valid Acc: 50.49%
+Epoch 18: Train Acc: 65.40%, Valid Acc: 55.45%
+Epoch 19: Train Acc: 67.00%, Valid Acc: 54.01%
+Epoch 20: Train Acc: 68.61%, Valid Acc: 41.44%
+Epoch 21: Train Acc: 79.21%, Valid Acc: 60.60%
+Epoch 22: Train Acc: 83.09%, Valid Acc: 63.16%
+Epoch 23: Train Acc: 84.08%, Valid Acc: 64.92%
+Epoch 24: Train Acc: 85.57%, Valid Acc: 68.96%
+Epoch 25: Train Acc: 85.82%, Valid Acc: 63.76%
+Epoch 26: Train Acc: 85.62%, Valid Acc: 63.11%
+Epoch 27: Train Acc: 85.90%, Valid Acc: 68.63%
+Epoch 28: Train Acc: 87.02%, Valid Acc: 67.89%
+Epoch 29: Train Acc: 87.64%, Valid Acc: 61.76%
+Epoch 30: Train Acc: 87.58%, Valid Acc: 59.63%
+Epoch 31: Train Acc: 86.95%, Valid Acc: 68.26%
+Epoch 32: Train Acc: 87.11%, Valid Acc: 65.66%
+Epoch 33: Train Acc: 87.50%, Valid Acc: 68.21%
+Epoch 34: Train Acc: 87.70%, Valid Acc: 69.79%
+Epoch 35: Train Acc: 87.37%, Valid Acc: 60.88%
+Epoch 36: Train Acc: 87.83%, Valid Acc: 66.31%
+Epoch 37: Train Acc: 87.66%, Valid Acc: 65.57%
+Epoch 38: Train Acc: 87.70%, Valid Acc: 55.96%
+Epoch 39: Train Acc: 88.16%, Valid Acc: 64.45%
+Epoch 40: Train Acc: 88.24%, Valid Acc: 62.69%
+Epoch 41: Train Acc: 90.18%, Valid Acc: 72.06%
+Epoch 42: Train Acc: 91.37%, Valid Acc: 72.30%
+Epoch 43: Train Acc: 90.69%, Valid Acc: 72.11%
+Epoch 44: Train Acc: 90.87%, Valid Acc: 72.16%
+Epoch 45: Train Acc: 91.03%, Valid Acc: 71.09%
+Epoch 46: Train Acc: 90.89%, Valid Acc: 71.37%
+Epoch 47: Train Acc: 90.78%, Valid Acc: 71.04%
+Epoch 48: Train Acc: 91.16%, Valid Acc: 71.65%
+Epoch 49: Train Acc: 90.68%, Valid Acc: 70.63%
+Epoch 50: Train Acc: 90.81%, Valid Acc: 71.09%
+Epoch 51: Train Acc: 90.71%, Valid Acc: 72.11%
+Epoch 52: Train Acc: 91.11%, Valid Acc: 72.39%
+Epoch 53: Train Acc: 90.85%, Valid Acc: 72.58%
+Epoch 54: Train Acc: 90.91%, Valid Acc: 73.23%
+Epoch 55: Train Acc: 90.73%, Valid Acc: 72.58%
+Epoch 56: Train Acc: 90.77%, Valid Acc: 71.55%
+Epoch 57: Train Acc: 90.62%, Valid Acc: 71.74%
+Epoch 58: Train Acc: 90.75%, Valid Acc: 72.44%
+Epoch 59: Train Acc: 91.02%, Valid Acc: 66.45%
+Epoch 60: Train Acc: 91.04%, Valid Acc: 70.58%
+Epoch 61: Train Acc: 91.59%, Valid Acc: 73.69%
+Epoch 62: Train Acc: 91.54%, Valid Acc: 73.27%
+Epoch 63: Train Acc: 91.70%, Valid Acc: 72.25%
+Epoch 64: Train Acc: 91.71%, Valid Acc: 72.81%
+Epoch 65: Train Acc: 91.85%, Valid Acc: 73.64%
+Epoch 66: Train Acc: 91.84%, Valid Acc: 72.62%
+Epoch 67: Train Acc: 91.14%, Valid Acc: 72.95%
+Epoch 68: Train Acc: 91.62%, Valid Acc: 72.71%
+Epoch 69: Train Acc: 91.28%, Valid Acc: 72.53%
+Epoch 70: Train Acc: 91.80%, Valid Acc: 73.04%
+Epoch 71: Train Acc: 91.55%, Valid Acc: 73.04%
+Epoch 72: Train Acc: 91.56%, Valid Acc: 73.97%
+Epoch 73: Train Acc: 91.07%, Valid Acc: 73.13%
+Epoch 74: Train Acc: 91.61%, Valid Acc: 68.26%
+Epoch 75: Train Acc: 91.71%, Valid Acc: 73.55%
+Epoch 76: Train Acc: 91.63%, Valid Acc: 72.90%
+Epoch 77: Train Acc: 91.87%, Valid Acc: 73.64%
+Epoch 78: Train Acc: 91.32%, Valid Acc: 72.44%
+Epoch 79: Train Acc: 91.85%, Valid Acc: 72.06%
+Epoch 80: Train Acc: 91.39%, Valid Acc: 72.06%
+
+Training EfficientNet-B0 for Valid Fold 2
+Epoch 1: Train Acc: 36.93%, Valid Acc: 40.17%
+Epoch 2: Train Acc: 44.62%, Valid Acc: 44.21%
+Epoch 3: Train Acc: 47.53%, Valid Acc: 46.35%
+Epoch 4: Train Acc: 49.10%, Valid Acc: 49.98%
+Epoch 5: Train Acc: 50.64%, Valid Acc: 49.28%
+Epoch 6: Train Acc: 50.96%, Valid Acc: 44.58%
+Epoch 7: Train Acc: 53.62%, Valid Acc: 46.54%
+Epoch 8: Train Acc: 54.88%, Valid Acc: 46.58%
+Epoch 9: Train Acc: 56.65%, Valid Acc: 50.40%
+Epoch 10: Train Acc: 57.96%, Valid Acc: 50.81%
+Epoch 11: Train Acc: 59.39%, Valid Acc: 49.98%
+Epoch 12: Train Acc: 61.70%, Valid Acc: 53.56%
+Epoch 13: Train Acc: 62.35%, Valid Acc: 55.88%
+Epoch 14: Train Acc: 64.50%, Valid Acc: 55.32%
+Epoch 15: Train Acc: 66.45%, Valid Acc: 51.19%
+Epoch 16: Train Acc: 67.95%, Valid Acc: 56.95%
+Epoch 17: Train Acc: 70.11%, Valid Acc: 58.30%
+Epoch 18: Train Acc: 71.60%, Valid Acc: 55.97%
+Epoch 19: Train Acc: 72.34%, Valid Acc: 57.46%
+Epoch 20: Train Acc: 74.39%, Valid Acc: 59.79%
+Epoch 21: Train Acc: 82.59%, Valid Acc: 66.48%
+Epoch 22: Train Acc: 85.54%, Valid Acc: 68.90%
+Epoch 23: Train Acc: 85.41%, Valid Acc: 67.46%
+Epoch 24: Train Acc: 86.77%, Valid Acc: 69.04%
+Epoch 25: Train Acc: 87.90%, Valid Acc: 67.32%
+Epoch 26: Train Acc: 87.80%, Valid Acc: 71.18%
+Epoch 27: Train Acc: 88.57%, Valid Acc: 69.41%
+Epoch 28: Train Acc: 88.00%, Valid Acc: 65.55%
+Epoch 29: Train Acc: 87.16%, Valid Acc: 67.50%
+Epoch 30: Train Acc: 87.50%, Valid Acc: 66.34%
+Epoch 31: Train Acc: 88.02%, Valid Acc: 70.85%
+Epoch 32: Train Acc: 88.38%, Valid Acc: 71.13%
+Epoch 33: Train Acc: 87.83%, Valid Acc: 71.41%
+Epoch 34: Train Acc: 88.58%, Valid Acc: 67.97%
+Epoch 35: Train Acc: 88.18%, Valid Acc: 68.85%
+Epoch 36: Train Acc: 89.13%, Valid Acc: 68.06%
+Epoch 37: Train Acc: 88.50%, Valid Acc: 66.81%
+Epoch 38: Train Acc: 88.90%, Valid Acc: 69.27%
+Epoch 39: Train Acc: 88.48%, Valid Acc: 69.27%
+Epoch 40: Train Acc: 87.93%, Valid Acc: 70.39%
+Epoch 41: Train Acc: 90.54%, Valid Acc: 72.25%
+Epoch 42: Train Acc: 90.82%, Valid Acc: 72.48%
+Epoch 43: Train Acc: 91.33%, Valid Acc: 72.38%
+Epoch 44: Train Acc: 90.86%, Valid Acc: 71.73%
+Epoch 45: Train Acc: 91.16%, Valid Acc: 72.71%
+Epoch 46: Train Acc: 90.95%, Valid Acc: 71.32%
+Epoch 47: Train Acc: 90.87%, Valid Acc: 72.15%
+Epoch 48: Train Acc: 90.80%, Valid Acc: 70.48%
+Epoch 49: Train Acc: 90.75%, Valid Acc: 73.18%
+Epoch 50: Train Acc: 91.01%, Valid Acc: 71.36%
+Epoch 51: Train Acc: 90.81%, Valid Acc: 70.11%
+Epoch 52: Train Acc: 91.03%, Valid Acc: 71.55%
+Epoch 53: Train Acc: 90.86%, Valid Acc: 71.87%
+Epoch 54: Train Acc: 91.16%, Valid Acc: 71.27%
+Epoch 55: Train Acc: 90.75%, Valid Acc: 72.43%
+Epoch 56: Train Acc: 91.33%, Valid Acc: 72.43%
+Epoch 57: Train Acc: 90.81%, Valid Acc: 72.15%
+Epoch 58: Train Acc: 91.13%, Valid Acc: 71.64%
+Epoch 59: Train Acc: 90.79%, Valid Acc: 71.78%
+Epoch 60: Train Acc: 90.86%, Valid Acc: 70.25%
+Epoch 61: Train Acc: 91.78%, Valid Acc: 72.99%
+Epoch 62: Train Acc: 91.54%, Valid Acc: 71.55%
+Epoch 63: Train Acc: 92.02%, Valid Acc: 71.41%
+Epoch 64: Train Acc: 91.73%, Valid Acc: 72.15%
+Epoch 65: Train Acc: 91.63%, Valid Acc: 72.38%
+Epoch 66: Train Acc: 91.75%, Valid Acc: 71.92%
+Epoch 67: Train Acc: 91.76%, Valid Acc: 71.36%
+Epoch 68: Train Acc: 91.95%, Valid Acc: 71.97%
+Epoch 69: Train Acc: 92.00%, Valid Acc: 71.50%
+Epoch 70: Train Acc: 91.28%, Valid Acc: 72.71%
+Epoch 71: Train Acc: 91.83%, Valid Acc: 71.83%
+Epoch 72: Train Acc: 91.66%, Valid Acc: 71.78%
+Epoch 73: Train Acc: 91.89%, Valid Acc: 72.62%
+Epoch 74: Train Acc: 91.57%, Valid Acc: 71.50%
+Epoch 75: Train Acc: 91.81%, Valid Acc: 70.71%
+Epoch 76: Train Acc: 91.65%, Valid Acc: 71.13%
+Epoch 77: Train Acc: 91.38%, Valid Acc: 72.43%
+Epoch 78: Train Acc: 91.85%, Valid Acc: 72.11%
+Epoch 79: Train Acc: 91.64%, Valid Acc: 71.78%
+Epoch 80: Train Acc: 91.65%, Valid Acc: 71.69%
+
+Training EfficientNet-B4 for Valid Fold 2
+Epoch 1: Train Acc: 38.49%, Valid Acc: 46.07%
+Epoch 2: Train Acc: 43.45%, Valid Acc: 46.77%
+Epoch 3: Train Acc: 50.59%, Valid Acc: 50.30%
+Epoch 4: Train Acc: 49.45%, Valid Acc: 49.42%
+Epoch 5: Train Acc: 49.77%, Valid Acc: 55.83%
+Epoch 6: Train Acc: 55.71%, Valid Acc: 55.56%
+Epoch 7: Train Acc: 59.22%, Valid Acc: 54.77%
+Epoch 8: Train Acc: 59.82%, Valid Acc: 59.46%
+Epoch 9: Train Acc: 62.46%, Valid Acc: 46.26%
+Epoch 10: Train Acc: 51.09%, Valid Acc: 55.04%
+Epoch 11: Train Acc: 60.07%, Valid Acc: 58.39%
+Epoch 12: Train Acc: 62.41%, Valid Acc: 57.37%
+Epoch 13: Train Acc: 65.23%, Valid Acc: 55.93%
+Epoch 14: Train Acc: 67.88%, Valid Acc: 56.90%
+Epoch 15: Train Acc: 72.35%, Valid Acc: 63.78%
+Epoch 16: Train Acc: 72.76%, Valid Acc: 63.37%
+Epoch 17: Train Acc: 74.42%, Valid Acc: 63.46%
+Epoch 18: Train Acc: 73.50%, Valid Acc: 64.67%
+Epoch 19: Train Acc: 74.14%, Valid Acc: 59.14%
+Epoch 20: Train Acc: 56.73%, Valid Acc: 57.93%
+Epoch 21: Train Acc: 72.15%, Valid Acc: 63.64%
+Epoch 22: Train Acc: 78.26%, Valid Acc: 69.46%
+Epoch 23: Train Acc: 79.54%, Valid Acc: 68.39%
+Epoch 24: Train Acc: 83.44%, Valid Acc: 72.38%
+Epoch 25: Train Acc: 85.45%, Valid Acc: 71.36%
+Epoch 26: Train Acc: 86.11%, Valid Acc: 72.20%
+Epoch 27: Train Acc: 85.65%, Valid Acc: 72.11%
+Epoch 28: Train Acc: 86.57%, Valid Acc: 71.18%
+Epoch 29: Train Acc: 86.14%, Valid Acc: 72.11%
+Epoch 30: Train Acc: 87.21%, Valid Acc: 72.20%
+Epoch 31: Train Acc: 87.42%, Valid Acc: 71.08%
+Epoch 32: Train Acc: 87.00%, Valid Acc: 71.18%
+Epoch 33: Train Acc: 87.30%, Valid Acc: 70.11%
+Epoch 34: Train Acc: 87.18%, Valid Acc: 71.18%
+Epoch 35: Train Acc: 88.29%, Valid Acc: 71.41%
+Epoch 36: Train Acc: 87.27%, Valid Acc: 71.83%
+Epoch 37: Train Acc: 88.88%, Valid Acc: 72.29%
+Epoch 38: Train Acc: 87.20%, Valid Acc: 73.83%
+Epoch 39: Train Acc: 88.72%, Valid Acc: 71.13%
+Epoch 40: Train Acc: 87.69%, Valid Acc: 70.15%
+Epoch 41: Train Acc: 90.57%, Valid Acc: 72.71%
+Epoch 42: Train Acc: 91.11%, Valid Acc: 72.62%
+Epoch 43: Train Acc: 90.56%, Valid Acc: 73.41%
+Epoch 44: Train Acc: 90.48%, Valid Acc: 71.64%
+Epoch 45: Train Acc: 91.39%, Valid Acc: 73.18%
+Epoch 46: Train Acc: 90.51%, Valid Acc: 73.78%
+Epoch 47: Train Acc: 90.80%, Valid Acc: 73.87%
+Epoch 48: Train Acc: 91.11%, Valid Acc: 74.57%
+Epoch 49: Train Acc: 91.33%, Valid Acc: 72.94%
+Epoch 50: Train Acc: 91.44%, Valid Acc: 73.41%
+Epoch 51: Train Acc: 90.29%, Valid Acc: 73.18%
+Epoch 52: Train Acc: 91.14%, Valid Acc: 72.90%
+Epoch 53: Train Acc: 91.14%, Valid Acc: 71.64%
+Epoch 54: Train Acc: 90.89%, Valid Acc: 73.55%
+Epoch 55: Train Acc: 90.82%, Valid Acc: 70.90%
+Epoch 56: Train Acc: 90.06%, Valid Acc: 71.59%
+Epoch 57: Train Acc: 90.94%, Valid Acc: 72.57%
+Epoch 58: Train Acc: 91.32%, Valid Acc: 73.36%
+Epoch 59: Train Acc: 90.09%, Valid Acc: 72.66%
+Epoch 60: Train Acc: 90.75%, Valid Acc: 72.29%
+Epoch 61: Train Acc: 91.95%, Valid Acc: 73.69%
+Epoch 62: Train Acc: 91.94%, Valid Acc: 72.57%
+Epoch 63: Train Acc: 91.83%, Valid Acc: 72.80%
+Epoch 64: Train Acc: 92.02%, Valid Acc: 72.34%
+Epoch 65: Train Acc: 92.46%, Valid Acc: 72.94%
+Epoch 66: Train Acc: 92.33%, Valid Acc: 74.01%
+Epoch 67: Train Acc: 92.17%, Valid Acc: 72.57%
+Epoch 68: Train Acc: 92.29%, Valid Acc: 72.20%
+Epoch 69: Train Acc: 92.33%, Valid Acc: 74.01%
+Epoch 70: Train Acc: 92.05%, Valid Acc: 72.11%
+Epoch 71: Train Acc: 92.10%, Valid Acc: 72.80%
+Epoch 72: Train Acc: 91.99%, Valid Acc: 72.15%
+Epoch 73: Train Acc: 92.32%, Valid Acc: 73.04%
+Epoch 74: Train Acc: 92.33%, Valid Acc: 72.57%
+Epoch 75: Train Acc: 92.60%, Valid Acc: 72.85%
+Epoch 76: Train Acc: 92.21%, Valid Acc: 72.62%
+Epoch 77: Train Acc: 92.41%, Valid Acc: 72.85%
+Epoch 78: Train Acc: 92.25%, Valid Acc: 73.59%
+Epoch 79: Train Acc: 92.30%, Valid Acc: 73.83%
+Epoch 80: Train Acc: 91.83%, Valid Acc: 72.85%
+
+Training EfficientNet-B7 for Valid Fold 2
+Epoch 1: Train Acc: 32.74%, Valid Acc: 8.60%
+Epoch 2: Train Acc: 39.74%, Valid Acc: 36.82%
+Epoch 3: Train Acc: 41.82%, Valid Acc: 35.05%
+Epoch 4: Train Acc: 44.72%, Valid Acc: 38.59%
+Epoch 5: Train Acc: 46.09%, Valid Acc: 28.54%
+Epoch 6: Train Acc: 46.23%, Valid Acc: 44.17%
+Epoch 7: Train Acc: 49.37%, Valid Acc: 36.96%
+Epoch 8: Train Acc: 50.74%, Valid Acc: 39.70%
+Epoch 9: Train Acc: 52.55%, Valid Acc: 48.58%
+Epoch 10: Train Acc: 54.33%, Valid Acc: 50.49%
+Epoch 11: Train Acc: 55.36%, Valid Acc: 44.96%
+Epoch 12: Train Acc: 56.87%, Valid Acc: 38.96%
+Epoch 13: Train Acc: 58.93%, Valid Acc: 48.02%
+Epoch 14: Train Acc: 59.90%, Valid Acc: 45.51%
+Epoch 15: Train Acc: 61.03%, Valid Acc: 56.07%
+Epoch 16: Train Acc: 63.24%, Valid Acc: 40.73%
+Epoch 17: Train Acc: 64.92%, Valid Acc: 47.88%
+Epoch 18: Train Acc: 67.58%, Valid Acc: 52.81%
+Epoch 19: Train Acc: 67.70%, Valid Acc: 47.14%
+Epoch 20: Train Acc: 69.72%, Valid Acc: 47.70%
+Epoch 21: Train Acc: 80.75%, Valid Acc: 63.74%
+Epoch 22: Train Acc: 83.34%, Valid Acc: 64.67%
+Epoch 23: Train Acc: 85.17%, Valid Acc: 66.48%
+Epoch 24: Train Acc: 85.03%, Valid Acc: 64.44%
+Epoch 25: Train Acc: 85.62%, Valid Acc: 64.44%
+Epoch 26: Train Acc: 86.21%, Valid Acc: 63.60%
+Epoch 27: Train Acc: 87.44%, Valid Acc: 64.48%
+Epoch 28: Train Acc: 86.65%, Valid Acc: 69.50%
+Epoch 29: Train Acc: 87.29%, Valid Acc: 68.34%
+Epoch 30: Train Acc: 87.22%, Valid Acc: 66.39%
+Epoch 31: Train Acc: 86.62%, Valid Acc: 64.11%
+Epoch 32: Train Acc: 87.90%, Valid Acc: 67.41%
+Epoch 33: Train Acc: 87.41%, Valid Acc: 69.92%
+Epoch 34: Train Acc: 86.80%, Valid Acc: 56.44%
+Epoch 35: Train Acc: 87.33%, Valid Acc: 62.62%
+Epoch 36: Train Acc: 87.08%, Valid Acc: 64.53%
+Epoch 37: Train Acc: 87.47%, Valid Acc: 66.85%
+Epoch 38: Train Acc: 87.62%, Valid Acc: 52.44%
+Epoch 39: Train Acc: 87.56%, Valid Acc: 67.55%
+Epoch 40: Train Acc: 87.91%, Valid Acc: 67.83%
+Epoch 41: Train Acc: 90.09%, Valid Acc: 72.01%
+Epoch 42: Train Acc: 91.00%, Valid Acc: 70.99%
+Epoch 43: Train Acc: 90.93%, Valid Acc: 72.15%
+Epoch 44: Train Acc: 91.09%, Valid Acc: 71.32%
+Epoch 45: Train Acc: 90.94%, Valid Acc: 70.34%
+Epoch 46: Train Acc: 90.77%, Valid Acc: 71.22%
+Epoch 47: Train Acc: 91.09%, Valid Acc: 71.04%
+Epoch 48: Train Acc: 90.60%, Valid Acc: 73.04%
+Epoch 49: Train Acc: 91.40%, Valid Acc: 72.80%
+Epoch 50: Train Acc: 91.22%, Valid Acc: 72.29%
+Epoch 51: Train Acc: 90.82%, Valid Acc: 70.85%
+Epoch 52: Train Acc: 90.02%, Valid Acc: 70.43%
+Epoch 53: Train Acc: 91.09%, Valid Acc: 68.67%
+Epoch 54: Train Acc: 90.63%, Valid Acc: 71.13%
+Epoch 55: Train Acc: 90.99%, Valid Acc: 70.34%
+Epoch 56: Train Acc: 91.00%, Valid Acc: 70.53%
+Epoch 57: Train Acc: 90.72%, Valid Acc: 71.46%
+Epoch 58: Train Acc: 91.02%, Valid Acc: 70.11%
+Epoch 59: Train Acc: 90.73%, Valid Acc: 70.39%
+Epoch 60: Train Acc: 91.28%, Valid Acc: 68.90%
+Epoch 61: Train Acc: 91.73%, Valid Acc: 70.94%
+Epoch 62: Train Acc: 91.83%, Valid Acc: 71.78%
+Epoch 63: Train Acc: 92.04%, Valid Acc: 71.59%
+Epoch 64: Train Acc: 91.60%, Valid Acc: 72.01%
+Epoch 65: Train Acc: 91.75%, Valid Acc: 72.48%
+Epoch 66: Train Acc: 91.97%, Valid Acc: 72.06%
+Epoch 67: Train Acc: 91.90%, Valid Acc: 71.22%
+Epoch 68: Train Acc: 91.67%, Valid Acc: 72.62%
+Epoch 69: Train Acc: 91.72%, Valid Acc: 71.83%
+Epoch 70: Train Acc: 91.78%, Valid Acc: 71.92%
+Epoch 71: Train Acc: 91.94%, Valid Acc: 71.32%
+Epoch 72: Train Acc: 91.51%, Valid Acc: 72.15%
+Epoch 73: Train Acc: 91.78%, Valid Acc: 71.55%
+Epoch 74: Train Acc: 91.60%, Valid Acc: 70.85%
+Epoch 75: Train Acc: 91.81%, Valid Acc: 72.25%
+Epoch 76: Train Acc: 91.68%, Valid Acc: 71.64%
+Epoch 77: Train Acc: 91.76%, Valid Acc: 71.97%
+Epoch 78: Train Acc: 91.89%, Valid Acc: 70.85%
+Epoch 79: Train Acc: 92.14%, Valid Acc: 71.69%
+Epoch 80: Train Acc: 91.96%, Valid Acc: 70.39%
+
+Training EfficientNet-B0 for Valid Fold 3
+Epoch 1: Train Acc: 33.81%, Valid Acc: 41.72%
+Epoch 2: Train Acc: 42.56%, Valid Acc: 44.05%
+Epoch 3: Train Acc: 45.02%, Valid Acc: 46.51%
+Epoch 4: Train Acc: 47.22%, Valid Acc: 46.60%
+Epoch 5: Train Acc: 49.64%, Valid Acc: 47.63%
+Epoch 6: Train Acc: 51.27%, Valid Acc: 49.16%
+Epoch 7: Train Acc: 50.93%, Valid Acc: 51.77%
+Epoch 8: Train Acc: 53.90%, Valid Acc: 42.79%
+Epoch 9: Train Acc: 55.40%, Valid Acc: 46.88%
+Epoch 10: Train Acc: 56.62%, Valid Acc: 51.81%
+Epoch 11: Train Acc: 56.63%, Valid Acc: 58.09%
+Epoch 12: Train Acc: 60.06%, Valid Acc: 49.72%
+Epoch 13: Train Acc: 61.23%, Valid Acc: 50.47%
+Epoch 14: Train Acc: 62.57%, Valid Acc: 56.79%
+Epoch 15: Train Acc: 64.52%, Valid Acc: 57.30%
+Epoch 16: Train Acc: 65.60%, Valid Acc: 57.95%
+Epoch 17: Train Acc: 67.93%, Valid Acc: 54.74%
+Epoch 18: Train Acc: 69.69%, Valid Acc: 55.40%
+Epoch 19: Train Acc: 70.65%, Valid Acc: 59.86%
+Epoch 20: Train Acc: 72.01%, Valid Acc: 62.09%
+Epoch 21: Train Acc: 81.01%, Valid Acc: 70.00%
+Epoch 22: Train Acc: 83.24%, Valid Acc: 69.77%
+Epoch 23: Train Acc: 82.95%, Valid Acc: 67.44%
+Epoch 24: Train Acc: 84.04%, Valid Acc: 71.30%
+Epoch 25: Train Acc: 85.80%, Valid Acc: 70.93%
+Epoch 26: Train Acc: 86.46%, Valid Acc: 71.81%
+Epoch 27: Train Acc: 86.23%, Valid Acc: 71.44%
+Epoch 28: Train Acc: 87.07%, Valid Acc: 71.16%
+Epoch 29: Train Acc: 87.70%, Valid Acc: 73.12%
+Epoch 30: Train Acc: 87.26%, Valid Acc: 72.60%
+Epoch 31: Train Acc: 86.48%, Valid Acc: 70.93%
+Epoch 32: Train Acc: 88.25%, Valid Acc: 73.63%
+Epoch 33: Train Acc: 87.00%, Valid Acc: 71.26%
+Epoch 34: Train Acc: 88.25%, Valid Acc: 73.77%
+Epoch 35: Train Acc: 85.38%, Valid Acc: 72.37%
+Epoch 36: Train Acc: 88.55%, Valid Acc: 72.28%
+Epoch 37: Train Acc: 88.30%, Valid Acc: 73.58%
+Epoch 38: Train Acc: 88.50%, Valid Acc: 70.65%
+Epoch 39: Train Acc: 87.85%, Valid Acc: 69.53%
+Epoch 40: Train Acc: 86.69%, Valid Acc: 72.33%
+Epoch 41: Train Acc: 89.38%, Valid Acc: 74.84%
+Epoch 42: Train Acc: 90.43%, Valid Acc: 75.26%
+Epoch 43: Train Acc: 90.66%, Valid Acc: 74.93%
+Epoch 44: Train Acc: 90.82%, Valid Acc: 75.16%
+Epoch 45: Train Acc: 90.12%, Valid Acc: 74.70%
+Epoch 46: Train Acc: 90.64%, Valid Acc: 75.91%
+Epoch 47: Train Acc: 90.98%, Valid Acc: 74.42%
+Epoch 48: Train Acc: 90.74%, Valid Acc: 74.65%
+Epoch 49: Train Acc: 91.17%, Valid Acc: 75.02%
+Epoch 50: Train Acc: 90.84%, Valid Acc: 75.07%
+Epoch 51: Train Acc: 90.66%, Valid Acc: 75.86%
+Epoch 52: Train Acc: 90.63%, Valid Acc: 73.49%
+Epoch 53: Train Acc: 90.30%, Valid Acc: 74.70%
+Epoch 54: Train Acc: 89.97%, Valid Acc: 75.26%
+Epoch 55: Train Acc: 91.08%, Valid Acc: 74.79%
+Epoch 56: Train Acc: 91.29%, Valid Acc: 73.95%
+Epoch 57: Train Acc: 90.86%, Valid Acc: 74.14%
+Epoch 58: Train Acc: 90.92%, Valid Acc: 73.81%
+Epoch 59: Train Acc: 90.44%, Valid Acc: 74.56%
+Epoch 60: Train Acc: 90.74%, Valid Acc: 73.91%
+Epoch 61: Train Acc: 91.86%, Valid Acc: 74.98%
+Epoch 62: Train Acc: 91.68%, Valid Acc: 75.26%
+Epoch 63: Train Acc: 91.46%, Valid Acc: 74.70%
+Epoch 64: Train Acc: 91.65%, Valid Acc: 74.74%
+Epoch 65: Train Acc: 91.58%, Valid Acc: 75.35%
+Epoch 66: Train Acc: 91.70%, Valid Acc: 75.02%
+Epoch 67: Train Acc: 91.61%, Valid Acc: 75.53%
+Epoch 68: Train Acc: 91.80%, Valid Acc: 75.02%
+Epoch 69: Train Acc: 91.73%, Valid Acc: 74.37%
+Epoch 70: Train Acc: 91.51%, Valid Acc: 74.74%
+Epoch 71: Train Acc: 91.59%, Valid Acc: 74.37%
+Epoch 72: Train Acc: 91.31%, Valid Acc: 74.51%
+Epoch 73: Train Acc: 91.93%, Valid Acc: 75.12%
+Epoch 74: Train Acc: 91.60%, Valid Acc: 74.28%
+Epoch 75: Train Acc: 91.49%, Valid Acc: 74.65%
+Epoch 76: Train Acc: 91.44%, Valid Acc: 74.28%
+Epoch 77: Train Acc: 91.63%, Valid Acc: 74.14%
+Epoch 78: Train Acc: 91.73%, Valid Acc: 73.91%
+Epoch 79: Train Acc: 91.64%, Valid Acc: 74.00%
+Epoch 80: Train Acc: 91.38%, Valid Acc: 74.51%
+
+Training EfficientNet-B4 for Valid Fold 3
+Epoch 1: Train Acc: 37.15%, Valid Acc: 45.53%
+Epoch 2: Train Acc: 45.32%, Valid Acc: 51.12%
+Epoch 3: Train Acc: 51.45%, Valid Acc: 51.63%
+Epoch 4: Train Acc: 52.60%, Valid Acc: 53.07%
+Epoch 5: Train Acc: 56.13%, Valid Acc: 58.33%
+Epoch 6: Train Acc: 57.78%, Valid Acc: 54.93%
+Epoch 7: Train Acc: 59.35%, Valid Acc: 58.28%
+Epoch 8: Train Acc: 60.65%, Valid Acc: 57.40%
+Epoch 9: Train Acc: 62.44%, Valid Acc: 61.86%
+Epoch 10: Train Acc: 65.03%, Valid Acc: 60.65%
+Epoch 11: Train Acc: 65.75%, Valid Acc: 60.42%
+Epoch 12: Train Acc: 67.34%, Valid Acc: 62.09%
+Epoch 13: Train Acc: 67.90%, Valid Acc: 47.53%
+Epoch 14: Train Acc: 57.04%, Valid Acc: 55.44%
+Epoch 15: Train Acc: 62.82%, Valid Acc: 62.09%
+Epoch 16: Train Acc: 70.36%, Valid Acc: 67.21%
+Epoch 17: Train Acc: 73.54%, Valid Acc: 63.30%
+Epoch 18: Train Acc: 75.32%, Valid Acc: 69.67%
+Epoch 19: Train Acc: 76.74%, Valid Acc: 64.51%
+Epoch 20: Train Acc: 77.05%, Valid Acc: 66.98%
+Epoch 21: Train Acc: 85.23%, Valid Acc: 73.91%
+Epoch 22: Train Acc: 86.93%, Valid Acc: 74.70%
+Epoch 23: Train Acc: 88.14%, Valid Acc: 75.30%
+Epoch 24: Train Acc: 88.75%, Valid Acc: 75.12%
+Epoch 25: Train Acc: 89.21%, Valid Acc: 75.95%
+Epoch 26: Train Acc: 88.08%, Valid Acc: 74.70%
+Epoch 27: Train Acc: 88.99%, Valid Acc: 75.21%
+Epoch 28: Train Acc: 89.43%, Valid Acc: 76.51%
+Epoch 29: Train Acc: 87.34%, Valid Acc: 73.72%
+Epoch 30: Train Acc: 86.33%, Valid Acc: 74.88%
+Epoch 31: Train Acc: 88.04%, Valid Acc: 74.70%
+Epoch 32: Train Acc: 88.71%, Valid Acc: 75.26%
+Epoch 33: Train Acc: 88.19%, Valid Acc: 72.65%
+Epoch 34: Train Acc: 87.12%, Valid Acc: 74.70%
+Epoch 35: Train Acc: 89.37%, Valid Acc: 74.33%
+Epoch 36: Train Acc: 89.76%, Valid Acc: 74.65%
+Epoch 37: Train Acc: 89.09%, Valid Acc: 73.86%
+Epoch 38: Train Acc: 89.40%, Valid Acc: 72.88%
+Epoch 39: Train Acc: 83.90%, Valid Acc: 75.07%
+Epoch 40: Train Acc: 87.22%, Valid Acc: 74.84%
+Epoch 41: Train Acc: 90.65%, Valid Acc: 76.60%
+Epoch 42: Train Acc: 91.37%, Valid Acc: 75.91%
+Epoch 43: Train Acc: 91.18%, Valid Acc: 75.95%
+Epoch 44: Train Acc: 91.50%, Valid Acc: 74.74%
+Epoch 45: Train Acc: 91.46%, Valid Acc: 75.91%
+Epoch 46: Train Acc: 91.61%, Valid Acc: 74.65%
+Epoch 47: Train Acc: 90.88%, Valid Acc: 75.67%
+Epoch 48: Train Acc: 91.42%, Valid Acc: 76.19%
+Epoch 49: Train Acc: 90.72%, Valid Acc: 75.16%
+Epoch 50: Train Acc: 90.71%, Valid Acc: 75.53%
+Epoch 51: Train Acc: 91.44%, Valid Acc: 74.60%
+Epoch 52: Train Acc: 91.38%, Valid Acc: 75.26%
+Epoch 53: Train Acc: 90.63%, Valid Acc: 74.60%
+Epoch 54: Train Acc: 90.57%, Valid Acc: 76.37%
+Epoch 55: Train Acc: 90.89%, Valid Acc: 74.93%
+Epoch 56: Train Acc: 91.29%, Valid Acc: 76.00%
+Epoch 57: Train Acc: 91.22%, Valid Acc: 76.42%
+Epoch 58: Train Acc: 91.29%, Valid Acc: 75.21%
+Epoch 59: Train Acc: 90.99%, Valid Acc: 74.79%
+Epoch 60: Train Acc: 89.80%, Valid Acc: 75.81%
+Epoch 61: Train Acc: 92.14%, Valid Acc: 76.28%
+Epoch 62: Train Acc: 92.23%, Valid Acc: 75.86%
+Epoch 63: Train Acc: 92.11%, Valid Acc: 75.53%
+Epoch 64: Train Acc: 92.50%, Valid Acc: 75.67%
+Epoch 65: Train Acc: 92.28%, Valid Acc: 75.81%
+Epoch 66: Train Acc: 92.00%, Valid Acc: 74.60%
+Epoch 67: Train Acc: 92.39%, Valid Acc: 76.23%
+Epoch 68: Train Acc: 91.95%, Valid Acc: 76.05%
+Epoch 69: Train Acc: 92.00%, Valid Acc: 75.02%
+Epoch 70: Train Acc: 92.23%, Valid Acc: 75.49%
+Epoch 71: Train Acc: 91.72%, Valid Acc: 75.63%
+Epoch 72: Train Acc: 91.88%, Valid Acc: 74.37%
+Epoch 73: Train Acc: 92.09%, Valid Acc: 74.47%
+Epoch 74: Train Acc: 92.20%, Valid Acc: 76.37%
+Epoch 75: Train Acc: 91.94%, Valid Acc: 75.77%
+Epoch 76: Train Acc: 92.38%, Valid Acc: 75.53%
+Epoch 77: Train Acc: 92.25%, Valid Acc: 75.21%
+Epoch 78: Train Acc: 92.38%, Valid Acc: 75.58%
+Epoch 79: Train Acc: 91.85%, Valid Acc: 74.60%
+Epoch 80: Train Acc: 92.21%, Valid Acc: 75.26%
+
+Training EfficientNet-B7 for Valid Fold 3
+Epoch 1: Train Acc: 28.80%, Valid Acc: 5.21%
+Epoch 2: Train Acc: 36.92%, Valid Acc: 14.37%
+Epoch 3: Train Acc: 40.08%, Valid Acc: 20.14%
+Epoch 4: Train Acc: 43.14%, Valid Acc: 25.12%
+Epoch 5: Train Acc: 44.68%, Valid Acc: 32.98%
+Epoch 6: Train Acc: 46.96%, Valid Acc: 43.35%
+Epoch 7: Train Acc: 47.71%, Valid Acc: 36.09%
+Epoch 8: Train Acc: 50.10%, Valid Acc: 47.67%
+Epoch 9: Train Acc: 51.01%, Valid Acc: 47.12%
+Epoch 10: Train Acc: 53.07%, Valid Acc: 38.14%
+Epoch 11: Train Acc: 53.05%, Valid Acc: 43.91%
+Epoch 12: Train Acc: 55.39%, Valid Acc: 52.33%
+Epoch 13: Train Acc: 56.35%, Valid Acc: 44.79%
+Epoch 14: Train Acc: 57.97%, Valid Acc: 41.53%
+Epoch 15: Train Acc: 59.63%, Valid Acc: 53.81%
+Epoch 16: Train Acc: 62.04%, Valid Acc: 33.16%
+Epoch 17: Train Acc: 62.71%, Valid Acc: 56.37%
+Epoch 18: Train Acc: 64.75%, Valid Acc: 52.28%
+Epoch 19: Train Acc: 67.04%, Valid Acc: 43.40%
+Epoch 20: Train Acc: 67.65%, Valid Acc: 55.49%
+Epoch 21: Train Acc: 78.19%, Valid Acc: 62.60%
+Epoch 22: Train Acc: 81.77%, Valid Acc: 63.53%
+Epoch 23: Train Acc: 82.86%, Valid Acc: 64.37%
+Epoch 24: Train Acc: 85.03%, Valid Acc: 61.53%
+Epoch 25: Train Acc: 82.39%, Valid Acc: 68.14%
+Epoch 26: Train Acc: 85.16%, Valid Acc: 69.07%
+Epoch 27: Train Acc: 86.43%, Valid Acc: 68.47%
+Epoch 28: Train Acc: 85.38%, Valid Acc: 68.56%
+Epoch 29: Train Acc: 86.64%, Valid Acc: 63.26%
+Epoch 30: Train Acc: 87.05%, Valid Acc: 70.19%
+Epoch 31: Train Acc: 86.31%, Valid Acc: 71.44%
+Epoch 32: Train Acc: 86.71%, Valid Acc: 62.00%
+Epoch 33: Train Acc: 87.39%, Valid Acc: 70.33%
+Epoch 34: Train Acc: 87.63%, Valid Acc: 64.09%
+Epoch 35: Train Acc: 84.04%, Valid Acc: 68.65%
+Epoch 36: Train Acc: 87.93%, Valid Acc: 68.19%
+Epoch 37: Train Acc: 85.31%, Valid Acc: 70.51%
+Epoch 38: Train Acc: 87.15%, Valid Acc: 66.33%
+Epoch 39: Train Acc: 86.19%, Valid Acc: 67.40%
+Epoch 40: Train Acc: 88.72%, Valid Acc: 68.98%
+Epoch 41: Train Acc: 90.19%, Valid Acc: 74.09%
+Epoch 42: Train Acc: 90.51%, Valid Acc: 74.14%
+Epoch 43: Train Acc: 91.11%, Valid Acc: 72.70%
+Epoch 44: Train Acc: 90.99%, Valid Acc: 74.05%
+Epoch 45: Train Acc: 90.96%, Valid Acc: 74.56%
+Epoch 46: Train Acc: 89.76%, Valid Acc: 73.63%
+Epoch 47: Train Acc: 90.41%, Valid Acc: 74.51%
+Epoch 48: Train Acc: 90.07%, Valid Acc: 71.12%
+Epoch 49: Train Acc: 90.96%, Valid Acc: 72.79%
+Epoch 50: Train Acc: 90.87%, Valid Acc: 72.98%
+Epoch 51: Train Acc: 90.92%, Valid Acc: 73.26%
+Epoch 52: Train Acc: 90.24%, Valid Acc: 73.30%
+Epoch 53: Train Acc: 90.67%, Valid Acc: 74.37%
+Epoch 54: Train Acc: 90.84%, Valid Acc: 72.65%
+Epoch 55: Train Acc: 90.46%, Valid Acc: 73.44%
+Epoch 56: Train Acc: 90.53%, Valid Acc: 72.88%
+Epoch 57: Train Acc: 90.93%, Valid Acc: 72.51%
+Epoch 58: Train Acc: 90.73%, Valid Acc: 72.93%
+Epoch 59: Train Acc: 89.77%, Valid Acc: 72.51%
+Epoch 60: Train Acc: 90.31%, Valid Acc: 72.93%
+Epoch 61: Train Acc: 91.75%, Valid Acc: 73.86%
+Epoch 62: Train Acc: 91.80%, Valid Acc: 73.91%
+Epoch 63: Train Acc: 91.53%, Valid Acc: 73.67%
+Epoch 64: Train Acc: 91.68%, Valid Acc: 74.33%
+Epoch 65: Train Acc: 91.46%, Valid Acc: 74.98%
+Epoch 66: Train Acc: 91.58%, Valid Acc: 74.23%
+Epoch 67: Train Acc: 91.38%, Valid Acc: 73.91%
+Epoch 68: Train Acc: 91.60%, Valid Acc: 74.74%
+Epoch 69: Train Acc: 91.43%, Valid Acc: 74.56%
+Epoch 70: Train Acc: 91.68%, Valid Acc: 74.28%
+Epoch 71: Train Acc: 91.68%, Valid Acc: 74.60%
+Epoch 72: Train Acc: 91.57%, Valid Acc: 74.84%
+Epoch 73: Train Acc: 91.59%, Valid Acc: 74.14%
+Epoch 74: Train Acc: 91.43%, Valid Acc: 74.74%
+Epoch 75: Train Acc: 91.44%, Valid Acc: 74.79%
+Epoch 76: Train Acc: 91.53%, Valid Acc: 74.47%
+Epoch 77: Train Acc: 91.31%, Valid Acc: 75.07%
+Epoch 78: Train Acc: 91.45%, Valid Acc: 73.91%
+Epoch 79: Train Acc: 91.50%, Valid Acc: 74.70%
+Epoch 80: Train Acc: 91.53%, Valid Acc: 74.47%
+
+Training EfficientNet-B0 for Valid Fold 4
+Epoch 1: Train Acc: 34.96%, Valid Acc: 42.50%
+Epoch 2: Train Acc: 44.54%, Valid Acc: 40.74%
+Epoch 3: Train Acc: 46.54%, Valid Acc: 47.58%
+Epoch 4: Train Acc: 48.39%, Valid Acc: 46.23%
+Epoch 5: Train Acc: 51.30%, Valid Acc: 45.76%
+Epoch 6: Train Acc: 52.50%, Valid Acc: 46.04%
+Epoch 7: Train Acc: 53.96%, Valid Acc: 49.95%
+Epoch 8: Train Acc: 55.28%, Valid Acc: 51.16%
+Epoch 9: Train Acc: 56.89%, Valid Acc: 50.65%
+Epoch 10: Train Acc: 57.66%, Valid Acc: 53.35%
+Epoch 11: Train Acc: 59.78%, Valid Acc: 47.67%
+Epoch 12: Train Acc: 60.54%, Valid Acc: 46.88%
+Epoch 13: Train Acc: 62.99%, Valid Acc: 51.58%
+Epoch 14: Train Acc: 63.68%, Valid Acc: 51.54%
+Epoch 15: Train Acc: 65.63%, Valid Acc: 48.32%
+Epoch 16: Train Acc: 68.38%, Valid Acc: 51.63%
+Epoch 17: Train Acc: 69.98%, Valid Acc: 57.17%
+Epoch 18: Train Acc: 70.40%, Valid Acc: 53.54%
+Epoch 19: Train Acc: 71.24%, Valid Acc: 57.31%
+Epoch 20: Train Acc: 73.35%, Valid Acc: 44.41%
+Epoch 21: Train Acc: 81.65%, Valid Acc: 65.74%
+Epoch 22: Train Acc: 84.85%, Valid Acc: 66.62%
+Epoch 23: Train Acc: 85.53%, Valid Acc: 64.15%
+Epoch 24: Train Acc: 85.37%, Valid Acc: 66.67%
+Epoch 25: Train Acc: 86.38%, Valid Acc: 65.78%
+Epoch 26: Train Acc: 87.18%, Valid Acc: 66.81%
+Epoch 27: Train Acc: 88.01%, Valid Acc: 64.80%
+Epoch 28: Train Acc: 87.58%, Valid Acc: 67.13%
+Epoch 29: Train Acc: 88.17%, Valid Acc: 65.83%
+Epoch 30: Train Acc: 87.55%, Valid Acc: 64.85%
+Epoch 31: Train Acc: 87.84%, Valid Acc: 68.58%
+Epoch 32: Train Acc: 87.54%, Valid Acc: 67.23%
+Epoch 33: Train Acc: 87.89%, Valid Acc: 67.64%
+Epoch 34: Train Acc: 88.45%, Valid Acc: 67.55%
+Epoch 35: Train Acc: 88.37%, Valid Acc: 67.60%
+Epoch 36: Train Acc: 88.85%, Valid Acc: 68.53%
+Epoch 37: Train Acc: 88.19%, Valid Acc: 69.13%
+Epoch 38: Train Acc: 88.30%, Valid Acc: 67.18%
+Epoch 39: Train Acc: 88.35%, Valid Acc: 71.14%
+Epoch 40: Train Acc: 87.84%, Valid Acc: 67.69%
+Epoch 41: Train Acc: 90.79%, Valid Acc: 69.74%
+Epoch 42: Train Acc: 91.42%, Valid Acc: 70.16%
+Epoch 43: Train Acc: 91.54%, Valid Acc: 69.13%
+Epoch 44: Train Acc: 91.30%, Valid Acc: 69.97%
+Epoch 45: Train Acc: 90.98%, Valid Acc: 70.25%
+Epoch 46: Train Acc: 91.60%, Valid Acc: 70.62%
+Epoch 47: Train Acc: 91.84%, Valid Acc: 70.67%
+Epoch 48: Train Acc: 90.90%, Valid Acc: 69.93%
+Epoch 49: Train Acc: 91.40%, Valid Acc: 70.95%
+Epoch 50: Train Acc: 91.40%, Valid Acc: 70.67%
+Epoch 51: Train Acc: 91.52%, Valid Acc: 70.72%
+Epoch 52: Train Acc: 91.44%, Valid Acc: 69.51%
+Epoch 53: Train Acc: 91.67%, Valid Acc: 70.76%
+Epoch 54: Train Acc: 91.05%, Valid Acc: 69.46%
+Epoch 55: Train Acc: 91.02%, Valid Acc: 70.20%
+Epoch 56: Train Acc: 91.59%, Valid Acc: 70.25%
+Epoch 57: Train Acc: 91.33%, Valid Acc: 69.32%
+Epoch 58: Train Acc: 91.44%, Valid Acc: 70.76%
+Epoch 59: Train Acc: 91.36%, Valid Acc: 70.02%
+Epoch 60: Train Acc: 91.54%, Valid Acc: 70.58%
+Epoch 61: Train Acc: 91.92%, Valid Acc: 70.39%
+Epoch 62: Train Acc: 92.45%, Valid Acc: 70.76%
+Epoch 63: Train Acc: 91.88%, Valid Acc: 70.67%
+Epoch 64: Train Acc: 92.06%, Valid Acc: 70.34%
+Epoch 65: Train Acc: 91.91%, Valid Acc: 71.23%
+Epoch 66: Train Acc: 92.14%, Valid Acc: 69.69%
+Epoch 67: Train Acc: 92.10%, Valid Acc: 71.09%
+Epoch 68: Train Acc: 92.16%, Valid Acc: 70.20%
+Epoch 69: Train Acc: 91.94%, Valid Acc: 70.95%
+Epoch 70: Train Acc: 92.34%, Valid Acc: 70.39%
+Epoch 71: Train Acc: 91.72%, Valid Acc: 70.67%
+Epoch 72: Train Acc: 92.21%, Valid Acc: 70.34%
+Epoch 73: Train Acc: 92.25%, Valid Acc: 70.95%
+Epoch 74: Train Acc: 92.23%, Valid Acc: 70.11%
+Epoch 75: Train Acc: 92.21%, Valid Acc: 70.44%
+Epoch 76: Train Acc: 91.99%, Valid Acc: 70.76%
+Epoch 77: Train Acc: 91.91%, Valid Acc: 70.86%
+Epoch 78: Train Acc: 92.30%, Valid Acc: 71.00%
+Epoch 79: Train Acc: 92.03%, Valid Acc: 70.86%
+Epoch 80: Train Acc: 92.15%, Valid Acc: 70.86%
+
+Training EfficientNet-B4 for Valid Fold 4
+Epoch 1: Train Acc: 38.40%, Valid Acc: 47.53%
+Epoch 2: Train Acc: 48.73%, Valid Acc: 52.37%
+Epoch 3: Train Acc: 50.38%, Valid Acc: 48.46%
+Epoch 4: Train Acc: 54.15%, Valid Acc: 52.14%
+Epoch 5: Train Acc: 57.80%, Valid Acc: 55.40%
+Epoch 6: Train Acc: 59.81%, Valid Acc: 58.61%
+Epoch 7: Train Acc: 62.03%, Valid Acc: 58.47%
+Epoch 8: Train Acc: 63.04%, Valid Acc: 57.03%
+Epoch 9: Train Acc: 65.84%, Valid Acc: 58.66%
+Epoch 10: Train Acc: 66.67%, Valid Acc: 55.63%
+Epoch 11: Train Acc: 54.96%, Valid Acc: 52.56%
+Epoch 12: Train Acc: 60.93%, Valid Acc: 52.89%
+Epoch 13: Train Acc: 66.36%, Valid Acc: 62.43%
+Epoch 14: Train Acc: 70.40%, Valid Acc: 60.38%
+Epoch 15: Train Acc: 72.13%, Valid Acc: 60.66%
+Epoch 16: Train Acc: 74.12%, Valid Acc: 59.08%
+Epoch 17: Train Acc: 74.27%, Valid Acc: 63.92%
+Epoch 18: Train Acc: 75.22%, Valid Acc: 62.80%
+Epoch 19: Train Acc: 77.00%, Valid Acc: 61.73%
+Epoch 20: Train Acc: 78.81%, Valid Acc: 66.48%
+Epoch 21: Train Acc: 85.73%, Valid Acc: 71.14%
+Epoch 22: Train Acc: 89.04%, Valid Acc: 72.49%
+Epoch 23: Train Acc: 90.05%, Valid Acc: 71.93%
+Epoch 24: Train Acc: 88.78%, Valid Acc: 71.46%
+Epoch 25: Train Acc: 89.22%, Valid Acc: 70.11%
+Epoch 26: Train Acc: 90.13%, Valid Acc: 71.23%
+Epoch 27: Train Acc: 88.57%, Valid Acc: 70.67%
+Epoch 28: Train Acc: 88.96%, Valid Acc: 70.90%
+Epoch 29: Train Acc: 88.76%, Valid Acc: 71.09%
+Epoch 30: Train Acc: 87.60%, Valid Acc: 72.72%
+Epoch 31: Train Acc: 88.43%, Valid Acc: 69.79%
+Epoch 32: Train Acc: 89.67%, Valid Acc: 70.16%
+Epoch 33: Train Acc: 89.53%, Valid Acc: 72.53%
+Epoch 34: Train Acc: 88.85%, Valid Acc: 70.39%
+Epoch 35: Train Acc: 87.90%, Valid Acc: 70.81%
+Epoch 36: Train Acc: 89.02%, Valid Acc: 70.20%
+Epoch 37: Train Acc: 90.08%, Valid Acc: 71.09%
+Epoch 38: Train Acc: 89.99%, Valid Acc: 68.72%
+Epoch 39: Train Acc: 88.78%, Valid Acc: 70.20%
+Epoch 40: Train Acc: 81.51%, Valid Acc: 68.58%
+Epoch 41: Train Acc: 90.55%, Valid Acc: 71.42%
+Epoch 42: Train Acc: 91.90%, Valid Acc: 71.14%
+Epoch 43: Train Acc: 91.73%, Valid Acc: 71.18%
+Epoch 44: Train Acc: 91.99%, Valid Acc: 71.23%
+Epoch 45: Train Acc: 92.00%, Valid Acc: 72.77%
+Epoch 46: Train Acc: 91.87%, Valid Acc: 71.65%
+Epoch 47: Train Acc: 92.09%, Valid Acc: 71.51%
+Epoch 48: Train Acc: 91.66%, Valid Acc: 72.53%
+Epoch 49: Train Acc: 90.91%, Valid Acc: 70.95%
+Epoch 50: Train Acc: 91.85%, Valid Acc: 71.83%
+Epoch 51: Train Acc: 92.24%, Valid Acc: 71.09%
+Epoch 52: Train Acc: 92.23%, Valid Acc: 71.32%
+Epoch 53: Train Acc: 91.38%, Valid Acc: 71.28%
+Epoch 54: Train Acc: 91.59%, Valid Acc: 70.11%
+Epoch 55: Train Acc: 91.56%, Valid Acc: 71.88%
+Epoch 56: Train Acc: 91.55%, Valid Acc: 69.79%
+Epoch 57: Train Acc: 91.66%, Valid Acc: 73.00%
+Epoch 58: Train Acc: 91.18%, Valid Acc: 70.11%
+Epoch 59: Train Acc: 91.59%, Valid Acc: 71.42%
+Epoch 60: Train Acc: 91.73%, Valid Acc: 70.16%
+Epoch 61: Train Acc: 92.64%, Valid Acc: 71.55%
+Epoch 62: Train Acc: 92.77%, Valid Acc: 72.30%
+Epoch 63: Train Acc: 92.92%, Valid Acc: 73.18%
+Epoch 64: Train Acc: 92.85%, Valid Acc: 72.58%
+Epoch 65: Train Acc: 92.91%, Valid Acc: 71.93%
+Epoch 66: Train Acc: 92.73%, Valid Acc: 73.32%
+Epoch 67: Train Acc: 92.80%, Valid Acc: 71.65%
+Epoch 68: Train Acc: 92.91%, Valid Acc: 73.18%
+Epoch 69: Train Acc: 92.44%, Valid Acc: 71.28%
+Epoch 70: Train Acc: 92.95%, Valid Acc: 71.79%
+Epoch 71: Train Acc: 92.82%, Valid Acc: 72.77%
+Epoch 72: Train Acc: 92.94%, Valid Acc: 73.14%
+Epoch 73: Train Acc: 92.91%, Valid Acc: 72.07%
+Epoch 74: Train Acc: 92.48%, Valid Acc: 71.00%
+Epoch 75: Train Acc: 92.52%, Valid Acc: 72.53%
+Epoch 76: Train Acc: 92.63%, Valid Acc: 72.02%
+Epoch 77: Train Acc: 92.97%, Valid Acc: 73.00%
+Epoch 78: Train Acc: 92.89%, Valid Acc: 72.49%
+Epoch 79: Train Acc: 92.70%, Valid Acc: 72.86%
+Epoch 80: Train Acc: 93.18%, Valid Acc: 73.28%
+
+Training EfficientNet-B7 for Valid Fold 4
+Epoch 1: Train Acc: 29.09%, Valid Acc: 27.93%
+Epoch 2: Train Acc: 39.18%, Valid Acc: 30.21%
+Epoch 3: Train Acc: 41.48%, Valid Acc: 38.41%
+Epoch 4: Train Acc: 44.40%, Valid Acc: 40.83%
+Epoch 5: Train Acc: 45.54%, Valid Acc: 44.83%
+Epoch 6: Train Acc: 47.31%, Valid Acc: 40.74%
+Epoch 7: Train Acc: 49.12%, Valid Acc: 32.54%
+Epoch 8: Train Acc: 50.08%, Valid Acc: 41.48%
+Epoch 9: Train Acc: 51.29%, Valid Acc: 41.76%
+Epoch 10: Train Acc: 52.75%, Valid Acc: 41.43%
+Epoch 11: Train Acc: 54.11%, Valid Acc: 36.36%
+Epoch 12: Train Acc: 55.28%, Valid Acc: 46.51%
+Epoch 13: Train Acc: 56.97%, Valid Acc: 37.06%
+Epoch 14: Train Acc: 59.27%, Valid Acc: 44.60%
+Epoch 15: Train Acc: 60.96%, Valid Acc: 48.46%
+Epoch 16: Train Acc: 61.79%, Valid Acc: 44.65%
+Epoch 17: Train Acc: 65.58%, Valid Acc: 45.11%
+Epoch 18: Train Acc: 65.58%, Valid Acc: 43.85%
+Epoch 19: Train Acc: 67.49%, Valid Acc: 42.27%
+Epoch 20: Train Acc: 69.53%, Valid Acc: 54.42%
+Epoch 21: Train Acc: 79.35%, Valid Acc: 57.96%
+Epoch 22: Train Acc: 83.04%, Valid Acc: 64.71%
+Epoch 23: Train Acc: 85.03%, Valid Acc: 57.54%
+Epoch 24: Train Acc: 86.01%, Valid Acc: 65.55%
+Epoch 25: Train Acc: 86.23%, Valid Acc: 58.85%
+Epoch 26: Train Acc: 86.29%, Valid Acc: 65.92%
+Epoch 27: Train Acc: 85.86%, Valid Acc: 66.48%
+Epoch 28: Train Acc: 86.63%, Valid Acc: 61.31%
+Epoch 29: Train Acc: 87.74%, Valid Acc: 64.39%
+Epoch 30: Train Acc: 88.09%, Valid Acc: 67.97%
+Epoch 31: Train Acc: 87.67%, Valid Acc: 66.99%
+Epoch 32: Train Acc: 87.27%, Valid Acc: 65.78%
+Epoch 33: Train Acc: 88.57%, Valid Acc: 66.25%
+Epoch 34: Train Acc: 88.20%, Valid Acc: 58.75%
+Epoch 35: Train Acc: 86.43%, Valid Acc: 66.90%
+Epoch 36: Train Acc: 87.24%, Valid Acc: 64.94%
+Epoch 37: Train Acc: 87.81%, Valid Acc: 65.83%
+Epoch 38: Train Acc: 88.01%, Valid Acc: 63.27%
+Epoch 39: Train Acc: 88.42%, Valid Acc: 63.31%
+Epoch 40: Train Acc: 88.34%, Valid Acc: 60.06%
+Epoch 41: Train Acc: 90.94%, Valid Acc: 69.65%
+Epoch 42: Train Acc: 91.07%, Valid Acc: 70.58%
+Epoch 43: Train Acc: 91.50%, Valid Acc: 70.72%
+Epoch 44: Train Acc: 91.70%, Valid Acc: 68.81%
+Epoch 45: Train Acc: 91.80%, Valid Acc: 70.44%
+Epoch 46: Train Acc: 91.62%, Valid Acc: 69.74%
+Epoch 47: Train Acc: 91.62%, Valid Acc: 70.02%
+Epoch 48: Train Acc: 91.05%, Valid Acc: 70.30%
+Epoch 49: Train Acc: 91.42%, Valid Acc: 67.69%
+Epoch 50: Train Acc: 91.55%, Valid Acc: 67.97%
+Epoch 51: Train Acc: 91.37%, Valid Acc: 68.95%
+Epoch 52: Train Acc: 91.51%, Valid Acc: 69.51%
+Epoch 53: Train Acc: 91.36%, Valid Acc: 68.95%
+Epoch 54: Train Acc: 91.76%, Valid Acc: 69.65%
+Epoch 55: Train Acc: 91.02%, Valid Acc: 68.34%
+Epoch 56: Train Acc: 91.37%, Valid Acc: 62.38%
+Epoch 57: Train Acc: 91.40%, Valid Acc: 68.53%
+Epoch 58: Train Acc: 91.29%, Valid Acc: 68.02%
+Epoch 59: Train Acc: 91.57%, Valid Acc: 70.44%
+Epoch 60: Train Acc: 91.73%, Valid Acc: 68.90%
+Epoch 61: Train Acc: 91.98%, Valid Acc: 70.86%
+Epoch 62: Train Acc: 92.22%, Valid Acc: 69.13%
+Epoch 63: Train Acc: 92.28%, Valid Acc: 69.46%
+Epoch 64: Train Acc: 92.32%, Valid Acc: 70.11%
+Epoch 65: Train Acc: 91.98%, Valid Acc: 69.55%
+Epoch 66: Train Acc: 92.72%, Valid Acc: 70.53%
+Epoch 67: Train Acc: 92.52%, Valid Acc: 70.11%
+Epoch 68: Train Acc: 92.14%, Valid Acc: 71.00%
+Epoch 69: Train Acc: 92.36%, Valid Acc: 70.16%
+Epoch 70: Train Acc: 92.14%, Valid Acc: 71.04%
+Epoch 71: Train Acc: 92.22%, Valid Acc: 69.93%
+Epoch 72: Train Acc: 92.48%, Valid Acc: 69.18%
+Epoch 73: Train Acc: 92.19%, Valid Acc: 70.48%
+Epoch 74: Train Acc: 92.48%, Valid Acc: 70.72%
+Epoch 75: Train Acc: 92.25%, Valid Acc: 70.76%
+Epoch 76: Train Acc: 92.49%, Valid Acc: 70.67%
+Epoch 77: Train Acc: 92.52%, Valid Acc: 69.04%
+Epoch 78: Train Acc: 92.41%, Valid Acc: 68.99%
+Epoch 79: Train Acc: 92.22%, Valid Acc: 69.37%
+Epoch 80: Train Acc: 92.48%, Valid Acc: 69.69%
+
+Best Performance Summary:
+EfficientNet-B0: Best Train Acc: 91.91%, Best Valid Acc: 71.23%, Test Acc: 72.65%, Best Epoch: 65
+EfficientNet-B4: Best Train Acc: 92.73%, Best Valid Acc: 73.32%, Test Acc: 75.21%, Best Epoch: 66
+EfficientNet-B7: Best Train Acc: 92.14%, Best Valid Acc: 71.04%, Test Acc: 71.95%, Best Epoch: 70
