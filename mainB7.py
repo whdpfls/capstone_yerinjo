@@ -61,7 +61,7 @@ class AudioSpectrogramDataset(Dataset):
 # ])
 
 transform = transforms.Compose([
-    transforms.Resize((224, 224)),
+    transforms.Resize((512, 512)),
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
@@ -131,9 +131,9 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
     testset = AudioSpectrogramDataset(test_annot_path, base_dataset_path, transform=transform)
 
     # DataLoader
-    trainloader = DataLoader(trainset, batch_size=32, shuffle=True, num_workers=4)
-    validloader = DataLoader(validationset, batch_size=32, shuffle=False, num_workers=4)
-    testloader = DataLoader(testset, batch_size=32, shuffle=False, num_workers=4)
+    trainloader = DataLoader(trainset, batch_size=64, shuffle=True, num_workers=4)
+    validloader = DataLoader(validationset, batch_size=64, shuffle=False, num_workers=4)
+    testloader = DataLoader(testset, batch_size=64, shuffle=False, num_workers=4)
 
     # EfficientNet B7 모델 학습
     print(f"\nTraining EfficientNet-B7 for Valid Fold {valid_fold}")
@@ -143,7 +143,7 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
         cudnn.benchmark = True
 
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.AdamW(model.parameters(), lr=0.01, weight_decay=1e-4)
+    optimizer = optim.AdamW(model.parameters(), lr=0.001, weight_decay=1e-4)
     scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.5)
 
     best_train_acc = 0

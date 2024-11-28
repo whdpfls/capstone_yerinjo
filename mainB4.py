@@ -55,7 +55,7 @@ class AudioSpectrogramDataset(Dataset):
 
 # Transform 정의
 transform = transforms.Compose([
-    transforms.Resize((216, 216)),  # EfficientNet-B4에 적합한 해상도
+    transforms.Resize((380, 380)),  # EfficientNet-B4에 적합한 해상도
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
@@ -137,7 +137,7 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
         cudnn.benchmark = True
 
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.AdamW(model.parameters(), lr=0.01, weight_decay=1e-4)
+    optimizer = optim.AdamW(model.parameters(), lr=0.001, weight_decay=1e-4)
     scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.5)
 
     best_train_acc = 0
