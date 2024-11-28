@@ -54,8 +54,17 @@ class AudioSpectrogramDataset(Dataset):
 
 
 # Transform 정의
+# transform = transforms.Compose([
+#     transforms.Resize((216, 216)),
+#     transforms.ToTensor(),
+#     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+# ])
+
 transform = transforms.Compose([
-    transforms.Resize((216, 216)),
+    transforms.Resize((600, 600)),  # EfficientNet-B7에 적합한 해상도
+    transforms.RandomHorizontalFlip(),  # 좌우 대칭
+    transforms.RandomRotation(10),  # 10도 회전
+    transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),  # 밝기, 대비, 색상 조정
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])

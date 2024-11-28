@@ -56,6 +56,8 @@ class AudioSpectrogramDataset(Dataset):
 # Transform 정의
 transform = transforms.Compose([
     transforms.Resize((216, 216)),
+    transforms.RandomHorizontalFlip(),  # Data Augmentation 추가
+    transforms.RandomRotation(15),
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
