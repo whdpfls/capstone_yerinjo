@@ -54,14 +54,8 @@ class AudioSpectrogramDataset(Dataset):
 
 
 # Transform 정의
-# transform = transforms.Compose([
-#     transforms.Resize((216, 216)),
-#     transforms.ToTensor(),
-#     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-# ])
-
 transform = transforms.Compose([
-    transforms.Resize((512, 512)),
+    transforms.Resize((512, 512)),  # EfficientNet-B7에 적합한 해상도
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
@@ -138,8 +132,13 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
     # EfficientNet B7 모델 학습
     print(f"\nTraining EfficientNet-B7 for Valid Fold {valid_fold}")
     model = EfficientNetB7(num_classes=11).to(device)
+
+    # Multi-GPU 지원
+    if torch.cuda.device_count() > 1:
+        print(f"Using {torch.cuda.device_count()} GPUs!")
+        model = nn.DataParallel(model)
+
     if device == 'cuda':
-        model = torch.nn.DataParallel(model)
         cudnn.benchmark = True
 
     criterion = nn.CrossEntropyLoss()
