@@ -4,15 +4,20 @@ import torch.optim as optim
 import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
-from efficientnetB0 import EfficientNetB0
+from efficientnetB4 import EfficientNetB0
 import os
 import pandas as pd
 from PIL import Image
 from torchvision import transforms
 from torch.utils.data import Dataset
+from datetime import datetime
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print(device)
+
+# 현재 시간 생성 함수
+def get_current_time():
+    return datetime.now().strftime("%m-%d-%H-%M")
 
 # Accuracy를 저장할 딕셔너리
 train_accuracies_dict = []
@@ -182,16 +187,18 @@ plt.xlabel('Epochs')
 plt.ylabel('Accuracy (%)')
 plt.legend()
 plt.grid(True)
-plt.savefig(os.path.join(save_path, 'b0_train_valid_accuracy.png'))
+current_time = get_current_time()
+plt.savefig(os.path.join(save_path, f'{current_time}_b0_train_valid_accuracy.png'))
 plt.close()
 
 # Test Accuracy Bar Plot
 plt.figure(figsize=(14, 7))
-plt.bar(['B0'], [test_accuracy], color=['blue'])
+plt.bar(['B4'], [test_accuracy], color=['blue'])
 plt.title('Test Accuracy for B0')
 plt.xlabel('Model')
 plt.ylabel('Accuracy (%)')
-plt.savefig(os.path.join(save_path, 'b0_test_accuracy_bar_plot.png'))
+current_time = get_current_time()
+plt.savefig(os.path.join(save_path, f'{current_time}_b0_test_accuracy_bar_plot.png'))
 plt.close()
 
 # Best performance 출력

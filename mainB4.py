@@ -10,9 +10,14 @@ import pandas as pd
 from PIL import Image
 from torchvision import transforms
 from torch.utils.data import Dataset
+from datetime import datetime
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print(device)
+
+# 현재 시간 생성 함수
+def get_current_time():
+    return datetime.now().strftime("%m-%d-%H-%M")
 
 # Accuracy를 저장할 딕셔너리
 train_accuracies_dict = []
@@ -182,7 +187,8 @@ plt.xlabel('Epochs')
 plt.ylabel('Accuracy (%)')
 plt.legend()
 plt.grid(True)
-plt.savefig(os.path.join(save_path, 'b4_train_valid_accuracy.png'))
+current_time = get_current_time()
+plt.savefig(os.path.join(save_path, f'{current_time}_b4_train_valid_accuracy.png'))
 plt.close()
 
 # Test Accuracy Bar Plot
@@ -191,7 +197,8 @@ plt.bar(['B4'], [test_accuracy], color=['red'])
 plt.title('Test Accuracy for B4')
 plt.xlabel('Model')
 plt.ylabel('Accuracy (%)')
-plt.savefig(os.path.join(save_path, 'b4_test_accuracy_bar_plot.png'))
+current_time = get_current_time()
+plt.savefig(os.path.join(save_path, f'{current_time}_b4_test_accuracy_bar_plot.png'))
 plt.close()
 
 # Best performance 출력
