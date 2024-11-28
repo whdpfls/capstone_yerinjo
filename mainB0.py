@@ -4,7 +4,7 @@ import torch.optim as optim
 import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
-from efficientnetB4 import EfficientNetB0
+from efficientnetB0 import EfficientNetB0
 import os
 import pandas as pd
 from PIL import Image
