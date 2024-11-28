@@ -61,7 +61,6 @@ class AudioSpectrogramDataset(Dataset):
 # ])
 transform = transforms.Compose([
     transforms.Resize((380, 380)),  # EfficientNet-B4에 적합한 해상도
-    transforms.RandomHorizontalFlip(),
     transforms.RandomRotation(10),
     transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),
     transforms.ToTensor(),
@@ -155,7 +154,7 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
     train_acc_list = []
     valid_acc_list = []
 
-    for epoch in range(80):
+    for epoch in range(50):
         train_acc, train_loss = train(epoch, model, optimizer, criterion, trainloader)
         valid_acc, valid_loss = test(model, criterion, validloader)
         scheduler.step()
@@ -184,7 +183,7 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
     valid_accuracies_dict.append(valid_acc_list)
 
 # Plot 저장
-epochs = range(1, 81)
+epochs = range(1, 51)
 
 # Train & Valid Accuracy Plot
 plt.figure(figsize=(14, 7))

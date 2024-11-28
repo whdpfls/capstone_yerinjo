@@ -56,8 +56,6 @@ class AudioSpectrogramDataset(Dataset):
 # Transform 정의
 transform = transforms.Compose([
     transforms.Resize((216, 216)),
-    transforms.RandomHorizontalFlip(),  # Data Augmentation 추가
-    transforms.RandomRotation(15),
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
@@ -149,7 +147,7 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
     train_acc_list = []
     valid_acc_list = []
 
-    for epoch in range(80):
+    for epoch in range(50):
         train_acc, train_loss = train(epoch, model, optimizer, criterion, trainloader)
         valid_acc, valid_loss = test(model, criterion, validloader)
         scheduler.step()
@@ -178,7 +176,7 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
     valid_accuracies_dict.append(valid_acc_list)
 
 # Plot 저장
-epochs = range(1, 81)
+epochs = range(1, 51)
 
 # Train & Valid Accuracy Plot
 plt.figure(figsize=(14, 7))
