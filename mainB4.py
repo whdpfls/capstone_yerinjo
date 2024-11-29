@@ -55,7 +55,7 @@ class AudioSpectrogramDataset(Dataset):
 
 # Transform 정의
 transform = transforms.Compose([
-    transforms.Resize((380, 380)),  # EfficientNet-B4에 적합한 해상도
+    transforms.Resize((128, 87)),  # EfficientNet-B4에 적합한 해상도 - 380
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
