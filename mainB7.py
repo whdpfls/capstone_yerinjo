@@ -1,3 +1,6 @@
+import os
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -5,15 +8,11 @@ import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
 from efficientnetB7 import EfficientNetB7
-import os
 import pandas as pd
 from PIL import Image
 from torchvision import transforms
 from torch.utils.data import Dataset
 from datetime import datetime
-
-# PyTorch CUDA memory management configuration
-os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print(device)
@@ -55,7 +54,6 @@ class AudioSpectrogramDataset(Dataset):
 
         return image, label
 
-
 # Transform 정의
 transform = transforms.Compose([
     transforms.Resize((512, 512)),  # EfficientNet-B7에 적합한 해상도
@@ -68,9 +66,8 @@ base_dataset_path = 'dataset/unified_spect_folds'
 save_path = 'plots'
 os.makedirs(save_path, exist_ok=True)
 
-
 # Training 함수
-def train(epoch, model, optimizer, criterion, trainloader):
+def train(epoch, model, optimizer, criterion, trainloader, scaler):
     model.train()
     correct = 0
     total = 0
@@ -78,10 +75,15 @@ def train(epoch, model, optimizer, criterion, trainloader):
     for inputs, targets in trainloader:
         inputs, targets = inputs.to(device), targets.to(device)
         optimizer.zero_grad()
-        outputs = model(inputs)
-        loss = criterion(outputs, targets)
-        loss.backward()
-        optimizer.step()
+
+        # Mixed Precision Training
+        with torch.cuda.amp.autocast():
+            outputs = model(inputs)
+            loss = criterion(outputs, targets)
+
+        scaler.scale(loss).backward()
+        scaler.step(optimizer)
+        scaler.update()
 
         train_loss += loss.item()
         _, predicted = outputs.max(1)
@@ -91,7 +93,6 @@ def train(epoch, model, optimizer, criterion, trainloader):
     acc = 100. * correct / total
     avg_loss = train_loss / len(trainloader)
     return acc, avg_loss
-
 
 # 검증 함수
 def test(model, criterion, testloader):
@@ -114,7 +115,6 @@ def test(model, criterion, testloader):
     avg_loss = test_loss / len(testloader)
     return acc, avg_loss
 
-
 # Train, Valid, Test 구성 및 학습
 for valid_fold in range(5):  # fold 0~4 중 valid 선택
     train_folds = [f for f in range(5) if f != valid_fold]
@@ -128,15 +128,14 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
     testset = AudioSpectrogramDataset(test_annot_path, base_dataset_path, transform=transform)
 
     # DataLoader
-    trainloader = DataLoader(trainset, batch_size=32, shuffle=True, num_workers=4)
-    validloader = DataLoader(validationset, batch_size=32, shuffle=False, num_workers=4)
-    testloader = DataLoader(testset, batch_size=32, shuffle=False, num_workers=4)
+    trainloader = DataLoader(trainset, batch_size=16, shuffle=True, num_workers=4)  # 배치 크기 조정
+    validloader = DataLoader(validationset, batch_size=16, shuffle=False, num_workers=4)
+    testloader = DataLoader(testset, batch_size=16, shuffle=False, num_workers=4)
 
     # EfficientNet B7 모델 학습
     print(f"\nTraining EfficientNet-B7 for Valid Fold {valid_fold}")
     model = EfficientNetB7(num_classes=11).to(device)
 
-    # Multi-GPU 지원
     if torch.cuda.device_count() > 1:
         print(f"Using {torch.cuda.device_count()} GPUs!")
         model = nn.DataParallel(model)
@@ -147,6 +146,7 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.AdamW(model.parameters(), lr=0.001, weight_decay=1e-4)
     scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.5)
+    scaler = torch.cuda.amp.GradScaler()  # GradScaler for FP16
 
     best_train_acc = 0
     best_valid_acc = 0
@@ -156,7 +156,7 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
     valid_acc_list = []
 
     for epoch in range(50):
-        train_acc, train_loss = train(epoch, model, optimizer, criterion, trainloader)
+        train_acc, train_loss = train(epoch, model, optimizer, criterion, trainloader, scaler)
         valid_acc, valid_loss = test(model, criterion, validloader)
         scheduler.step()
 
