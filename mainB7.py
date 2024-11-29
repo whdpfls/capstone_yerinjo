@@ -12,6 +12,9 @@ from torchvision import transforms
 from torch.utils.data import Dataset
 from datetime import datetime
 
+# PyTorch CUDA memory management configuration
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print(device)
 
