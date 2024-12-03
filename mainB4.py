@@ -19,13 +19,9 @@ print(device)
 def get_current_time():
     return datetime.now().strftime("%m-%d-%H-%M")
 
-# Accuracy를 저장할 딕셔너리
-train_accuracies_dict = []
-valid_accuracies_dict = []
+# Accuracy 저장용 리스트
+fold_performance = []
 test_accuracy = 0
-
-# 최고 성능 정보를 저장할 딕셔너리
-best_performance = {}
 
 # 사용자 정의 데이터셋 클래스
 class AudioSpectrogramDataset(Dataset):
@@ -55,7 +51,7 @@ class AudioSpectrogramDataset(Dataset):
 
 # Transform 정의
 transform = transforms.Compose([
-    transforms.Resize((128, 87)),  # EfficientNet-B4에 적합한 해상도 - 380
+    transforms.Resize((380, 380)),  # EfficientNet-B4에 적합한 해상도 - 380
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
@@ -64,7 +60,6 @@ transform = transforms.Compose([
 base_dataset_path = 'dataset/unified_spect_folds'
 save_path = 'plots'
 os.makedirs(save_path, exist_ok=True)
-
 
 # Training 함수
 def train(epoch, model, optimizer, criterion, trainloader):
@@ -144,63 +139,37 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
     best_valid_acc = 0
     best_epoch = 0
 
-    train_acc_list = []
-    valid_acc_list = []
-
-    for epoch in range(50):
+    for epoch in range(500):  # 에포크 변경
         train_acc, train_loss = train(epoch, model, optimizer, criterion, trainloader)
         valid_acc, valid_loss = test(model, criterion, validloader)
         scheduler.step()
-
-        train_acc_list.append(train_acc)
-        valid_acc_list.append(valid_acc)
-
-        print(f"Epoch {epoch + 1}: Train Acc: {train_acc:.2f}%, Valid Acc: {valid_acc:.2f}%")
 
         if valid_acc > best_valid_acc:
             best_train_acc = train_acc
             best_valid_acc = valid_acc
             best_epoch = epoch + 1
 
-    test_acc, test_loss = test(model, criterion, testloader)
-    test_accuracy = test_acc
+        # 25번째 에포크마다 출력
+        if (epoch + 1) % 25 == 0 or epoch == 0:
+            print(f"Epoch {epoch + 1}: Train Acc: {train_acc:.2f}%, Valid Acc: {valid_acc:.2f}%")
 
-    best_performance = {
+    # Fold별 Best 성능 저장
+    fold_performance.append({
+        'fold': valid_fold,
         'best_train_acc': best_train_acc,
         'best_valid_acc': best_valid_acc,
-        'best_epoch': best_epoch,
-        'test_acc': test_accuracy
-    }
+        'best_epoch': best_epoch
+    })
 
-    train_accuracies_dict.append(train_acc_list)
-    valid_accuracies_dict.append(valid_acc_list)
+# Test Accuracy 계산
+test_acc, test_loss = test(model, criterion, testloader)
+test_accuracy = test_acc
 
-# Plot 저장
-epochs = range(1, 51)
+# Fold별 Best 성능 출력
+print("\nFold-wise Best Performance:")
+for performance in fold_performance:
+    print(f"Fold {performance['fold']}: Best Train Acc: {performance['best_train_acc']:.2f}%, "
+          f"Best Valid Acc: {performance['best_valid_acc']:.2f}%, Best Epoch: {performance['best_epoch']}")
 
-# Train & Valid Accuracy Plot
-plt.figure(figsize=(14, 7))
-plt.plot(epochs, train_accuracies_dict[0], label=f'Train Acc B4', color='red', linestyle='-')
-plt.plot(epochs, valid_accuracies_dict[0], label=f'Valid Acc B4', color='red', linestyle='--')
-plt.title('Train and Valid Accuracy for B4')
-plt.xlabel('Epochs')
-plt.ylabel('Accuracy (%)')
-plt.legend()
-plt.grid(True)
-current_time = get_current_time()
-plt.savefig(os.path.join(save_path, f'{current_time}_b4_train_valid_accuracy.png'))
-plt.close()
-
-# Test Accuracy Bar Plot
-plt.figure(figsize=(14, 7))
-plt.bar(['B4'], [test_accuracy], color=['red'])
-plt.title('Test Accuracy for B4')
-plt.xlabel('Model')
-plt.ylabel('Accuracy (%)')
-current_time = get_current_time()
-plt.savefig(os.path.join(save_path, f'{current_time}_b4_test_accuracy_bar_plot.png'))
-plt.close()
-
-# Best performance 출력
-print("\nBest Performance Summary:")
-print(f"EfficientNet-B4: Best Train Acc: {best_performance['best_train_acc']:.2f}%, Best Valid Acc: {best_performance['best_valid_acc']:.2f}%, Test Acc: {best_performance['test_acc']:.2f}%, Best Epoch: {best_performance['best_epoch']}")
+# Test 성능 출력
+print(f"\nTest Accuracy: {test_accuracy:.2f}%")
