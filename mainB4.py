@@ -4,6 +4,7 @@ import torch.optim as optim
 import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
+import seaborn as sns
 from efficientnetB4 import EfficientNetB4
 import os
 import pandas as pd
@@ -11,6 +12,8 @@ from PIL import Image
 from torchvision import transforms
 from torch.utils.data import Dataset
 from datetime import datetime
+from sklearn.metrics import confusion_matrix
+import numpy as np
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print(device)
@@ -91,6 +94,8 @@ def test(model, criterion, testloader):
     correct = 0
     total = 0
     test_loss = 0
+    all_preds = []
+    all_targets = []
     with torch.no_grad():
         for inputs, targets in testloader:
             inputs, targets = inputs.to(device), targets.to(device)
@@ -102,9 +107,12 @@ def test(model, criterion, testloader):
             total += targets.size(0)
             correct += predicted.eq(targets).sum().item()
 
+            all_preds.extend(predicted.cpu().numpy())
+            all_targets.extend(targets.cpu().numpy())
+
     acc = 100. * correct / total
     avg_loss = test_loss / len(testloader)
-    return acc, avg_loss
+    return acc, avg_loss, all_preds, all_targets
 
 
 # Train, Valid, Test 구성 및 학습
@@ -139,10 +147,16 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
     best_valid_acc = 0
     best_epoch = 0
 
-    for epoch in range(500):  # 에포크 변경
+    train_accs = []
+    valid_accs = []
+
+    for epoch in range(100):  # 에포크 변경
         train_acc, train_loss = train(epoch, model, optimizer, criterion, trainloader)
-        valid_acc, valid_loss = test(model, criterion, validloader)
+        valid_acc, valid_loss = test(model, criterion, validloader)[:2]
         scheduler.step()
+
+        train_accs.append(train_acc)
+        valid_accs.append(valid_acc)
 
         if valid_acc > best_valid_acc:
             best_train_acc = train_acc
@@ -150,7 +164,7 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
             best_epoch = epoch + 1
 
         # 25번째 에포크마다 출력
-        if (epoch + 1) % 25 == 0 or epoch == 0:
+        if (epoch + 1) % 10 == 0 or epoch == 0:
             print(f"Epoch {epoch + 1}: Train Acc: {train_acc:.2f}%, Valid Acc: {valid_acc:.2f}%")
 
     # Fold별 Best 성능 저장
@@ -161,9 +175,33 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
         'best_epoch': best_epoch
     })
 
-# Test Accuracy 계산
-test_acc, test_loss = test(model, criterion, testloader)
+    # Plot Fold Accuracy
+    current_time = get_current_time()
+    plt.figure(figsize=(10, 6))
+    plt.plot(train_accs, label='Train Accuracy')
+    plt.plot(valid_accs, label='Valid Accuracy')
+    plt.title(f"Accuracy for Fold {valid_fold}")
+    plt.xlabel("Epoch")
+    plt.ylabel("Accuracy (%)")
+    plt.legend()
+    plot_filename = f"{current_time}-b4-{valid_fold}.png"
+    plt.savefig(os.path.join(save_path, plot_filename))
+    plt.close()
+
+# Test Accuracy 계산 및 Confusion Matrix 생성
+test_acc, test_loss, test_preds, test_targets = test(model, criterion, testloader)
 test_accuracy = test_acc
+
+# Confusion Matrix Plot
+conf_matrix = confusion_matrix(test_targets, test_preds)
+plt.figure(figsize=(12, 10))
+sns.heatmap(conf_matrix, annot=True, fmt="d", cmap="Blues", xticklabels=range(11), yticklabels=range(11))
+plt.title("Confusion Matrix for Test Set")
+plt.xlabel("Predicted")
+plt.ylabel("True")
+conf_matrix_filename = f"{get_current_time()}-confusion-matrix.png"
+plt.savefig(os.path.join(save_path, conf_matrix_filename))
+plt.close()
 
 # Fold별 Best 성능 출력
 print("\nFold-wise Best Performance:")
