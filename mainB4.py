@@ -139,7 +139,7 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
     best_valid_acc = 0
     best_epoch = 0
 
-    for epoch in range(500):  # 에포크 변경
+    for epoch in range(100):  # 에포크 변경
         train_acc, train_loss = train(epoch, model, optimizer, criterion, trainloader)
         valid_acc, valid_loss = test(model, criterion, validloader)
         scheduler.step()
@@ -150,7 +150,7 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
             best_epoch = epoch + 1
 
         # 25번째 에포크마다 출력
-        if (epoch + 1) % 25 == 0 or epoch == 0:
+        if (epoch + 1) % 10 == 0 or epoch == 0:
             print(f"Epoch {epoch + 1}: Train Acc: {train_acc:.2f}%, Valid Acc: {valid_acc:.2f}%")
 
     # Fold별 Best 성능 저장
