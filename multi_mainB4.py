@@ -68,11 +68,12 @@ def plot_confusion_matrix(cm, labels, title, save_path):
     plt.close()
 
 # Accuracy Plot
-def plot_accuracy(train_acc, valid_acc, fold, save_path):
+def plot_combined_accuracy(train_accs_all_folds, valid_accs_all_folds, save_path):
     plt.figure(figsize=(10, 6))
-    plt.plot(range(1, len(train_acc) + 1), train_acc, label="Train Accuracy", color="blue")
-    plt.plot(range(1, len(valid_acc) + 1), valid_acc, label="Validation Accuracy", color="red")
-    plt.title(f"Accuracy for Fold {fold}")
+    for fold in range(len(train_accs_all_folds)):
+        plt.plot(range(1, len(train_accs_all_folds[fold]) + 1), train_accs_all_folds[fold], label=f"Fold {fold} Train", linestyle="-")
+        plt.plot(range(1, len(valid_accs_all_folds[fold]) + 1), valid_accs_all_folds[fold], label=f"Fold {fold} Valid", linestyle="--")
+    plt.title("Combined Train and Validation Accuracy")
     plt.xlabel("Epoch")
     plt.ylabel("Accuracy (%)")
     plt.legend()
@@ -98,35 +99,50 @@ def validate_or_test(model, criterion, dataloader, dataset, misclassified_collec
             y_true.extend(targets.cpu().numpy())
             y_pred.extend(preds.cpu().numpy())
 
-    # Confusion Matrix 및 오분류 데이터
     cm = confusion_matrix(y_true, y_pred)
     if misclassified_collector is not None:
         misclassified_collector.extend(get_misclassified_data(y_true, y_pred, dataset))
 
     return total_loss / len(dataloader), cm, y_true, y_pred
 
-# 모델 학습 및 반복
-def train_and_test_model(folds=5, target_accuracy=90):
+# Test 함수
+def test(model, criterion, test_loader, dataset):
+    misclassified_data = []
+    test_loss, test_cm, y_true, y_pred = validate_or_test(model, criterion, test_loader, dataset, misclassified_data)
+    test_accuracy = np.diag(test_cm).sum() / test_cm.sum() * 100
+
+    # Confusion Matrix 저장
+    test_cm_path = os.path.join(save_path, f"{get_current_time()}_test_confusion_matrix.png")
+    plot_confusion_matrix(test_cm, ["car_horn", "car", "scream", "gun_shot", "siren",
+                                    "vehicle_siren", "fire", "skidding", "train",
+                                    "explosion", "breaking"],
+                          "Confusion Matrix for Test Set", test_cm_path)
+    print(f"Test Confusion Matrix saved at {test_cm_path}")
+
+    return test_accuracy, misclassified_data
+
+# 모델 학습 및 검증
+def train_and_validate_model(folds=5, target_accuracy=90):
+    train_accs_all_folds = []
+    valid_accs_all_folds = []
     for fold in range(folds):
-        current_time = get_current_time()  # 현재 시간 생성
+        current_time = get_current_time()
         train_acc, valid_acc = [], []
 
         train_annotation_file = os.path.join(dataset_path, f"{fold}_train_annot.csv")
         valid_annot_path = os.path.join(dataset_path, f"{fold}_valid_annot.csv")
-        test_annot_path = os.path.join(dataset_path, "test_annot.csv")
 
         # 데이터셋 생성
         trainset = AudioSpectrogramDataset(train_annotation_file, dataset_path, transform=transform)
         validationset = AudioSpectrogramDataset(valid_annot_path, dataset_path, transform=transform)
-        testset = AudioSpectrogramDataset(test_annot_path, dataset_path, transform=transform)
 
         train_loader = DataLoader(trainset, batch_size=32, shuffle=True)
         valid_loader = DataLoader(validationset, batch_size=32, shuffle=False)
-        test_loader = DataLoader(testset, batch_size=32, shuffle=False)
 
         model = EfficientNetB4(num_classes=11).to(device)
         criterion = nn.CrossEntropyLoss()
-        optimizer = optim.Adam(model.parameters(), lr=0.001)
+        optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-4)
+        scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.5)
 
         best_valid_accuracy = 0
 
@@ -144,7 +160,6 @@ def train_and_test_model(folds=5, target_accuracy=90):
                 loss.backward()
                 optimizer.step()
 
-                # Train Accuracy 계산
                 preds = outputs.argmax(dim=1)
                 correct_train += preds.eq(targets).sum().item()
                 total_train += targets.size(0)
@@ -152,7 +167,7 @@ def train_and_test_model(folds=5, target_accuracy=90):
             train_acc_epoch = correct_train / total_train * 100
             train_acc.append(train_acc_epoch)
 
-            # Validation Accuracy
+            # Validation
             valid_loss, valid_cm, _, _ = validate_or_test(model, criterion, valid_loader, validationset)
             valid_accuracy = np.diag(valid_cm).sum() / valid_cm.sum() * 100
             valid_acc.append(valid_accuracy)
@@ -162,40 +177,25 @@ def train_and_test_model(folds=5, target_accuracy=90):
             if valid_accuracy > best_valid_accuracy:
                 best_valid_accuracy = valid_accuracy
 
-            # 목표 정확도 달성 시 종료
             if valid_accuracy >= target_accuracy:
                 break
 
-        # Accuracy Plot 저장
-        accuracy_plot_path = os.path.join(save_path, f"{current_time}_fold_{fold}_accuracy.png")
-        plot_accuracy(train_acc, valid_acc, fold, accuracy_plot_path)
-        print(f"Accuracy Plot saved for Fold {fold}: {accuracy_plot_path}")
+        train_accs_all_folds.append(train_acc)
+        valid_accs_all_folds.append(valid_acc)
 
-        # Test 단계
-        misclassified_data = []
-        test_loss, test_cm, y_true, y_pred = validate_or_test(model, criterion, test_loader, testset, misclassified_data)
-        test_accuracy = np.diag(test_cm).sum() / test_cm.sum() * 100
+    # Combined Accuracy Plot
+    combined_plot_path = os.path.join(save_path, f"{get_current_time()}_combined_accuracy.png")
+    plot_combined_accuracy(train_accs_all_folds, valid_accs_all_folds, combined_plot_path)
+    print(f"Combined Accuracy Plot saved at {combined_plot_path}")
 
-        print(f"Test Accuracy for Fold {fold}: {test_accuracy:.2f}%")
-        confusion_matrix_path = os.path.join(save_path, f"{current_time}_fold_{fold}_confusion_matrix.png")
-        plot_confusion_matrix(test_cm, ["car_horn", "car", "scream", "gun_shot", "siren",
-                                        "vehicle_siren", "fire", "skidding", "train",
-                                        "explosion", "breaking"],
-                              f"Confusion Matrix for Fold {fold}", confusion_matrix_path)
-        print(f"Confusion Matrix saved for Fold {fold}: {confusion_matrix_path}")
+train_and_validate_model()
 
-        # 오분류 데이터 재검증
-        if misclassified_data:
-            re_test_path = os.path.join(save_path, f"{current_time}_fold_{fold}_re_test_confusion_matrix.png")
-            _, re_test_cm, _, _ = validate_or_test(model, criterion, DataLoader(misclassified_data, batch_size=32, shuffle=False), misclassified_data)
-            plot_confusion_matrix(
-                re_test_cm,
-                ["car_horn", "car", "scream", "gun_shot", "siren",
-                 "vehicle_siren", "fire", "skidding", "train",
-                 "explosion", "breaking"],
-                f"Re-Test Confusion Matrix for Fold {fold}",
-                re_test_path
-            )
-            print(f"Re-Test Confusion Matrix saved for Fold {fold}: {re_test_path}")
+# 테스트 실행
+test_annotation_file = os.path.join(dataset_path, "test_annot.csv")
+testset = AudioSpectrogramDataset(test_annotation_file, dataset_path, transform=transform)
+test_loader = DataLoader(testset, batch_size=32, shuffle=False)
 
-train_and_test_model()
+model = EfficientNetB4(num_classes=11).to(device)
+criterion = nn.CrossEntropyLoss()
+test_accuracy, misclassified_data = test(model, criterion, test_loader, testset)
+print(f"Test Accuracy: {test_accuracy:.2f}%")
