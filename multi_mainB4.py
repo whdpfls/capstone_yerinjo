@@ -65,16 +65,21 @@ save_path = 'plots'
 os.makedirs(save_path, exist_ok=True)
 
 # Training 함수
-def train(epoch, model, optimizer, criterion, trainloader):
+def train(epoch, model, optimizer, criterion, trainloader, num_classes=11):
     model.train()
     correct = 0
     total = 0
     train_loss = 0
     for inputs, targets in trainloader:
         inputs, targets = inputs.to(device), targets.to(device)
+
+        # 타겟을 원-핫 인코딩으로 변환
+        targets_one_hot = torch.zeros((targets.size(0), num_classes), device=device)
+        targets_one_hot.scatter_(1, targets.unsqueeze(1), 1)
+
         optimizer.zero_grad()
         outputs = model(inputs)
-        loss = criterion(outputs, targets)
+        loss = criterion(outputs, targets_one_hot)
         loss.backward()
         optimizer.step()
 
@@ -88,8 +93,8 @@ def train(epoch, model, optimizer, criterion, trainloader):
     return acc, avg_loss
 
 
-# 다중 레이블 평가를 포함한 테스트 함수
-def test_multilabel(model, criterion, testloader):
+# 테스트 함수 수정
+def test_multilabel(model, criterion, testloader, num_classes=11):
     model.eval()
     total = 0
     test_loss = 0
@@ -99,6 +104,11 @@ def test_multilabel(model, criterion, testloader):
     with torch.no_grad():
         for inputs, targets in testloader:
             inputs, targets = inputs.to(device), targets.to(device)
+
+            # 타겟을 원-핫 인코딩으로 변환
+            targets_one_hot = torch.zeros((targets.size(0), num_classes), device=device)
+            targets_one_hot.scatter_(1, targets.unsqueeze(1), 1)
+
             outputs = model(inputs)
 
             # 다중 레이블 예측
@@ -106,7 +116,7 @@ def test_multilabel(model, criterion, testloader):
             topk_values, topk_indices = prob.topk(2, dim=1)
             correct_preds = torch.any(topk_indices == targets.unsqueeze(1), dim=1)
 
-            loss = criterion(outputs, targets)
+            loss = criterion(outputs, targets_one_hot)
             test_loss += loss.item()
 
             total += targets.size(0)
@@ -118,7 +128,6 @@ def test_multilabel(model, criterion, testloader):
     acc = 100. * correct / total
     avg_loss = test_loss / len(testloader)
     return acc, avg_loss, all_preds, all_targets
-
 
 # Train, Valid, Test 구성 및 학습
 for valid_fold in range(5):  # fold 0~4 중 valid 선택
