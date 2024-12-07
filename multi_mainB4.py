@@ -133,9 +133,9 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
     testset = AudioSpectrogramDataset(test_annot_path, base_dataset_path, transform=transform)
 
     # DataLoader
-    trainloader = DataLoader(trainset, batch_size=32, shuffle=True, num_workers=4)
-    validloader = DataLoader(validationset, batch_size=32, shuffle=False, num_workers=4)
-    testloader = DataLoader(testset, batch_size=32, shuffle=False, num_workers=4)
+    trainloader = DataLoader(trainset, batch_size=64, shuffle=True, num_workers=4)
+    validloader = DataLoader(validationset, batch_size=64, shuffle=False, num_workers=4)
+    testloader = DataLoader(testset, batch_size=64, shuffle=False, num_workers=4)
 
     # EfficientNet B4 모델 학습
     print(f"\nTraining EfficientNet-B4 for Valid Fold {valid_fold}")
