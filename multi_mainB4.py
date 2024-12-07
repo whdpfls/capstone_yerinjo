@@ -1,28 +1,30 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
+import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
+import seaborn as sns
 from efficientnetB4 import EfficientNetB4
 import os
 import pandas as pd
 from PIL import Image
 from torchvision import transforms
 from torch.utils.data import Dataset
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from datetime import datetime
+from sklearn.metrics import confusion_matrix
 import numpy as np
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print(device)
 
-dataset_path = 'dataset/unified_spect_folds'
-save_path = 'plots'
-os.makedirs(save_path, exist_ok=True)
-
 # 현재 시간 생성 함수
 def get_current_time():
-    from datetime import datetime
     return datetime.now().strftime("%m-%d-%H-%M")
+
+# Accuracy 저장용 리스트
+fold_performance = []
+test_accuracy = 0
 
 # 사용자 정의 데이터셋 클래스
 class AudioSpectrogramDataset(Dataset):
@@ -38,164 +40,154 @@ class AudioSpectrogramDataset(Dataset):
         file_name = self.img_labels.iloc[idx, 0]
         img_path = os.path.join(self.base_path, file_name)
 
+        if not os.path.exists(img_path):
+            raise FileNotFoundError(f"File not found: {img_path}")
+
         image = Image.open(img_path).convert('RGB')
-        label = int(self.img_labels.iloc[idx, 1])  # Single-label 처리
+        label = int(self.img_labels.iloc[idx, 1])
+
         if self.transform:
             image = self.transform(image)
 
         return image, label
 
+
 # Transform 정의
 transform = transforms.Compose([
-    transforms.Resize((380, 380)),
+    transforms.Resize((380, 380)),  # EfficientNet-B4에 적합한 해상도 - 380
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
 
-# Confusion Matrix 기반 오분류 데이터 추출
-def get_misclassified_data(y_true, y_pred, dataset):
-    misclassified_indices = [i for i, (true, pred) in enumerate(zip(y_true, y_pred)) if true != pred]
-    misclassified_data = [dataset[i] for i in misclassified_indices]
-    return misclassified_data
+# 데이터 경로
+base_dataset_path = 'dataset/unified_spect_folds'
+save_path = 'plots'
+os.makedirs(save_path, exist_ok=True)
 
-# Confusion Matrix 시각화
-def plot_confusion_matrix(cm, labels, title, save_path):
-    fig, ax = plt.subplots(figsize=(10, 10))
-    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels)
-    disp.plot(ax=ax, cmap="Blues", colorbar=True)
-    plt.title(title)
-    plt.savefig(save_path)
-    plt.close()
+# Training 함수
+def train(epoch, model, optimizer, criterion, trainloader):
+    model.train()
+    correct = 0
+    total = 0
+    train_loss = 0
+    for inputs, targets in trainloader:
+        inputs, targets = inputs.to(device), targets.to(device)
+        optimizer.zero_grad()
+        outputs = model(inputs)
+        loss = criterion(outputs, targets)
+        loss.backward()
+        optimizer.step()
 
-# Accuracy Plot
-def plot_combined_accuracy(train_accs_all_folds, valid_accs_all_folds, save_path):
+        train_loss += loss.item()
+        _, predicted = outputs.max(1)
+        total += targets.size(0)
+        correct += predicted.eq(targets).sum().item()
+
+    acc = 100. * correct / total
+    avg_loss = train_loss / len(trainloader)
+    return acc, avg_loss
+
+
+# 다중 레이블 평가를 포함한 테스트 함수
+def test_multilabel(model, criterion, testloader):
+    model.eval()
+    total = 0
+    test_loss = 0
+    correct = 0
+    all_targets = []
+    all_preds = []
+    with torch.no_grad():
+        for inputs, targets in testloader:
+            inputs, targets = inputs.to(device), targets.to(device)
+            outputs = model(inputs)
+
+            # 다중 레이블 예측
+            prob = torch.sigmoid(outputs)
+            topk_values, topk_indices = prob.topk(2, dim=1)
+            correct_preds = torch.any(topk_indices == targets.unsqueeze(1), dim=1)
+
+            loss = criterion(outputs, targets)
+            test_loss += loss.item()
+
+            total += targets.size(0)
+            correct += correct_preds.sum().item()
+
+            all_targets.extend(targets.cpu().numpy())
+            all_preds.extend(topk_indices.cpu().numpy())
+
+    acc = 100. * correct / total
+    avg_loss = test_loss / len(testloader)
+    return acc, avg_loss, all_preds, all_targets
+
+
+# Train, Valid, Test 구성 및 학습
+for valid_fold in range(5):  # fold 0~4 중 valid 선택
+    train_folds = [f for f in range(5) if f != valid_fold]
+    train_annotation_file = os.path.join(base_dataset_path, f"{valid_fold}_train_annot.csv")
+    valid_annot_path = os.path.join(base_dataset_path, f"{valid_fold}_valid_annot.csv")
+    test_annot_path = os.path.join(base_dataset_path, "test_annot.csv")
+
+    # 데이터셋 생성
+    trainset = AudioSpectrogramDataset(train_annotation_file, base_dataset_path, transform=transform)
+    validationset = AudioSpectrogramDataset(valid_annot_path, base_dataset_path, transform=transform)
+    testset = AudioSpectrogramDataset(test_annot_path, base_dataset_path, transform=transform)
+
+    # DataLoader
+    trainloader = DataLoader(trainset, batch_size=32, shuffle=True, num_workers=4)
+    validloader = DataLoader(validationset, batch_size=32, shuffle=False, num_workers=4)
+    testloader = DataLoader(testset, batch_size=32, shuffle=False, num_workers=4)
+
+    # EfficientNet B4 모델 학습
+    print(f"\nTraining EfficientNet-B4 for Valid Fold {valid_fold}")
+    model = EfficientNetB4(num_classes=11).to(device)
+    if device == 'cuda':
+        model = torch.nn.DataParallel(model)
+        cudnn.benchmark = True
+
+    criterion = nn.BCEWithLogitsLoss()  # 다중 레이블 예측을 위한 손실 함수
+    optimizer = optim.AdamW(model.parameters(), lr=0.001, weight_decay=1e-4)
+    scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.5)
+
+    train_accs = []
+    valid_accs = []
+
+    for epoch in range(100):  # 에포크 변경
+        train_acc, train_loss = train(epoch, model, optimizer, criterion, trainloader)
+        valid_acc, valid_loss, _, _ = test_multilabel(model, criterion, validloader)
+        scheduler.step()
+
+        train_accs.append(train_acc)
+        valid_accs.append(valid_acc)
+
+        # 10번째 에포크마다 출력
+        if (epoch + 1) % 10 == 0 or epoch == 0:
+            print(f"Epoch {epoch + 1}: Train Acc: {train_acc:.2f}%, Valid Acc: {valid_acc:.2f}%")
+
+    # Plot Fold Accuracy
+    current_time = get_current_time()
     plt.figure(figsize=(10, 6))
-    for fold in range(len(train_accs_all_folds)):
-        plt.plot(range(1, len(train_accs_all_folds[fold]) + 1), train_accs_all_folds[fold], label=f"Fold {fold} Train", linestyle="-")
-        plt.plot(range(1, len(valid_accs_all_folds[fold]) + 1), valid_accs_all_folds[fold], label=f"Fold {fold} Valid", linestyle="--")
-    plt.title("Combined Train and Validation Accuracy")
+    plt.plot(train_accs, label='Train Accuracy')
+    plt.plot(valid_accs, label='Valid Accuracy')
+    plt.title(f"Accuracy for Fold {valid_fold}")
     plt.xlabel("Epoch")
     plt.ylabel("Accuracy (%)")
     plt.legend()
-    plt.grid(True)
-    plt.savefig(save_path)
+    plot_filename = f"{current_time}-b4-{valid_fold}.png"
+    plt.savefig(os.path.join(save_path, plot_filename))
     plt.close()
 
-# Validation/Test 함수
-def validate_or_test(model, criterion, dataloader, dataset, misclassified_collector=None):
-    model.eval()
-    total_loss = 0
-    y_true, y_pred = [], []
-    with torch.no_grad():
-        for inputs, targets in dataloader:
-            inputs, targets = inputs.to(device), targets.to(device)
+# Test 단계
+test_acc, test_loss, test_preds, test_targets = test_multilabel(model, criterion, testloader)
 
-            outputs = model(inputs)
-            loss = criterion(outputs, targets)
+# Confusion Matrix Plot
+conf_matrix = confusion_matrix(test_targets, np.concatenate(test_preds))
+plt.figure(figsize=(12, 10))
+sns.heatmap(conf_matrix, annot=True, fmt="d", cmap="Blues", xticklabels=range(11), yticklabels=range(11))
+plt.title("Confusion Matrix for Test Set")
+plt.xlabel("Predicted")
+plt.ylabel("True")
+conf_matrix_filename = f"{get_current_time()}-confusion-matrix.png"
+plt.savefig(os.path.join(save_path, conf_matrix_filename))
+plt.close()
 
-            total_loss += loss.item()
-            preds = outputs.argmax(dim=1)
-
-            y_true.extend(targets.cpu().numpy())
-            y_pred.extend(preds.cpu().numpy())
-
-    cm = confusion_matrix(y_true, y_pred)
-    if misclassified_collector is not None:
-        misclassified_collector.extend(get_misclassified_data(y_true, y_pred, dataset))
-
-    return total_loss / len(dataloader), cm, y_true, y_pred
-
-# Test 함수
-def test(model, criterion, test_loader, dataset):
-    misclassified_data = []
-    test_loss, test_cm, y_true, y_pred = validate_or_test(model, criterion, test_loader, dataset, misclassified_data)
-    test_accuracy = np.diag(test_cm).sum() / test_cm.sum() * 100
-
-    # Confusion Matrix 저장
-    test_cm_path = os.path.join(save_path, f"{get_current_time()}_test_confusion_matrix.png")
-    plot_confusion_matrix(test_cm, ["car_horn", "car", "scream", "gun_shot", "siren",
-                                    "vehicle_siren", "fire", "skidding", "train",
-                                    "explosion", "breaking"],
-                          "Confusion Matrix for Test Set", test_cm_path)
-    print(f"Test Confusion Matrix saved at {test_cm_path}")
-
-    return test_accuracy, misclassified_data
-
-# 모델 학습 및 검증
-def train_and_validate_model(folds=5, target_accuracy=90):
-    train_accs_all_folds = []
-    valid_accs_all_folds = []
-    for fold in range(folds):
-        current_time = get_current_time()
-        train_acc, valid_acc = [], []
-
-        train_annotation_file = os.path.join(dataset_path, f"{fold}_train_annot.csv")
-        valid_annot_path = os.path.join(dataset_path, f"{fold}_valid_annot.csv")
-
-        # 데이터셋 생성
-        trainset = AudioSpectrogramDataset(train_annotation_file, dataset_path, transform=transform)
-        validationset = AudioSpectrogramDataset(valid_annot_path, dataset_path, transform=transform)
-
-        train_loader = DataLoader(trainset, batch_size=32, shuffle=True)
-        valid_loader = DataLoader(validationset, batch_size=32, shuffle=False)
-
-        model = EfficientNetB4(num_classes=11).to(device)
-        criterion = nn.CrossEntropyLoss()
-        optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-4)
-        scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.5)
-
-        best_valid_accuracy = 0
-
-        # 학습
-        for epoch in range(100):
-            model.train()
-            correct_train = 0
-            total_train = 0
-
-            for inputs, targets in train_loader:
-                inputs, targets = inputs.to(device), targets.to(device)
-                optimizer.zero_grad()
-                outputs = model(inputs)
-                loss = criterion(outputs, targets)
-                loss.backward()
-                optimizer.step()
-
-                preds = outputs.argmax(dim=1)
-                correct_train += preds.eq(targets).sum().item()
-                total_train += targets.size(0)
-
-            train_acc_epoch = correct_train / total_train * 100
-            train_acc.append(train_acc_epoch)
-
-            # Validation
-            valid_loss, valid_cm, _, _ = validate_or_test(model, criterion, valid_loader, validationset)
-            valid_accuracy = np.diag(valid_cm).sum() / valid_cm.sum() * 100
-            valid_acc.append(valid_accuracy)
-
-            print(f"Fold {fold}, Epoch {epoch}, Train Accuracy: {train_acc_epoch:.2f}%, Valid Accuracy: {valid_accuracy:.2f}%")
-
-            if valid_accuracy > best_valid_accuracy:
-                best_valid_accuracy = valid_accuracy
-
-            if valid_accuracy >= target_accuracy:
-                break
-
-        train_accs_all_folds.append(train_acc)
-        valid_accs_all_folds.append(valid_acc)
-
-    # Combined Accuracy Plot
-    combined_plot_path = os.path.join(save_path, f"{get_current_time()}_combined_accuracy.png")
-    plot_combined_accuracy(train_accs_all_folds, valid_accs_all_folds, combined_plot_path)
-    print(f"Combined Accuracy Plot saved at {combined_plot_path}")
-
-train_and_validate_model()
-
-# 테스트 실행
-test_annotation_file = os.path.join(dataset_path, "test_annot.csv")
-testset = AudioSpectrogramDataset(test_annotation_file, dataset_path, transform=transform)
-test_loader = DataLoader(testset, batch_size=32, shuffle=False)
-
-model = EfficientNetB4(num_classes=11).to(device)
-criterion = nn.CrossEntropyLoss()
-test_accuracy, misclassified_data = test(model, criterion, test_loader, testset)
-print(f"Test Accuracy: {test_accuracy:.2f}%")
+print(f"Test Accuracy: {test_acc:.2f}%")
