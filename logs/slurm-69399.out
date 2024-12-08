@@ -1,0 +1,84 @@
+/data/dpfls5645/repos/capstone_yerinjo
+/data/dpfls5645/anaconda3/bin/python
+moana-y1
+cuda
+
+Training EfficientNet-B4 for Valid Fold 0
+Epoch 1: Train Acc: 47.04%, Valid Acc: 80.19%
+Epoch 10: Train Acc: 89.21%, Valid Acc: 91.09%
+Epoch 20: Train Acc: 91.19%, Valid Acc: 88.54%
+Epoch 30: Train Acc: 92.50%, Valid Acc: 88.40%
+Epoch 40: Train Acc: 92.52%, Valid Acc: 89.56%
+Epoch 50: Train Acc: 93.34%, Valid Acc: 89.24%
+Epoch 60: Train Acc: 93.31%, Valid Acc: 88.36%
+Epoch 70: Train Acc: 93.54%, Valid Acc: 89.15%
+Epoch 80: Train Acc: 93.84%, Valid Acc: 89.47%
+Epoch 90: Train Acc: 93.94%, Valid Acc: 89.56%
+Epoch 100: Train Acc: 93.79%, Valid Acc: 89.75%
+
+Training EfficientNet-B4 for Valid Fold 1
+Epoch 1: Train Acc: 46.53%, Valid Acc: 81.44%
+Epoch 10: Train Acc: 88.95%, Valid Acc: 90.39%
+Epoch 20: Train Acc: 90.67%, Valid Acc: 90.77%
+Epoch 30: Train Acc: 92.28%, Valid Acc: 90.21%
+Epoch 40: Train Acc: 92.18%, Valid Acc: 89.10%
+Epoch 50: Train Acc: 92.88%, Valid Acc: 89.10%
+Epoch 60: Train Acc: 93.25%, Valid Acc: 90.26%
+Epoch 70: Train Acc: 93.39%, Valid Acc: 89.84%
+Epoch 80: Train Acc: 93.40%, Valid Acc: 90.16%
+Epoch 90: Train Acc: 93.46%, Valid Acc: 90.67%
+Epoch 100: Train Acc: 93.60%, Valid Acc: 90.12%
+
+Training EfficientNet-B4 for Valid Fold 2
+Epoch 1: Train Acc: 47.59%, Valid Acc: 80.75%
+Epoch 10: Train Acc: 88.77%, Valid Acc: 89.49%
+Epoch 20: Train Acc: 90.51%, Valid Acc: 90.33%
+Epoch 30: Train Acc: 92.24%, Valid Acc: 89.82%
+Epoch 40: Train Acc: 92.59%, Valid Acc: 88.98%
+Epoch 50: Train Acc: 93.23%, Valid Acc: 88.75%
+Epoch 60: Train Acc: 93.09%, Valid Acc: 88.98%
+Epoch 70: Train Acc: 93.63%, Valid Acc: 89.26%
+Epoch 80: Train Acc: 93.53%, Valid Acc: 88.56%
+Epoch 90: Train Acc: 93.70%, Valid Acc: 88.94%
+Epoch 100: Train Acc: 93.44%, Valid Acc: 88.98%
+
+Training EfficientNet-B4 for Valid Fold 3
+Epoch 1: Train Acc: 47.48%, Valid Acc: 79.16%
+Epoch 10: Train Acc: 88.89%, Valid Acc: 91.91%
+Epoch 20: Train Acc: 90.82%, Valid Acc: 89.63%
+Epoch 30: Train Acc: 92.30%, Valid Acc: 90.23%
+Epoch 40: Train Acc: 92.40%, Valid Acc: 89.95%
+Epoch 50: Train Acc: 93.11%, Valid Acc: 90.05%
+Epoch 60: Train Acc: 93.11%, Valid Acc: 89.21%
+Epoch 70: Train Acc: 93.33%, Valid Acc: 88.88%
+Epoch 80: Train Acc: 93.48%, Valid Acc: 88.98%
+Epoch 90: Train Acc: 93.38%, Valid Acc: 89.49%
+Epoch 100: Train Acc: 93.43%, Valid Acc: 89.21%
+
+Training EfficientNet-B4 for Valid Fold 4
+Epoch 1: Train Acc: 47.45%, Valid Acc: 78.68%
+Epoch 10: Train Acc: 89.92%, Valid Acc: 89.48%
+Epoch 20: Train Acc: 91.31%, Valid Acc: 90.32%
+Epoch 30: Train Acc: 92.88%, Valid Acc: 88.04%
+Epoch 40: Train Acc: 93.08%, Valid Acc: 87.20%
+Epoch 50: Train Acc: 93.57%, Valid Acc: 87.80%
+Epoch 60: Train Acc: 93.45%, Valid Acc: 86.59%
+Epoch 70: Train Acc: 93.95%, Valid Acc: 87.43%
+Epoch 80: Train Acc: 93.90%, Valid Acc: 86.31%
+Epoch 90: Train Acc: 93.87%, Valid Acc: 86.82%
+Epoch 100: Train Acc: 93.94%, Valid Acc: 87.20%
+Traceback (most recent call last):
+  File "/data/dpfls5645/repos/capstone_yerinjo/multi_mainB4.py", line 192, in <module>
+    conf_matrix = confusion_matrix(test_targets, np.concatenate(test_preds))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/dpfls5645/anaconda3/lib/python3.11/site-packages/sklearn/utils/_param_validation.py", line 211, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/data/dpfls5645/anaconda3/lib/python3.11/site-packages/sklearn/metrics/_classification.py", line 326, in confusion_matrix
+    y_type, y_true, y_pred = _check_targets(y_true, y_pred)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/dpfls5645/anaconda3/lib/python3.11/site-packages/sklearn/metrics/_classification.py", line 84, in _check_targets
+    check_consistent_length(y_true, y_pred)
+  File "/data/dpfls5645/anaconda3/lib/python3.11/site-packages/sklearn/utils/validation.py", line 409, in check_consistent_length
+    raise ValueError(
+ValueError: Found input variables with inconsistent numbers of samples: [2146, 4292]
