@@ -185,11 +185,30 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
     plt.savefig(os.path.join(save_path, plot_filename))
     plt.close()
 
-# Test 단계
+# # Test 단계
+# test_acc, test_loss, test_preds, test_targets = test_multilabel(model, criterion, testloader)
+#
+# # Confusion Matrix Plot
+# conf_matrix = confusion_matrix(test_targets, np.concatenate(test_preds))
+# plt.figure(figsize=(12, 10))
+# sns.heatmap(conf_matrix, annot=True, fmt="d", cmap="Blues", xticklabels=range(11), yticklabels=range(11))
+# plt.title("Confusion Matrix for Test Set")
+# plt.xlabel("Predicted")
+# plt.ylabel("True")
+# conf_matrix_filename = f"{get_current_time()}-confusion-matrix.png"
+# plt.savefig(os.path.join(save_path, conf_matrix_filename))
+# plt.close()
+#
+# print(f"Test Accuracy: {test_acc:.2f}%")
+
+# Test 단계 수정
 test_acc, test_loss, test_preds, test_targets = test_multilabel(model, criterion, testloader)
 
 # Confusion Matrix Plot
-conf_matrix = confusion_matrix(test_targets, np.concatenate(test_preds))
+# test_preds에서 가장 높은 확률의 클래스(Top-1) 추출
+top1_preds = [pred[0] for pred in test_preds]  # test_preds는 Top-2로 되어 있음
+conf_matrix = confusion_matrix(test_targets, top1_preds)
+
 plt.figure(figsize=(12, 10))
 sns.heatmap(conf_matrix, annot=True, fmt="d", cmap="Blues", xticklabels=range(11), yticklabels=range(11))
 plt.title("Confusion Matrix for Test Set")
