@@ -22,10 +22,6 @@ print(device)
 def get_current_time():
     return datetime.now().strftime("%m-%d-%H-%M")
 
-# Accuracy 저장용 리스트
-fold_performance = []
-test_accuracy = 0
-
 # 사용자 정의 데이터셋 클래스
 class AudioSpectrogramDataset(Dataset):
     def __init__(self, annotation_file, base_path, transform=None):
@@ -51,10 +47,9 @@ class AudioSpectrogramDataset(Dataset):
 
         return image, label
 
-
 # Transform 정의
 transform = transforms.Compose([
-    transforms.Resize((380, 380)),  # EfficientNet-B4에 적합한 해상도 - 380
+    transforms.Resize((380, 380)),  # EfficientNet-B4에 적합한 해상도
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
@@ -92,8 +87,7 @@ def train(epoch, model, optimizer, criterion, trainloader, num_classes=11):
     avg_loss = train_loss / len(trainloader)
     return acc, avg_loss
 
-
-# 테스트 함수 수정
+# 테스트 함수
 def test_multilabel(model, criterion, testloader, num_classes=11):
     model.eval()
     total = 0
@@ -129,10 +123,9 @@ def test_multilabel(model, criterion, testloader, num_classes=11):
     avg_loss = test_loss / len(testloader)
     return acc, avg_loss, all_preds, all_targets
 
-
 # Train, Valid, Test 구성 및 학습
+fold_results = {}
 for valid_fold in range(5):  # fold 0~4 중 valid 선택
-    train_folds = [f for f in range(5) if f != valid_fold]
     train_annotation_file = os.path.join(base_dataset_path, f"{valid_fold}_train_annot.csv")
     valid_annot_path = os.path.join(base_dataset_path, f"{valid_fold}_valid_annot.csv")
     test_annot_path = os.path.join(base_dataset_path, "test_annot.csv")
@@ -154,14 +147,16 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
         model = torch.nn.DataParallel(model)
         cudnn.benchmark = True
 
-    criterion = nn.BCEWithLogitsLoss()  # 다중 레이블 예측을 위한 손실 함수
+    criterion = nn.BCEWithLogitsLoss()
     optimizer = optim.AdamW(model.parameters(), lr=0.001, weight_decay=1e-4)
     scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.5)
 
     train_accs = []
     valid_accs = []
+    best_valid_acc = 0
+    best_epoch = 0
 
-    for epoch in range(100):  # 에포크 변경
+    for epoch in range(100):
         train_acc, train_loss = train(epoch, model, optimizer, criterion, trainloader)
         valid_acc, valid_loss, _, _ = test_multilabel(model, criterion, validloader)
         scheduler.step()
@@ -169,27 +164,43 @@ for valid_fold in range(5):  # fold 0~4 중 valid 선택
         train_accs.append(train_acc)
         valid_accs.append(valid_acc)
 
+        # Best Valid Accuracy 추적
+        if valid_acc > best_valid_acc:
+            best_valid_acc = valid_acc
+            best_epoch = epoch + 1
+
         # 10번째 에포크마다 출력
         if (epoch + 1) % 10 == 0 or epoch == 0:
             print(f"Epoch {epoch + 1}: Train Acc: {train_acc:.2f}%, Valid Acc: {valid_acc:.2f}%")
 
-    # Plot Fold Accuracy
-    current_time = get_current_time()
-    plt.figure(figsize=(10, 6))
-    plt.plot(train_accs, label='Train Accuracy')
-    plt.plot(valid_accs, label='Valid Accuracy')
-    plt.title(f"Accuracy for Fold {valid_fold}")
-    plt.xlabel("Epoch")
-    plt.ylabel("Accuracy (%)")
-    plt.legend()
-    plot_filename = f"{current_time}-b4-{valid_fold}.png"
-    plt.savefig(os.path.join(save_path, plot_filename))
-    plt.close()
+    # Fold 성능 저장
+    fold_results[f"Fold {valid_fold}"] = {
+        "best_valid_acc": best_valid_acc,
+        "best_epoch": best_epoch,
+        "train_accs": train_accs,
+        "valid_accs": valid_accs,
+    }
+
+# Fold별 Accuracy 통합 그래프
+plt.figure(figsize=(12, 8))
+for fold, results in fold_results.items():
+    plt.plot(results["train_accs"], label=f"{fold} Train")
+    plt.plot(results["valid_accs"], linestyle="--", label=f"{fold} Valid")
+plt.title("Train and Validation Accuracy Across Folds")
+plt.xlabel("Epoch")
+plt.ylabel("Accuracy (%)")
+plt.legend()
+plt.grid(True)
+combined_plot_filename = os.path.join(save_path, f"{get_current_time()}-fold-combined-accuracy.png")
+plt.savefig(combined_plot_filename)
+plt.close()
+
+print(f"Combined accuracy plot saved: {combined_plot_filename}")
 
 # Test 단계
 test_acc, test_loss, test_preds, test_targets = test_multilabel(model, criterion, testloader)
 
-# Confusion Matrix Plot (Top-2 기반)
+# Confusion Matrix Plot (Top-2 기반, 퍼센트로 표시)
 conf_matrix = np.zeros((11, 11), dtype=int)
 for true_label, pred_labels in zip(test_targets, test_preds):
     if true_label in pred_labels:
@@ -197,19 +208,32 @@ for true_label, pred_labels in zip(test_targets, test_preds):
     else:
         conf_matrix[true_label, pred_labels[0]] += 1  # 가장 높은 확률의 잘못된 예측
 
+# 전체 Confusion Matrix를 퍼센트로 변환
+conf_matrix_percent = (conf_matrix / conf_matrix.sum(axis=1, keepdims=True)) * 100
+
+# NaN 방지 (분모가 0인 경우 0으로 설정)
+conf_matrix_percent = np.nan_to_num(conf_matrix_percent)
+
 plt.figure(figsize=(12, 10))
-sns.heatmap(conf_matrix, annot=True, fmt="d", cmap="Blues", xticklabels=range(11), yticklabels=range(11))
-plt.title("Confusion Matrix for Test Set (Top-2 Predictions)")
+sns.heatmap(conf_matrix_percent, annot=True, fmt=".2f", cmap="Blues", xticklabels=range(11), yticklabels=range(11))
+plt.title("Confusion Matrix for Test Set (Top-2 Predictions, Percent)")
 plt.xlabel("Predicted")
 plt.ylabel("True")
-conf_matrix_filename = f"{get_current_time()}-confusion-matrix-top2.png"
+conf_matrix_filename = f"{get_current_time()}-confusion-matrix-top2-percent.png"
 plt.savefig(os.path.join(save_path, conf_matrix_filename))
 plt.close()
+
+print(f"Confusion Matrix (Percent) saved: {conf_matrix_filename}")
 
 print(f"Test Accuracy: {test_acc:.2f}%")
 
 # Classification Report
 flat_true = np.concatenate([[t] * len(p) for t, p in zip(test_targets, test_preds)])
 flat_pred = np.concatenate(test_preds)
-report = classification_report(flat_true, flat_pred, labels=range(11), output_dict=True)
+report = classification_report(flat_true, flat_pred, labels=range(11), output_dict=False)
 print(report)
+
+# Fold별 Best Performance 출력
+print("\nBest Performance Per Fold:")
+for fold, results in fold_results.items():
+    print(f"{fold}: Best Valid Acc: {results['best_valid_acc']:.2f}% at Epoch {results['best_epoch']}")
