@@ -1,0 +1,70 @@
+/data/dpfls5645/repos/capstone_yerinjo
+/data/dpfls5645/anaconda3/bin/python
+moana-r5
+cuda
+
+Training EfficientNet-B4 for Valid Fold 0
+Epoch 1: Train Acc: 46.93%, Valid Acc: 79.78%
+Epoch 10: Train Acc: 89.84%, Valid Acc: 90.35%
+Epoch 20: Train Acc: 90.73%, Valid Acc: 89.38%
+Epoch 30: Train Acc: 92.53%, Valid Acc: 89.10%
+Epoch 40: Train Acc: 92.75%, Valid Acc: 89.52%
+Epoch 50: Train Acc: 93.62%, Valid Acc: 89.66%
+Epoch 60: Train Acc: 93.43%, Valid Acc: 89.01%
+Epoch 70: Train Acc: 93.57%, Valid Acc: 89.10%
+Epoch 80: Train Acc: 93.50%, Valid Acc: 88.78%
+Epoch 90: Train Acc: 93.76%, Valid Acc: 88.82%
+Epoch 100: Train Acc: 93.77%, Valid Acc: 88.78%
+
+Training EfficientNet-B4 for Valid Fold 1
+Epoch 1: Train Acc: 47.15%, Valid Acc: 82.37%
+Epoch 10: Train Acc: 89.22%, Valid Acc: 90.35%
+Epoch 20: Train Acc: 90.52%, Valid Acc: 89.33%
+Epoch 30: Train Acc: 92.09%, Valid Acc: 89.28%
+Epoch 40: Train Acc: 92.13%, Valid Acc: 89.10%
+Epoch 50: Train Acc: 93.28%, Valid Acc: 89.33%
+Epoch 60: Train Acc: 92.93%, Valid Acc: 89.28%
+Epoch 70: Train Acc: 93.42%, Valid Acc: 89.56%
+Epoch 80: Train Acc: 93.13%, Valid Acc: 89.19%
+Epoch 90: Train Acc: 93.52%, Valid Acc: 89.33%
+Epoch 100: Train Acc: 93.27%, Valid Acc: 88.91%
+
+Training EfficientNet-B4 for Valid Fold 2
+Epoch 1: Train Acc: 46.13%, Valid Acc: 79.82%
+Epoch 10: Train Acc: 88.91%, Valid Acc: 89.21%
+Epoch 20: Train Acc: 90.37%, Valid Acc: 87.40%
+Epoch 30: Train Acc: 92.05%, Valid Acc: 88.19%
+Epoch 40: Train Acc: 92.15%, Valid Acc: 87.68%
+Epoch 50: Train Acc: 92.82%, Valid Acc: 87.17%
+Epoch 60: Train Acc: 93.26%, Valid Acc: 88.70%
+Epoch 70: Train Acc: 93.48%, Valid Acc: 86.89%
+Epoch 80: Train Acc: 93.48%, Valid Acc: 87.87%
+Epoch 90: Train Acc: 93.68%, Valid Acc: 88.19%
+Epoch 100: Train Acc: 93.79%, Valid Acc: 87.73%
+
+Training EfficientNet-B4 for Valid Fold 3
+Epoch 1: Train Acc: 47.04%, Valid Acc: 80.37%
+Epoch 10: Train Acc: 89.20%, Valid Acc: 90.37%
+Epoch 20: Train Acc: 90.34%, Valid Acc: 89.21%
+Epoch 30: Train Acc: 92.17%, Valid Acc: 89.67%
+Epoch 40: Train Acc: 92.42%, Valid Acc: 89.95%
+Epoch 50: Train Acc: 92.94%, Valid Acc: 88.74%
+Epoch 60: Train Acc: 93.23%, Valid Acc: 88.79%
+Epoch 70: Train Acc: 93.31%, Valid Acc: 89.67%
+Epoch 80: Train Acc: 93.34%, Valid Acc: 89.02%
+Epoch 90: Train Acc: 93.44%, Valid Acc: 88.70%
+Epoch 100: Train Acc: 93.48%, Valid Acc: 89.58%
+
+Training EfficientNet-B4 for Valid Fold 4
+Epoch 1: Train Acc: 47.88%, Valid Acc: 80.45%
+Epoch 10: Train Acc: 89.98%, Valid Acc: 88.92%
+Epoch 20: Train Acc: 91.43%, Valid Acc: 90.41%
+Epoch 30: Train Acc: 92.95%, Valid Acc: 89.06%
+Epoch 40: Train Acc: 92.82%, Valid Acc: 88.50%
+Epoch 50: Train Acc: 93.60%, Valid Acc: 88.41%
+Epoch 60: Train Acc: 93.83%, Valid Acc: 87.94%
+Epoch 70: Train Acc: 93.90%, Valid Acc: 87.48%
+Epoch 80: Train Acc: 93.75%, Valid Acc: 86.45%
+Epoch 90: Train Acc: 94.02%, Valid Acc: 87.06%
+Epoch 100: Train Acc: 93.94%, Valid Acc: 87.24%
+Test Accuracy: 88.02%
