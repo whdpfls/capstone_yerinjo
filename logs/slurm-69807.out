@@ -1,0 +1,97 @@
+/data/dpfls5645/repos/capstone_yerinjo
+/data/dpfls5645/anaconda3/bin/python
+moana-y1
+cuda
+
+Training EfficientNet-B4 for Valid Fold 0
+Epoch 1: Train Acc: 46.76%, Valid Acc: 80.01%
+Epoch 10: Train Acc: 89.85%, Valid Acc: 90.86%
+Epoch 20: Train Acc: 90.83%, Valid Acc: 91.00%
+Epoch 30: Train Acc: 92.07%, Valid Acc: 88.82%
+Epoch 40: Train Acc: 92.57%, Valid Acc: 89.29%
+Epoch 50: Train Acc: 93.19%, Valid Acc: 90.26%
+Epoch 60: Train Acc: 93.32%, Valid Acc: 88.78%
+Epoch 70: Train Acc: 93.56%, Valid Acc: 89.98%
+Epoch 80: Train Acc: 93.60%, Valid Acc: 89.52%
+Epoch 90: Train Acc: 93.63%, Valid Acc: 89.70%
+Epoch 100: Train Acc: 93.58%, Valid Acc: 89.56%
+
+Training EfficientNet-B4 for Valid Fold 1
+Epoch 1: Train Acc: 46.40%, Valid Acc: 80.42%
+Epoch 10: Train Acc: 89.37%, Valid Acc: 90.26%
+Epoch 20: Train Acc: 90.27%, Valid Acc: 90.30%
+Epoch 30: Train Acc: 92.18%, Valid Acc: 89.79%
+Epoch 40: Train Acc: 92.61%, Valid Acc: 89.05%
+Epoch 50: Train Acc: 93.03%, Valid Acc: 88.72%
+Epoch 60: Train Acc: 92.95%, Valid Acc: 87.94%
+Epoch 70: Train Acc: 93.18%, Valid Acc: 88.58%
+Epoch 80: Train Acc: 93.33%, Valid Acc: 88.86%
+Epoch 90: Train Acc: 93.35%, Valid Acc: 89.14%
+Epoch 100: Train Acc: 93.35%, Valid Acc: 88.26%
+
+Training EfficientNet-B4 for Valid Fold 2
+Epoch 1: Train Acc: 46.89%, Valid Acc: 80.66%
+Epoch 10: Train Acc: 89.58%, Valid Acc: 88.61%
+Epoch 20: Train Acc: 90.73%, Valid Acc: 88.75%
+Epoch 30: Train Acc: 92.41%, Valid Acc: 88.61%
+Epoch 40: Train Acc: 92.47%, Valid Acc: 88.66%
+Epoch 50: Train Acc: 93.10%, Valid Acc: 89.59%
+Epoch 60: Train Acc: 93.38%, Valid Acc: 88.28%
+Epoch 70: Train Acc: 93.55%, Valid Acc: 87.63%
+Epoch 80: Train Acc: 93.53%, Valid Acc: 88.01%
+Epoch 90: Train Acc: 93.61%, Valid Acc: 88.66%
+Epoch 100: Train Acc: 93.26%, Valid Acc: 88.38%
+
+Training EfficientNet-B4 for Valid Fold 3
+Epoch 1: Train Acc: 47.36%, Valid Acc: 81.63%
+Epoch 10: Train Acc: 89.61%, Valid Acc: 92.33%
+Epoch 20: Train Acc: 90.84%, Valid Acc: 90.00%
+Epoch 30: Train Acc: 91.90%, Valid Acc: 89.72%
+Epoch 40: Train Acc: 92.40%, Valid Acc: 89.40%
+Epoch 50: Train Acc: 92.95%, Valid Acc: 89.44%
+Epoch 60: Train Acc: 92.92%, Valid Acc: 88.93%
+Epoch 70: Train Acc: 93.54%, Valid Acc: 89.67%
+Epoch 80: Train Acc: 93.54%, Valid Acc: 89.30%
+Epoch 90: Train Acc: 93.44%, Valid Acc: 89.07%
+Epoch 100: Train Acc: 93.72%, Valid Acc: 88.93%
+
+Training EfficientNet-B4 for Valid Fold 4
+Epoch 1: Train Acc: 46.61%, Valid Acc: 78.49%
+Epoch 10: Train Acc: 90.03%, Valid Acc: 91.11%
+Epoch 20: Train Acc: 91.66%, Valid Acc: 88.73%
+Epoch 30: Train Acc: 92.87%, Valid Acc: 89.20%
+Epoch 40: Train Acc: 93.11%, Valid Acc: 87.29%
+Epoch 50: Train Acc: 93.52%, Valid Acc: 88.27%
+Epoch 60: Train Acc: 93.59%, Valid Acc: 88.27%
+Epoch 70: Train Acc: 94.00%, Valid Acc: 88.18%
+Epoch 80: Train Acc: 93.79%, Valid Acc: 87.43%
+Epoch 90: Train Acc: 93.92%, Valid Acc: 87.71%
+Epoch 100: Train Acc: 94.04%, Valid Acc: 87.99%
+Combined accuracy plot saved: plots/12-10-04-49-fold-combined-accuracy.png
+Confusion Matrix (Percent) saved: 12-10-04-49-confusion-matrix-top2-percent.png
+Test Accuracy: 88.77%
+              precision    recall  f1-score   support
+
+           0       0.42      0.47      0.45       458
+           1       0.58      0.40      0.47       832
+           2       0.74      0.44      0.56       244
+           3       0.49      0.45      0.47       336
+           4       0.50      0.48      0.49       776
+           5       0.21      0.45      0.29       258
+           6       0.64      0.36      0.47        74
+           7       0.36      0.42      0.38       296
+           8       0.31      0.45      0.37       402
+           9       0.49      0.46      0.47       352
+          10       0.71      0.43      0.54       264
+
+    accuracy                           0.44      4292
+   macro avg       0.50      0.44      0.45      4292
+weighted avg       0.49      0.44      0.45      4292
+
+
+Best Performance Per Fold:
+Fold 0: Best Valid Acc: 91.79% at Epoch 12
+Fold 1: Best Valid Acc: 91.09% at Epoch 7
+Fold 2: Best Valid Acc: 90.00% at Epoch 23
+Fold 3: Best Valid Acc: 92.33% at Epoch 10
+Fold 4: Best Valid Acc: 91.11% at Epoch 7
